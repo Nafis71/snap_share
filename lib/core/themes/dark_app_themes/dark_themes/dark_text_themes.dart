@@ -4,12 +4,12 @@ import 'package:snap_share/export_file.dart';
 class DarkTextThemes {
   static TextTheme get textTheme {
     return TextTheme(
-      titleLarge: TextThemeStyles.titleLargeTextStyle(
-        color: DarkThemeColors.primaryTxtColor,
-      ),
-      titleMedium: TextThemeStyles.titleMediumTextStyle(
-        color: DarkThemeColors.primaryTxtColor,
-      ),
+      titleLarge: TextThemeStyles.getDefaultTextStyle().copyWith(
+          color: DarkThemeColors.primaryTxtColor,
+          fontSize: FontSizes.titleLargeTxtSize),
+      titleMedium: TextThemeStyles.getDefaultTextStyle().copyWith(
+          color: DarkThemeColors.primaryTxtColor,
+          fontSize: FontSizes.titleMediumTxtSize),
     );
   }
 }
