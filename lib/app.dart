@@ -8,7 +8,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      initialBinding: InitialBindings(),
       home: const SplashView(),
       getPages: AppRoutes.appRoutes(),
       theme: LightAppThemes.themeData(),

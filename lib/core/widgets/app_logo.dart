@@ -12,7 +12,7 @@ class AppLogo extends StatelessWidget {
     return Column(
       children: [
         Image.asset(ImagesPaths.appLogoPng,
-            width: SplashSizes.appLogoMediumSize),
+            width: Sizes.appLogoMediumSize),
         if (appName != null)
           const SizedBox(height: SpacingConstants.smallSpacing),
         if (appName != null)
