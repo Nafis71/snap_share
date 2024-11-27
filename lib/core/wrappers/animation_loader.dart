@@ -8,7 +8,8 @@ class AnimationLoader extends StatelessWidget {
   final bool? repeat;
   final BoxFit fit;
 
-  const AnimationLoader({   //wrapper class for third-party packages
+  const AnimationLoader({
+    //wrapper class for third-party packages
     super.key,
     required this.asset,
     this.width,

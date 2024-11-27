@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:snap_share/core/utilities/exports/route_export.dart';
+
 import '../../../features/splash/view/splash_view.dart';
 
 class AppRoutes {

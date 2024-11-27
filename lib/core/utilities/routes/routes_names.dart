@@ -1,3 +1,3 @@
-class RoutesNames{
+class RoutesNames {
   static const String splashView = '/';
 }
