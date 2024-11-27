@@ -3,6 +3,6 @@ import 'package:snap_share/app.dart';
 import 'package:snap_share/export_file.dart';
 
 main() {
-  Dependency.init();
+  DependencyInjection.init();
   runApp(const SnapShare());
 }

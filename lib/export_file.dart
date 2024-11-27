@@ -2,7 +2,7 @@ export 'package:snap_share/main.dart';
 export 'package:snap_share/app.dart';
 
 // initial_bindings
-export 'package:snap_share/initial_bindings/initial_bindings.dart';
+export 'package:snap_share/dependency_injection/dependency_injection.dart';
 
 // core/constants/strings_constants
 export 'package:snap_share/core/constants/strings_constants/app_strings.dart';
