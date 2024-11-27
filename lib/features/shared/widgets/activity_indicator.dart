@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CenteredCircularProgressIndicator extends StatelessWidget {
+class ActivityIndicatorCircular extends StatelessWidget {
   final Color color;
   final double radius;
 
-  const CenteredCircularProgressIndicator({
+  const ActivityIndicatorCircular({
     super.key,
     this.color = Colors.black,
     this.radius = 10.0,
@@ -13,11 +13,11 @@ class CenteredCircularProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Center(
+    return Center(
       child: CupertinoActivityIndicator(
         color: color,
         radius: radius,
-      )
+      ),
     );
   }
 }
