@@ -14,9 +14,10 @@ class ActivityIndicatorCircular extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: CupertinoActivityIndicator(
-      color: color,
-      radius: radius,
-    ));
+      child: CupertinoActivityIndicator(
+        color: color,
+        radius: radius,
+      ),
+    );
   }
 }
