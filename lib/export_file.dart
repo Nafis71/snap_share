@@ -54,14 +54,9 @@ export 'package:snap_share/core/widgets/app_logo.dart';
 // features/auth/splash
 export 'package:snap_share/features/auth/splash/view/splash_view.dart';
 
-// features/auth/splash/binding
-export 'package:snap_share/features/auth/splash/bindings/splash_bindings.dart';
-
-// features/auth/splash/controller
-export 'package:snap_share/features/auth/splash/controller/splash_controller.dart';
+// features/auth/splash/view_model
+export 'package:snap_share/features/auth/splash/view_model/splash_view_model.dart';
 
 // features/auth/splash/widgets
 export 'package:snap_share/features/auth/splash/widgets/splash_footer.dart';
 
-// features/auth/onboarding
-export 'package:snap_share/features/auth/onboarding/view/onboarding_view.dart';
