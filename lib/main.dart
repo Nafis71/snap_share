@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:snap_share/app.dart';
-import 'package:snap_share/export_file.dart';
+import 'package:snap_share/app/app.dart';
+import 'core/utilities/di/dependency_injection.dart';
 
 main() {
   DependencyInjection.init();
