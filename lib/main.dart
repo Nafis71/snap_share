@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:snap_share/app/app.dart';
+import 'package:snap_share/app.dart';
+import 'package:snap_share/export_file.dart';
 
-main(){
-  runApp(const SnapShare());
+main() {
+  Dependencies().init();
+  runApp(const MyApp());
 }
