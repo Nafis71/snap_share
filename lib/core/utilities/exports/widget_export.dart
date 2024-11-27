@@ -1,1 +1,1 @@
-export 'package:snap_share/features/shared/widgets/centered_circular_progress_indicator.dart';
+export 'package:snap_share/features/shared/widgets/activity_indicator.dart';

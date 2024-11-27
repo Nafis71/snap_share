@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:snap_share/core/resources/assets/lottie/lottie_assets.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
 import 'package:snap_share/core/utilities/exports/wrapper_export.dart';
+
 import '../view_model/splash_vm.dart';
 
 class SplashView extends StatefulWidget {
@@ -16,7 +16,7 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-    Get.find<SplashViewModel>().moveToOnboarding();
+    Get.find<SplashVM>().moveToOnboarding();
   }
 
   @override
@@ -29,10 +29,12 @@ class _SplashViewState extends State<SplashView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Spacer(),
-              WidgetAnimator(
-                atRestEffect: WidgetRestingEffects.wave(
-                    effectStrength: 1.2, delay: const Duration(seconds: 1)),
-                child: Image.asset(
+              AppWidgetAnimator(
+                widgetRestingEffects: WidgetRestingEffects.wave(
+                  effectStrength: 1.2,
+                  delay: const Duration(seconds: 1),
+                ),
+                widget: Image.asset(
                   ImageAssets.kAppLogo,
                   width: Sizes.kAppLogoSmallSize,
                 ),
@@ -42,7 +44,6 @@ class _SplashViewState extends State<SplashView> {
                 asset: LottieAssets.kAnimatedLoader,
                 width: 150,
               )
-              //AppLogo(appName: SplashStrings.appNameTxt),
             ],
           ),
         ),
