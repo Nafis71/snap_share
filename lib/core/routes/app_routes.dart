@@ -9,10 +9,6 @@ class AppRoutes {
         routeName: RoutesNames.splashView,
         page: const SplashView(),
       ),
-      _getPage(
-        routeName: RoutesNames.onboardingView,
-        page: const OnboardingView(),
-      ),
     ];
   }
 
