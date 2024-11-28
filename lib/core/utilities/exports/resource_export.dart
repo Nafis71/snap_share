@@ -17,3 +17,12 @@ export 'package:snap_share/core/resources/themes/dark_app_themes/dark_themes/dar
 export 'package:snap_share/core/resources/themes/light_app_themes/light_app_themes.dart';
 export 'package:snap_share/core/resources/themes/light_app_themes/light_themes/light_text_themes.dart';
 export 'package:snap_share/core/resources/themes/themes_styles/text_theme_styles.dart';
+
+// core/resources/dimensions
+export 'package:snap_share/core/resources/strings/app_strings.dart';
+export 'package:snap_share/core/resources/strings/onboarding_strings.dart';
+export 'package:snap_share/core/resources/dimensions/radius_constants.dart';
+export 'package:snap_share/core/resources/dimensions/height_constants.dart';
+
+// core/resources/colors
+export 'package:snap_share/core/resources/colors/app_colors.dart';

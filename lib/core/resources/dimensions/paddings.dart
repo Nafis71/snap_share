@@ -1,3 +1,3 @@
 class Paddings {
-  static double kScreenAllPadding = 16;
+  static double kScreenAllPadding = 20;
 }
