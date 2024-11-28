@@ -17,7 +17,7 @@ class OnboardingView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                OnboardingStrings.kAppName,
+                AppStrings.kAppName,
                 style: TextThemeStyles.getDefaultTextStyle(
                         fontFamily: GoogleFonts.lobster)
                     .copyWith(
@@ -27,7 +27,7 @@ class OnboardingView extends StatelessWidget {
               const SizedBox(height: SpacingConstants.kExtraMediumSpacing),
               CustomButton(
                 onTap: () {},
-                title: OnboardingStrings.kBtnTitle,
+                title: AppStrings.kBtnTitle,
               ),
               const SizedBox(height: SpacingConstants.kMediumSpacing),
               _buildLoginButton()
@@ -42,7 +42,7 @@ class OnboardingView extends StatelessWidget {
     return GestureDetector(
       onTap: () {},
       child: Text(
-        OnboardingStrings.loginText,
+        AppStrings.loginText,
         style: TextThemeStyles.getDefaultTextStyle().copyWith(
           color: AppColors.kThemeColor,
           fontWeight: FontWeight.bold,

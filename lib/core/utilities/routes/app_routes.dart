@@ -8,7 +8,7 @@ class AppRoutes {
   static List<GetPage<dynamic>> appRoutes() {
     return [
       _getPage(
-        routeName: RoutesNames.onboardingView,
+        routeName: RoutesNames.kOnboardingView,
         page: const OnboardingView(),
       ),
     ];
