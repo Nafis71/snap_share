@@ -1,3 +1,3 @@
 import 'package:get/get.dart';
 
-class OnboardingVM extends GetxController{}
+class OnboardingVM extends GetxController {}

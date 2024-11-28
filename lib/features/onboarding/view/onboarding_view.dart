@@ -1,8 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:gap/gap.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
-import 'package:snap_share/core/utilities/exports/widget_export.dart';
+import 'package:snap_share/features/onboarding/utilities/onboarding_strings.dart';
 
 class OnboardingView extends StatelessWidget {
   const OnboardingView({super.key});
@@ -13,39 +14,49 @@ class OnboardingView extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(Paddings.kScreenAllPadding),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                AppStrings.kAppName,
-                style: TextThemeStyles.getDefaultTextStyle(
-                        fontFamily: GoogleFonts.lobster)
-                    .copyWith(
-                  fontSize: FontSizes.kTitleLargeTxtSize.sp,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  AppStrings.kAppName,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
-              ),
-              const SizedBox(height: SpacingConstants.kExtraMediumSpacing),
-              CustomButton(
-                onTap: () {},
-                title: AppStrings.kBtnTitle,
-              ),
-              const SizedBox(height: SpacingConstants.kMediumSpacing),
-              _buildLoginButton()
-            ],
+                const Gap(48),
+                RSizedBox(
+                  width: 0.8.sw,
+                  height: 36.h,
+                  child: ElevatedButton(
+                      onPressed: () {},
+                      child: const Text(OnboardingStrings.kRegistrationBtnTxt)),
+                ),
+                const Gap(25),
+                GestureDetector(
+                  onTap: () {
+                    //navigate to login
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        OnboardingStrings.kLoginBtnTxt,
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                      const Gap(3),
+                      Icon(
+                        CupertinoIcons.chevron_down,
+                        color: Theme.of(context).primaryColor,
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLoginButton() {
-    return GestureDetector(
-      onTap: () {},
-      child: Text(
-        AppStrings.loginText,
-        style: TextThemeStyles.getDefaultTextStyle().copyWith(
-          color: AppColors.kThemeColor,
-          fontWeight: FontWeight.bold,
         ),
       ),
     );
