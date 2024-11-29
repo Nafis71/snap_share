@@ -23,41 +23,50 @@ class OnboardingView extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const Gap(48),
-                RSizedBox(
-                  width: 0.8.sw,
-                  height: 36.h,
-                  child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text(OnboardingStrings.kRegistrationBtnTxt)),
-                ),
+                _buildRegistrationBtn(context),
                 const Gap(25),
-                GestureDetector(
-                  onTap: () {
-                    //navigate to login
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        OnboardingStrings.kLoginBtnTxt,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: Theme.of(context).primaryColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                      const Gap(3),
-                      Icon(
-                        CupertinoIcons.chevron_down,
-                        color: Theme.of(context).primaryColor,
-                      )
-                    ],
-                  ),
-                ),
+                _buildLoginButton(context),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildRegistrationBtn(BuildContext context) {
+    return RSizedBox(
+      width: 0.8.sw,
+      height: 36.h,
+      child: ElevatedButton(
+        onPressed: () {},
+        child: const Text(OnboardingStrings.kRegistrationBtnTxt),
+      ),
+    );
+  }
+
+  Widget _buildLoginButton(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        //navigate to login
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            OnboardingStrings.kLoginBtnTxt,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          const Gap(3),
+          Icon(
+            CupertinoIcons.chevron_down,
+            color: Theme.of(context).primaryColor,
+          )
+        ],
       ),
     );
   }

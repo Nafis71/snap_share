@@ -14,6 +14,7 @@ class LightTextThemes {
       ),
       titleMedium: TextThemeStyles.getDefaultTextStyle().copyWith(
         color: LightThemeColors.kPrimaryTxtColor,
+        fontWeight: FontWeight.bold,
         fontSize: 18,
       ),
       bodyLarge: TextThemeStyles.getDefaultTextStyle().copyWith(
