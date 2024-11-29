@@ -2,6 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class AuthVM extends GetxController {
+  @override
+  void onInit() {
+    addListeners();
+    super.onInit();
+  }
+
   final Rx<GlobalKey<FormState>> _formKey = GlobalKey<FormState>().obs;
   final Rx<TextEditingController> _emailTEController =
       TextEditingController().obs;
@@ -20,13 +26,23 @@ class AuthVM extends GetxController {
 
   void resetTextControllers() {
     _emailTEController.value.clear();
+
     _passwordTEController.value.clear();
   }
 
-  void listenTextEditors() {
+  void addListeners() {
+    _emailTEController.value.addListener(_updateLoginState);
+    _passwordTEController.value.addListener(_updateLoginState);
+  }
+
+  void _updateLoginState() {
     allowForLogin.value = _emailTEController.value.text.isNotEmpty &&
         _passwordTEController.value.text.isNotEmpty &&
-        _formKey.value.currentState?.validate() == true;
+        _validateForm() == true;
+  }
+
+  bool _validateForm() {
+    return formKey.currentState?.validate() ?? false;
   }
 
   @override
@@ -37,5 +53,4 @@ class AuthVM extends GetxController {
     passwordFocusNode.dispose();
     super.onClose();
   }
-
 }

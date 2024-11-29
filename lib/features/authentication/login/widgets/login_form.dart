@@ -69,9 +69,6 @@ class LoginForm extends StatelessWidget {
             : null,
       ),
       prefixText: LoginStrings.kTextFieldPrefixText,
-      onChanged: (value) {
-        authVM.listenTextEditors();
-      },
       formValidator: (value) {
         return FormValidator.validateEmail(value);
       },
@@ -106,9 +103,6 @@ class LoginForm extends StatelessWidget {
         size: 25,
         color: AppColors.kPrimaryColor,
       ),
-      onChanged: (value) {
-        authVM.listenTextEditors();
-      },
       formValidator: (value) {
         return FormValidator.validatePassword(value);
       },
