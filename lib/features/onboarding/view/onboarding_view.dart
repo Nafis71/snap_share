@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
+import 'package:snap_share/core/utilities/exports/route_export.dart';
 import 'package:snap_share/features/onboarding/utilities/onboarding_strings.dart';
 
 class OnboardingView extends StatelessWidget {
@@ -48,7 +50,7 @@ class OnboardingView extends StatelessWidget {
   Widget _buildLoginBtn(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        //navigate to login
+        Get.toNamed(RoutesNames.kLoginView);
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

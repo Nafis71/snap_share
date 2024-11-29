@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:snap_share/core/resources/managers/theme_manager.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
@@ -21,15 +23,21 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leadingWidth: 15,
-      leading: IconButton(
-        onPressed: () {
-          Get.back();
-        },
-        icon: Icon(
-          CupertinoIcons.back,
-          color: Colors.grey.shade900,
-          size: 28,
+      leadingWidth: 40,
+      leading: RPadding(
+        padding: const EdgeInsets.only(left: 10),
+        child: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            CupertinoIcons.back,
+            color:
+                (Get.find<ThemeManager>().getTheme(context) == Brightness.light)
+                    ? Colors.grey.shade900
+                    : Colors.white,
+            size: 30,
+          ),
         ),
       ),
       title: customTitle ??
