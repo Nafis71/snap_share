@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:snap_share/core/resources/dimensions/font_sizes.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
 
 class LightTextThemes {
   static TextTheme get textTheme {
     return TextTheme(
-      titleLarge:
-          TextThemeStyles.getDefaultTextStyle(fontFamily: GoogleFonts.lobster)
-              .copyWith(
+      titleLarge: TextThemeStyles.getDefaultTextStyle().copyWith(
         color: LightThemeColors.kPrimaryTxtColor,
+        fontFamily: "Lobster",
         fontWeight: FontWeight.w400,
-        fontSize: 26,
+        fontSize: FontSizes.kTitleLarge,
       ),
       titleMedium: TextThemeStyles.getDefaultTextStyle().copyWith(
         color: LightThemeColors.kPrimaryTxtColor,
         fontWeight: FontWeight.bold,
-        fontSize: 18,
+        fontSize: FontSizes.kTitleMedium,
+      ),
+      headlineLarge: TextThemeStyles.getDefaultTextStyle().copyWith(
+        fontWeight: FontWeight.normal,
+        fontSize: FontSizes.kHeadlineLarge,
       ),
       bodyLarge: TextThemeStyles.getDefaultTextStyle().copyWith(
-        fontSize: 16,
+        fontSize: FontSizes.kBodyLarge,
       ),
       bodyMedium: TextThemeStyles.getDefaultTextStyle(),
     );

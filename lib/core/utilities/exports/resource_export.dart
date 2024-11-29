@@ -1,6 +1,8 @@
 //app assets
+export 'package:snap_share/core/resources/assets/icons/icon_assets.dart';
 export 'package:snap_share/core/resources/assets/image/image_assets.dart';
 export 'package:snap_share/core/resources/assets/lottie/lottie_assets.dart';
+export 'package:snap_share/core/resources/colors/app_colors.dart';
 //app colors
 export 'package:snap_share/core/resources/colors/dark_theme_colors.dart';
 export 'package:snap_share/core/resources/colors/light_theme_colors.dart';
