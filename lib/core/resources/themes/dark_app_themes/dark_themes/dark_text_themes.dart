@@ -5,13 +5,11 @@ class DarkTextThemes {
   static TextTheme get textTheme {
     return TextTheme(
       titleLarge: TextThemeStyles.getDefaultTextStyle().copyWith(
-        color: DarkThemeColors.kPrimaryTxtColor,
-        fontSize: 26,
-      ),
+          color: DarkThemeColors.kPrimaryTxtColor,
+          fontSize: FontSizes.kTitleLargeTxtSize),
       titleMedium: TextThemeStyles.getDefaultTextStyle().copyWith(
-        color: DarkThemeColors.kPrimaryTxtColor,
-        fontSize: 18,
-      ),
+          color: DarkThemeColors.kPrimaryTxtColor,
+          fontSize: FontSizes.kTitleMediumTxtSize),
     );
   }
 }

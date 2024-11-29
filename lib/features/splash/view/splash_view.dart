@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
 import 'package:snap_share/core/utilities/exports/wrapper_export.dart';
-import 'package:snap_share/features/splash/utilities/splash_helper.dart';
+
+import '../view_model/splash_vm.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -14,10 +16,7 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
-      //placeholder for now
-      SplashHelper.moveToOnboard();
-    });
+    Get.find<SplashVM>().moveToOnboarding();
   }
 
   @override
@@ -37,7 +36,7 @@ class _SplashViewState extends State<SplashView> {
                 ),
                 widget: Image.asset(
                   ImageAssets.kAppLogo,
-                  width: 120,
+                  width: Sizes.kAppLogoSmallSize,
                 ),
               ),
               const Spacer(),
