@@ -12,8 +12,8 @@ class OnboardingView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(Paddings.kScreenAllPadding),
+        child: RPadding(
+          padding: EdgeInsets.all(Paddings.kScreenAllPadding).w,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -25,7 +25,7 @@ class OnboardingView extends StatelessWidget {
                 const Gap(48),
                 _buildRegistrationBtn(context),
                 const Gap(25),
-                _buildLoginButton(context),
+                _buildLoginBtn(context),
               ],
             ),
           ),
@@ -45,7 +45,7 @@ class OnboardingView extends StatelessWidget {
     );
   }
 
-  Widget _buildLoginButton(BuildContext context) {
+  Widget _buildLoginBtn(BuildContext context) {
     return GestureDetector(
       onTap: () {
         //navigate to login
