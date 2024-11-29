@@ -10,7 +10,7 @@ class DarkAppBarTheme {
       surfaceTintColor: DarkThemeColors.kScaffoldBGColor,
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: DarkThemeColors.kScaffoldBGColor,
-        statusBarBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
       ),
     );
   }

@@ -7,6 +7,7 @@ class DarkAppThemes {
   static ThemeData themeData() {
     return ThemeData(
       primaryColor: DarkThemeColors.kPrimaryColor,
+      scaffoldBackgroundColor: DarkThemeColors.kScaffoldBGColor,
       textTheme: DarkTextThemes.textTheme,
       elevatedButtonTheme: DarkElevatedButtonTheme.getTheme(),
       appBarTheme: DarkAppBarTheme.getTheme(),
