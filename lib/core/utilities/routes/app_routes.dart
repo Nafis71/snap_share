@@ -28,7 +28,7 @@ class AppRoutes {
     return GetPage(
       name: routeName,
       page: () => page,
-      transition: Transition.leftToRightWithFade,
+      transition: Transition.cupertino,
     );
   }
 }

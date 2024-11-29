@@ -7,6 +7,8 @@ class AuthVM extends GetxController {
       TextEditingController().obs;
   final Rx<TextEditingController> _passwordTEController =
       TextEditingController().obs;
+  FocusNode emailFocusNode = FocusNode();
+  FocusNode passwordFocusNode = FocusNode();
   Rx<bool> allowForLogin = false.obs;
   Rx<bool> savePassword = false.obs;
 
