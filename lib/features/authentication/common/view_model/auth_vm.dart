@@ -28,4 +28,14 @@ class AuthVM extends GetxController {
         _passwordTEController.value.text.isNotEmpty &&
         _formKey.value.currentState?.validate() == true;
   }
+
+  @override
+  void onClose() {
+    _emailTEController.value.dispose();
+    _passwordTEController.value.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+    super.onClose();
+  }
+
 }
