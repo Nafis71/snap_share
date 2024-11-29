@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 
-import '../../../features/splash/view_model/splash_vm.dart';
+import '../../../features/onboarding/view_model/onboarding_vm.dart';
 
 class DependencyInjection {
   static void init() {
-    Get.lazyPut(() => SplashVM(), fenix: true);
+    Get.lazyPut(() => OnboardingVM(), fenix: true);
   }
 }
