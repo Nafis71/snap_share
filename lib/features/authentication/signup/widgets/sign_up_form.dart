@@ -9,7 +9,6 @@ import 'package:snap_share/core/utilities/validators/form_validator.dart';
 import 'package:snap_share/features/authentication/common/enums/view_type.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
 import 'package:snap_share/features/authentication/login/utilities/constants/login_strings.dart';
-import 'package:snap_share/features/authentication/common/widgets/save_password_checkbox.dart';
 import 'package:snap_share/features/authentication/signup/utilities/constants/sign_up_strings.dart';
 
 import '../../common/widgets/authentication_form.dart';
@@ -29,7 +28,7 @@ class SignUpForm extends StatelessWidget {
       formFields: [
         _buildHeadingText(
           context,
-          LoginStrings.kEmailTextFieldHeadingTxt,
+          SignUpStrings.kEmailTextFieldHeadingTxt,
         ),
         const Gap(8),
         Obx(
@@ -38,18 +37,21 @@ class SignUpForm extends StatelessWidget {
         const Gap(20),
         _buildHeadingText(
           context,
-          LoginStrings.kPasswordTextFieldHeadingTxt,
+          SignUpStrings.kPasswordTextFieldHeadingTxt,
         ),
         const Gap(8),
         Obx(
               () => _buildPasswordFormField(context),
         ),
+        const Gap(20),
+        _buildHeadingText(
+          context,
+          SignUpStrings.kConfirmPasswordTextFieldHeadingTxt,
+        ),
         const Gap(8),
         Obx(
               () => _buildConfirmPasswordFormField(context),
         ),
-        const Gap(8),
-        SavePasswordCheckbox(authVM: authVM),
       ],
     );
   }

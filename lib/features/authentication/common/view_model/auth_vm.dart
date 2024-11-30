@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:snap_share/core/utilities/exports/resource_export.dart';
 import 'package:snap_share/features/authentication/common/enums/view_type.dart';
 
 class AuthVM extends GetxController {
@@ -13,7 +15,6 @@ class AuthVM extends GetxController {
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
   FocusNode confirmPasswordFocusNode = FocusNode();
- // Rx<bool> allowForLogin = false.obs;
   Rx<bool> allowAuthAction = false.obs;
   Rx<bool> savePassword = false.obs;
 
@@ -26,29 +27,40 @@ class AuthVM extends GetxController {
 
   GlobalKey<FormState> get formKey => _formKey.value;
 
-  void resetTextControllers({bool clearConfirmPassword = false}) {
-    _emailTEController.value.clear();
-    _passwordTEController.value.clear();
-    if (clearConfirmPassword) {
-      _confirmPasswordTEController.value.clear();
-    }
-  }
-
   void updateAuthState(ViewType viewType) {
     if (viewType == ViewType.login) {
       allowAuthAction.value = _emailTEController.value.text.isNotEmpty &&
           _passwordTEController.value.text.isNotEmpty &&
-          _validateForm() == true;
+          _validateForm(ViewType.login) == true;
     } else if (viewType == ViewType.signUp) {
       allowAuthAction.value = _emailTEController.value.text.isNotEmpty &&
           _passwordTEController.value.text.isNotEmpty &&
           _confirmPasswordTEController.value.text.isNotEmpty &&
-          _validateForm() == true;
+          _validateForm(ViewType.signUp) == true;
     }
   }
 
-  bool _validateForm() {
-    return _formKey.value.currentState?.validate() ?? false;
+  bool _validateForm(ViewType viewType) {
+    if (viewType == ViewType.signUp) {
+      if (_formKey.value.currentState != null &&
+          _formKey.value.currentState!.validate()) {
+        if (_passwordTEController.value.text !=
+            _confirmPasswordTEController.value.text) {
+          Get.snackbar(
+            "Warning",
+            "Passwords don't match",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: AppColors.kErrorColor,
+            colorText: AppColors.kWhiteColor,
+          );
+          return false;
+        }
+        return true;
+      }
+      return false;
+    } else {
+      return _formKey.value.currentState?.validate() ?? false;
+    }
   }
 
   @override
