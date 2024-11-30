@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
 
-import '../utilities/login_strings.dart';
+import '../../login/utilities/login_strings.dart';
 
 class SavePasswordCheckbox extends StatelessWidget {
   final AuthVM authVM;

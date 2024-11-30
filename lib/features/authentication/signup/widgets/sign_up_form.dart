@@ -9,20 +9,21 @@ import 'package:snap_share/core/utilities/validators/form_validator.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
 import 'package:snap_share/features/authentication/login/utilities/login_strings.dart';
 import 'package:snap_share/features/authentication/common/widgets/save_password_checkbox.dart';
+import 'package:snap_share/features/authentication/signup/utilities/sign_up_strings.dart';
 
 import '../../common/widgets/authentication_form.dart';
 
-class LoginForm extends StatelessWidget {
+class SignUpForm extends StatelessWidget {
   final AuthVM authVM;
   final ThemeManager themeManager;
 
-  const LoginForm(
+  const SignUpForm(
       {super.key, required this.authVM, required this.themeManager});
 
   @override
   Widget build(BuildContext context) {
     return AuthenticationForm(
-      authBtnName: LoginStrings.kLoginBtnText,
+      authBtnName: SignUpStrings.kSignUpBtnText,
       authVM: authVM,
       formFields: [
         _buildHeadingText(
@@ -31,7 +32,7 @@ class LoginForm extends StatelessWidget {
         ),
         const Gap(8),
         Obx(
-          () => _buildEmailFormField(context),
+              () => _buildEmailFormField(context),
         ),
         const Gap(20),
         _buildHeadingText(
@@ -40,7 +41,7 @@ class LoginForm extends StatelessWidget {
         ),
         const Gap(8),
         Obx(
-          () => _buildPasswordFormField(context),
+              () => _buildPasswordFormField(context),
         ),
         const Gap(8),
         SavePasswordCheckbox(authVM: authVM),
