@@ -9,8 +9,9 @@ class FormValidator {
 
   static String? validatePassword(String? password) {
     if (password == null || password.isEmpty) return "Invalid Password";
-    if (password.length < 6)
+    if (password.length < 6) {
       return "Weak password\nProvide at least 6 digit password";
+    }
     return null;
   }
 }

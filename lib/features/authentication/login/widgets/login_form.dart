@@ -75,6 +75,9 @@ class LoginForm extends StatelessWidget {
       onFieldSubmitted: (value) {
         FocusScope.of(context).requestFocus(authVM.passwordFocusNode);
       },
+      onChanged: (value){
+        authVM.updateLoginState();
+      },
     );
   }
 
@@ -110,6 +113,9 @@ class LoginForm extends StatelessWidget {
         if (authVM.emailTEController.value.text.isEmpty) {
           FocusScope.of(context).requestFocus(authVM.emailFocusNode);
         }
+      },
+      onChanged: (value){
+        authVM.updateLoginState();
       },
     );
   }

@@ -17,13 +17,15 @@ class SavePasswordCheckbox extends StatelessWidget {
       children: [
         RSizedBox(
           width: 15.w,
-          child: Obx(()=> Checkbox(
-            value: authVM.savePassword.value,
-            onChanged: (value) {
-              authVM.savePassword.toggle();
-            },
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          ),),
+          child: Obx(
+            () => Checkbox(
+              value: authVM.savePassword.value,
+              onChanged: (value) {
+                authVM.savePassword.toggle();
+              },
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
+          ),
         ),
         const Gap(5),
         Text(

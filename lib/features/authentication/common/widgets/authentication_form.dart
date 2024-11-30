@@ -29,17 +29,13 @@ class AuthenticationForm extends StatelessWidget {
           ),
           const Gap(42),
           Obx(
-            () => Wrap(
-              children: [
-                RSizedBox(
-                  width: 0.8.sw,
-                  height: 36.h,
-                  child: ElevatedButton(
-                    onPressed: (authVM.allowForLogin.value) ? () {} : null,
-                    child: const Text(LoginStrings.kLoginBtnText),
-                  ),
-                ),
-              ],
+            () => RSizedBox(
+              width: 0.8.sw,
+              height: 0.09.sw,
+              child: ElevatedButton(
+                onPressed: (authVM.allowForLogin.value) ? () {} : null,
+                child: const Text(LoginStrings.kLoginBtnText),
+              ),
             ),
           ),
         ],
