@@ -33,7 +33,8 @@ class AuthenticationForm extends StatelessWidget {
               width: 0.8.sw,
               height: 0.09.sw,
               child: ElevatedButton(
-                onPressed: (authVM.allowForLogin.value) ? () {} : null,
+               // onPressed: (authVM.allowForLogin.value) ? () {} : null,
+                onPressed: (authVM.allowAuthAction.value) ? () {} : null,
                 child: Text(authBtnName),
               ),
             ),

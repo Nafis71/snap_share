@@ -6,8 +6,9 @@ import 'package:snap_share/core/utilities/exports/resource_export.dart';
 import 'package:snap_share/core/utilities/exports/widget_export.dart';
 import 'package:snap_share/core/utilities/exports/wrapper_export.dart';
 import 'package:snap_share/core/utilities/validators/form_validator.dart';
+import 'package:snap_share/features/authentication/common/enums/view_type.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
-import 'package:snap_share/features/authentication/login/utilities/login_strings.dart';
+import 'package:snap_share/features/authentication/login/utilities/constants/login_strings.dart';
 import 'package:snap_share/features/authentication/common/widgets/save_password_checkbox.dart';
 
 import '../../common/widgets/authentication_form.dart';
@@ -77,7 +78,7 @@ class LoginForm extends StatelessWidget {
         FocusScope.of(context).requestFocus(authVM.passwordFocusNode);
       },
       onChanged: (value){
-        authVM.updateLoginState();
+        authVM.updateAuthState(ViewType.login);
       },
     );
   }
@@ -116,7 +117,7 @@ class LoginForm extends StatelessWidget {
         }
       },
       onChanged: (value){
-        authVM.updateLoginState();
+        authVM.updateAuthState(ViewType.login);
       },
     );
   }

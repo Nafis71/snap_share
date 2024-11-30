@@ -6,7 +6,7 @@ import 'package:snap_share/core/resources/managers/theme_manager.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
 import 'package:snap_share/core/utilities/exports/widget_export.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
-import 'package:snap_share/features/authentication/signup/utilities/sign_up_strings.dart';
+import 'package:snap_share/features/authentication/signup/utilities/constants/sign_up_strings.dart';
 import 'package:snap_share/features/authentication/signup/widgets/sign_up_form.dart';
 
 class SignUpView extends StatelessWidget {
