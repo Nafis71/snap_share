@@ -7,6 +7,8 @@ class AuthVM extends GetxController {
       TextEditingController().obs;
   final Rx<TextEditingController> _passwordTEController =
       TextEditingController().obs;
+  FocusNode emailFocusNode = FocusNode();
+  FocusNode passwordFocusNode = FocusNode();
   Rx<bool> allowForLogin = false.obs;
   Rx<bool> savePassword = false.obs;
 
@@ -18,12 +20,27 @@ class AuthVM extends GetxController {
 
   void resetTextControllers() {
     _emailTEController.value.clear();
+
     _passwordTEController.value.clear();
   }
 
-  void listenTextEditors() {
+
+  void updateLoginState() {
     allowForLogin.value = _emailTEController.value.text.isNotEmpty &&
         _passwordTEController.value.text.isNotEmpty &&
-        _formKey.value.currentState?.validate() == true;
+        _validateForm() == true;
+  }
+
+  bool _validateForm() {
+    return _formKey.value.currentState?.validate() ?? false;
+  }
+
+  @override
+  void onClose() {
+    _emailTEController.value.dispose();
+    _passwordTEController.value.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+    super.onClose();
   }
 }

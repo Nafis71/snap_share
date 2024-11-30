@@ -10,7 +10,8 @@ class CustomTextField extends StatefulWidget {
   final Widget? prefixWidget;
   final String? prefixText;
   final TextEditingController controller;
-  final Function(dynamic)? onChanged;
+  final FocusNode? focusNode;
+  final Function(dynamic)? onChanged, onFieldSubmitted;
 
   const CustomTextField({
     super.key,
@@ -23,6 +24,8 @@ class CustomTextField extends StatefulWidget {
     required this.controller,
     this.alternateSuffixWidget,
     this.onChanged,
+    this.focusNode,
+    this.onFieldSubmitted,
   });
 
   @override
@@ -50,6 +53,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
+      focusNode: widget.focusNode,
       cursorColor: AppColors.kPrimaryColor,
       obscureText: showObscureText,
       obscuringCharacter: "*",
@@ -73,6 +77,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: widget.formValidator,
       onChanged: widget.onChanged,
+      onFieldSubmitted: widget.onFieldSubmitted,
     );
   }
 }

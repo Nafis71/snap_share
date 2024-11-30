@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:snap_share/core/resources/colors/light_theme_colors.dart';
 
 import '../../colors/app_colors.dart';
@@ -11,10 +12,10 @@ class TextFormFieldStyle {
       prefixStyle: const TextStyle(
         color: Colors.black,
       ),
-      hintStyle: const TextStyle(
+      hintStyle: TextStyle(
         color: LightThemeColors.kTextFormFieldHintColor,
         fontWeight: FontWeight.normal,
-        fontSize: 15,
+        fontSize: 14.sp,
       ),
       enabledBorder: getOutlineInputBorder(),
       focusedBorder: getOutlineInputBorder().copyWith(

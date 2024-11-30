@@ -7,10 +7,13 @@ import 'package:snap_share/features/authentication/login/utilities/login_strings
 
 class AuthenticationForm extends StatelessWidget {
   final AuthVM authVM;
-  final List<Widget> textFields;
+  final List<Widget> formFields;
 
-  const AuthenticationForm(
-      {super.key, required this.authVM, required this.textFields});
+  const AuthenticationForm({
+    super.key,
+    required this.authVM,
+    required this.formFields,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,21 +25,17 @@ class AuthenticationForm extends StatelessWidget {
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: textFields,
+            children: formFields,
           ),
           const Gap(42),
           Obx(
-            () => Wrap(
-              children: [
-                RSizedBox(
-                  width: 0.8.sw,
-                  height: 36.h,
-                  child: ElevatedButton(
-                    onPressed: (authVM.allowForLogin.value) ? () {} : null,
-                    child: const Text(LoginStrings.kLoginBtnText),
-                  ),
-                ),
-              ],
+            () => RSizedBox(
+              width: 0.8.sw,
+              height: 0.09.sw,
+              child: ElevatedButton(
+                onPressed: (authVM.allowForLogin.value) ? () {} : null,
+                child: const Text(LoginStrings.kLoginBtnText),
+              ),
             ),
           ),
         ],
