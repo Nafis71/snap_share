@@ -8,11 +8,14 @@ class AuthenticationForm extends StatelessWidget {
   final AuthVM authVM;
   final List<Widget> formFields;
   final String authBtnName;
+  final Rx<bool> allowAuth;
 
   const AuthenticationForm({
     super.key,
     required this.authVM,
-    required this.formFields, required this.authBtnName,
+    required this.formFields,
+    required this.authBtnName,
+    required this.allowAuth,
   });
 
   @override
@@ -33,8 +36,7 @@ class AuthenticationForm extends StatelessWidget {
               width: 0.8.sw,
               height: 0.09.sw,
               child: ElevatedButton(
-               // onPressed: (authVM.allowForLogin.value) ? () {} : null,
-                onPressed: (authVM.allowAuthAction.value) ? () {} : null,
+                onPressed: allowAuth.value ? () {} : null,
                 child: Text(authBtnName),
               ),
             ),

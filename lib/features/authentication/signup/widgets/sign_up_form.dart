@@ -6,7 +6,6 @@ import 'package:snap_share/core/utilities/exports/resource_export.dart';
 import 'package:snap_share/core/utilities/exports/widget_export.dart';
 import 'package:snap_share/core/utilities/exports/wrapper_export.dart';
 import 'package:snap_share/core/utilities/validators/form_validator.dart';
-import 'package:snap_share/features/authentication/common/enums/view_type.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
 import 'package:snap_share/features/authentication/login/utilities/constants/login_strings.dart';
 import 'package:snap_share/features/authentication/signup/utilities/constants/sign_up_strings.dart';
@@ -17,14 +16,18 @@ class SignUpForm extends StatelessWidget {
   final AuthVM authVM;
   final ThemeManager themeManager;
 
-  const SignUpForm(
-      {super.key, required this.authVM, required this.themeManager});
+  const SignUpForm({
+    super.key,
+    required this.authVM,
+    required this.themeManager,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AuthenticationForm(
       authBtnName: SignUpStrings.kSignUpBtnText,
       authVM: authVM,
+      allowAuth: authVM.allowForSignUp,
       formFields: [
         _buildHeadingText(
           context,
@@ -32,7 +35,7 @@ class SignUpForm extends StatelessWidget {
         ),
         const Gap(8),
         Obx(
-              () => _buildEmailFormField(context),
+          () => _buildEmailFormField(context),
         ),
         const Gap(20),
         _buildHeadingText(
@@ -41,7 +44,7 @@ class SignUpForm extends StatelessWidget {
         ),
         const Gap(8),
         Obx(
-              () => _buildPasswordFormField(context),
+          () => _buildPasswordFormField(context),
         ),
         const Gap(20),
         _buildHeadingText(
@@ -50,7 +53,7 @@ class SignUpForm extends StatelessWidget {
         ),
         const Gap(8),
         Obx(
-              () => _buildConfirmPasswordFormField(context),
+          () => _buildConfirmPasswordFormField(context),
         ),
       ],
     );
@@ -84,8 +87,8 @@ class SignUpForm extends StatelessWidget {
       onFieldSubmitted: (value) {
         FocusScope.of(context).requestFocus(authVM.passwordFocusNode);
       },
-      onChanged: (value){
-        authVM.updateAuthState(ViewType.signUp);
+      onChanged: (value) {
+        authVM.updateSignUpState();
       },
     );
   }
@@ -123,8 +126,8 @@ class SignUpForm extends StatelessWidget {
           FocusScope.of(context).requestFocus(authVM.confirmPasswordFocusNode);
         }
       },
-      onChanged: (value){
-        authVM.updateAuthState(ViewType.signUp);
+      onChanged: (value) {
+        authVM.updateSignUpState();
       },
     );
   }
@@ -155,15 +158,18 @@ class SignUpForm extends StatelessWidget {
         color: AppColors.kPrimaryColor,
       ),
       formValidator: (value) {
-        return FormValidator.validatePassword(value);
+        return FormValidator.validateConfirmPassword(
+          value,
+          authVM.passwordTEController.value.text,
+        );
       },
       onFieldSubmitted: (value) {
         if (authVM.emailTEController.value.text.isEmpty) {
           FocusScope.of(context).requestFocus(authVM.emailFocusNode);
         }
       },
-      onChanged: (value){
-        authVM.updateAuthState(ViewType.signUp);
+      onChanged: (value) {
+        authVM.updateSignUpState();
       },
     );
   }
