@@ -6,11 +6,11 @@ import 'package:snap_share/core/resources/managers/theme_manager.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
 import 'package:snap_share/core/utilities/exports/widget_export.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
-import 'package:snap_share/features/authentication/login/utilities/constants/login_strings.dart';
-import 'package:snap_share/features/authentication/login/widgets/login_form.dart';
+import 'package:snap_share/features/authentication/signup/utilities/constants/sign_up_strings.dart';
+import 'package:snap_share/features/authentication/signup/widgets/sign_up_form.dart';
 
-class LoginView extends StatelessWidget {
-  const LoginView({super.key});
+class SignUpView extends StatelessWidget {
+  const SignUpView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +25,11 @@ class LoginView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    LoginStrings.kLoginViewHeadingTxt,
+                    SignUpStrings.kSignUpViewHeadingTxt,
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
                   const Gap(42),
-                  LoginForm(
+                  SignUpForm(
                     authVM: Get.find<AuthVM>(),
                     themeManager: Get.find<ThemeManager>(),
                   ),

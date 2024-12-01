@@ -7,15 +7,15 @@ import 'package:snap_share/core/utilities/exports/widget_export.dart';
 import 'package:snap_share/core/utilities/validators/form_validator.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
 import 'package:snap_share/features/authentication/login/utilities/constants/login_strings.dart';
-import 'package:snap_share/features/authentication/common/widgets/save_password_checkbox.dart';
+import 'package:snap_share/features/authentication/signup/utilities/constants/sign_up_strings.dart';
 
 import '../../common/widgets/authentication_form.dart';
 
-class LoginForm extends StatelessWidget {
+class SignUpForm extends StatelessWidget {
   final AuthVM authVM;
   final ThemeManager themeManager;
 
-  const LoginForm({
+  const SignUpForm({
     super.key,
     required this.authVM,
     required this.themeManager,
@@ -24,13 +24,13 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthenticationForm(
-      authBtnName: LoginStrings.kLoginBtnText,
+      authBtnName: SignUpStrings.kSignUpBtnText,
       authVM: authVM,
-      allowAuth: authVM.allowForLogin,
+      allowAuth: authVM.allowForSignUp,
       formFields: [
         _buildHeadingText(
           context,
-          LoginStrings.kEmailTextFieldHeadingTxt,
+          SignUpStrings.kEmailTextFieldHeadingTxt,
         ),
         const Gap(8),
         Obx(
@@ -39,14 +39,21 @@ class LoginForm extends StatelessWidget {
         const Gap(20),
         _buildHeadingText(
           context,
-          LoginStrings.kPasswordTextFieldHeadingTxt,
+          SignUpStrings.kPasswordTextFieldHeadingTxt,
         ),
         const Gap(8),
         Obx(
           () => _buildPasswordFormField(context),
         ),
+        const Gap(20),
+        _buildHeadingText(
+          context,
+          SignUpStrings.kConfirmPasswordTextFieldHeadingTxt,
+        ),
         const Gap(8),
-        SavePasswordCheckbox(authVM: authVM),
+        Obx(
+          () => _buildConfirmPasswordFormField(context),
+        ),
       ],
     );
   }
@@ -75,7 +82,7 @@ class LoginForm extends StatelessWidget {
         FocusScope.of(context).requestFocus(authVM.passwordFocusNode);
       },
       onChanged: (value) {
-        authVM.updateLoginState();
+        authVM.updateSignUpState();
       },
       themeManager: themeManager,
     );
@@ -95,12 +102,40 @@ class LoginForm extends StatelessWidget {
         return FormValidator.validatePassword(value);
       },
       onFieldSubmitted: (value) {
+        if (authVM.confirmPasswordTEController.value.text.isEmpty) {
+          FocusScope.of(context).requestFocus(authVM.confirmPasswordFocusNode);
+        }
+      },
+      onChanged: (value) {
+        authVM.updateSignUpState();
+      },
+      themeManager: themeManager,
+    );
+  }
+
+  Widget _buildConfirmPasswordFormField(BuildContext context) {
+    return CustomTextField(
+      controller: authVM.confirmPasswordTEController.value,
+      focusNode: authVM.confirmPasswordFocusNode,
+      hintText: SignUpStrings.kConfirmPasswordTextFieldHeadingTxt,
+      isPassword: true,
+      prefixIconPath: IconAssets.kPasswordIcon,
+      prefixText: LoginStrings.kTextFieldPrefixText,
+      suffixIcon: Icons.visibility_off,
+      alternateSuffixIcon: Icons.visibility_off_outlined,
+      formValidator: (value) {
+        return FormValidator.validateConfirmPassword(
+          value,
+          authVM.passwordTEController.value.text,
+        );
+      },
+      onFieldSubmitted: (value) {
         if (authVM.emailTEController.value.text.isEmpty) {
           FocusScope.of(context).requestFocus(authVM.emailFocusNode);
         }
       },
       onChanged: (value) {
-        authVM.updateLoginState();
+        authVM.updateSignUpState();
       },
       themeManager: themeManager,
     );

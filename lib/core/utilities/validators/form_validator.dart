@@ -14,4 +14,16 @@ class FormValidator {
     }
     return null;
   }
+
+  static String? validateConfirmPassword(
+      String? confirmPassword, String password) {
+    final passwordValidation = validatePassword(confirmPassword);
+    if (passwordValidation != null) {
+      return passwordValidation;
+    }
+    if (confirmPassword != password) {
+      return "Password didn't match";
+    }
+    return null;
+  }
 }

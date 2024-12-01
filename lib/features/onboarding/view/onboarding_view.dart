@@ -41,7 +41,9 @@ class OnboardingView extends StatelessWidget {
       width: 0.8.sw,
       height: 36.h,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.toNamed(RoutesNames.kSignUpView);
+        },
         child: const Text(OnboardingStrings.kRegistrationBtnTxt),
       ),
     );
