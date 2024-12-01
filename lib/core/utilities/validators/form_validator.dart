@@ -22,7 +22,7 @@ class FormValidator {
       return passwordValidation;
     }
     if (confirmPassword != password) {
-      return "Password doesn't match";
+      return "Password didn't match";
     }
     return null;
   }

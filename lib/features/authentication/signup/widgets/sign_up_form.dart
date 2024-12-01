@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:snap_share/core/resources/managers/theme_manager.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
 import 'package:snap_share/core/utilities/exports/widget_export.dart';
-import 'package:snap_share/core/utilities/exports/wrapper_export.dart';
 import 'package:snap_share/core/utilities/validators/form_validator.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
 import 'package:snap_share/features/authentication/login/utilities/constants/login_strings.dart';
@@ -74,12 +73,7 @@ class SignUpForm extends StatelessWidget {
       controller: authVM.emailTEController.value,
       focusNode: authVM.emailFocusNode,
       hintText: LoginStrings.kEmailTextFieldHintTxt,
-      prefixWidget: SvgLoader(
-        asset: IconAssets.kEmailIcon,
-        color: (themeManager.getTheme(context) == Brightness.dark)
-            ? DarkThemeColors.kTxtFieldPrefixIconColor
-            : null,
-      ),
+      prefixIconPath: IconAssets.kEmailIcon,
       prefixText: LoginStrings.kTextFieldPrefixText,
       formValidator: (value) {
         return FormValidator.validateEmail(value);
@@ -90,6 +84,7 @@ class SignUpForm extends StatelessWidget {
       onChanged: (value) {
         authVM.updateSignUpState();
       },
+      themeManager: themeManager,
     );
   }
 
@@ -99,25 +94,10 @@ class SignUpForm extends StatelessWidget {
       focusNode: authVM.passwordFocusNode,
       hintText: LoginStrings.kPasswordTextFieldHintTxt,
       isPassword: true,
-      prefixWidget: SvgLoader(
-        asset: IconAssets.kPasswordIcon,
-        color: (themeManager.getTheme(context) == Brightness.dark)
-            ? DarkThemeColors.kTxtFieldPrefixIconColor
-            : null,
-      ),
+      prefixIconPath: IconAssets.kPasswordIcon,
       prefixText: LoginStrings.kTextFieldPrefixText,
-      suffixWidget: Icon(
-        Icons.visibility_outlined,
-        size: 25,
-        color: (themeManager.getTheme(context) == Brightness.dark)
-            ? DarkThemeColors.kTxtFieldSuffixIconColor
-            : null,
-      ),
-      alternateSuffixWidget: const Icon(
-        Icons.visibility_off_outlined,
-        size: 25,
-        color: AppColors.kPrimaryColor,
-      ),
+      suffixIcon: Icons.visibility_outlined,
+      alternateSuffixIcon: Icons.visibility_off_outlined,
       formValidator: (value) {
         return FormValidator.validatePassword(value);
       },
@@ -129,6 +109,7 @@ class SignUpForm extends StatelessWidget {
       onChanged: (value) {
         authVM.updateSignUpState();
       },
+      themeManager: themeManager,
     );
   }
 
@@ -138,25 +119,10 @@ class SignUpForm extends StatelessWidget {
       focusNode: authVM.confirmPasswordFocusNode,
       hintText: SignUpStrings.kConfirmPasswordTextFieldHeadingTxt,
       isPassword: true,
-      prefixWidget: SvgLoader(
-        asset: IconAssets.kPasswordIcon,
-        color: (themeManager.getTheme(context) == Brightness.dark)
-            ? DarkThemeColors.kTxtFieldPrefixIconColor
-            : null,
-      ),
+      prefixIconPath: IconAssets.kPasswordIcon,
       prefixText: LoginStrings.kTextFieldPrefixText,
-      suffixWidget: Icon(
-        Icons.visibility_outlined,
-        size: 25,
-        color: (themeManager.getTheme(context) == Brightness.dark)
-            ? DarkThemeColors.kTxtFieldSuffixIconColor
-            : null,
-      ),
-      alternateSuffixWidget: const Icon(
-        Icons.visibility_off_outlined,
-        size: 25,
-        color: AppColors.kPrimaryColor,
-      ),
+      suffixIcon: Icons.visibility_off,
+      alternateSuffixIcon: Icons.visibility_off_outlined,
       formValidator: (value) {
         return FormValidator.validateConfirmPassword(
           value,
@@ -171,6 +137,7 @@ class SignUpForm extends StatelessWidget {
       onChanged: (value) {
         authVM.updateSignUpState();
       },
+      themeManager: themeManager,
     );
   }
 }

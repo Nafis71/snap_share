@@ -1,31 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:snap_share/core/resources/managers/theme_manager.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
+
+import '../../../core/utilities/exports/wrapper_export.dart';
 
 class CustomTextField extends StatefulWidget {
   final String hintText;
   final String? Function(dynamic) formValidator;
   final bool isPassword;
-  final Widget? suffixWidget;
-  final Widget? alternateSuffixWidget;
-  final Widget? prefixWidget;
+  final IconData? suffixIcon;
+  final IconData? alternateSuffixIcon;
+  final String prefixIconPath;
   final String? prefixText;
   final TextEditingController controller;
   final FocusNode? focusNode;
   final Function(dynamic)? onChanged, onFieldSubmitted;
+  final ThemeManager themeManager;
 
   const CustomTextField({
     super.key,
     required this.hintText,
     required this.formValidator,
     this.isPassword = false,
-    this.suffixWidget,
-    this.prefixWidget,
+    this.suffixIcon,
     this.prefixText,
     required this.controller,
-    this.alternateSuffixWidget,
+    this.alternateSuffixIcon,
     this.onChanged,
     this.focusNode,
     this.onFieldSubmitted,
+    required this.themeManager,
+    required this.prefixIconPath,
   });
 
   @override
@@ -67,17 +72,45 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   if (widget.isPassword) toggleObscureText();
                 },
                 child: showObscureText
-                    ? widget.suffixWidget
-                    : widget.alternateSuffixWidget,
+                    ? _suffixIcon(context)
+                    : _alternateSuffixIcon(),
               )
             : null,
-        prefixIcon: widget.prefixWidget,
+        prefixIcon: _prefixIcon(context),
         prefixText: widget.prefixText,
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: widget.formValidator,
       onChanged: widget.onChanged,
       onFieldSubmitted: widget.onFieldSubmitted,
+    );
+  }
+
+  Widget _prefixIcon(BuildContext context) {
+    return SvgLoader(
+      // asset: IconAssets.kPasswordIcon,
+      asset: widget.prefixIconPath,
+      color: (widget.themeManager.getTheme(context) == Brightness.dark)
+          ? DarkThemeColors.kTxtFieldPrefixIconColor
+          : null,
+    );
+  }
+
+  Widget _alternateSuffixIcon() {
+    return Icon(
+      widget.alternateSuffixIcon,
+      size: 25,
+      color: AppColors.kPrimaryColor,
+    );
+  }
+
+  Widget _suffixIcon(BuildContext context) {
+    return Icon(
+      widget.suffixIcon,
+      size: 25,
+      color: (widget.themeManager.getTheme(context) == Brightness.dark)
+          ? DarkThemeColors.kTxtFieldSuffixIconColor
+          : null,
     );
   }
 }
