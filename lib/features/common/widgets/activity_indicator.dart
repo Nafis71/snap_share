@@ -7,7 +7,7 @@ class ActivityIndicatorCircular extends StatelessWidget {
 
   const ActivityIndicatorCircular({
     super.key,
-    this.color = Colors.black,
+    this.color = Colors.white,
     this.radius = 10.0,
   });
 
