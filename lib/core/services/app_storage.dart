@@ -4,9 +4,9 @@ class AppStorage {
   AppStorage._();
 
   static AppStorage? _instance;
-  late final GetStorage appStorage;
+  late GetStorage appStorage;
 
-  factory AppStorage() => _instance ?? AppStorage._();
+  factory AppStorage() => _instance ??= AppStorage._();
 
   Future<void> init() async {
     await GetStorage.init();
@@ -14,7 +14,7 @@ class AppStorage {
   }
 
   dynamic read(String key) {
-    appStorage.read(key);
+    return appStorage.read(key);
   }
 
   Future<void> write(String key, dynamic value) async {
@@ -25,7 +25,7 @@ class AppStorage {
     appStorage.erase();
   }
 
-  void removeKey(String key) {
-    appStorage.remove(key);
+  Future<void> removeKey(String key) async {
+    await appStorage.remove(key);
   }
 }
