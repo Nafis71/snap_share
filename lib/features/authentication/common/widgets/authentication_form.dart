@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:snap_share/core/utilities/routes/routes_names.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
 
 class AuthenticationForm extends StatelessWidget {
@@ -36,7 +37,7 @@ class AuthenticationForm extends StatelessWidget {
               width: 0.8.sw,
               height: 0.09.sw,
               child: ElevatedButton(
-                onPressed: allowAuth.value ? () {} : null,
+                onPressed: allowAuth.value ? ()=> Get.toNamed(RoutesNames.kMainBottomNavView) : null,
                 child: Text(authBtnName),
               ),
             ),
