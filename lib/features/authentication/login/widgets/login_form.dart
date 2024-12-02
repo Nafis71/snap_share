@@ -6,8 +6,9 @@ import 'package:snap_share/core/utilities/exports/resource_export.dart';
 import 'package:snap_share/core/utilities/exports/widget_export.dart';
 import 'package:snap_share/core/utilities/validators/form_validator.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
-import 'package:snap_share/features/authentication/login/utilities/constants/login_strings.dart';
 import 'package:snap_share/features/authentication/common/widgets/save_password_checkbox.dart';
+import 'package:snap_share/features/authentication/login/utilities/constants/login_strings.dart';
+import 'package:snap_share/features/authentication/login/utilities/helpers/login_helper.dart';
 
 import '../../common/widgets/authentication_form.dart';
 
@@ -26,7 +27,6 @@ class LoginForm extends StatelessWidget {
     return AuthenticationForm(
       authBtnName: LoginStrings.kLoginBtnText,
       authVM: authVM,
-      allowAuth: authVM.allowForLogin,
       formFields: [
         _buildHeadingText(
           context,
@@ -48,6 +48,7 @@ class LoginForm extends StatelessWidget {
         const Gap(8),
         SavePasswordCheckbox(authVM: authVM),
       ],
+      onBtnPressed: LoginHelper.login,
     );
   }
 
@@ -75,9 +76,9 @@ class LoginForm extends StatelessWidget {
         FocusScope.of(context).requestFocus(authVM.passwordFocusNode);
       },
       onChanged: (value) {
-        authVM.updateLoginState();
+        authVM.updateAuthState();
       },
-      themeManager: themeManager,
+      brightness: themeManager.getTheme(context),
     );
   }
 
@@ -100,9 +101,9 @@ class LoginForm extends StatelessWidget {
         }
       },
       onChanged: (value) {
-        authVM.updateLoginState();
+        authVM.updateAuthState();
       },
-      themeManager: themeManager,
+      brightness: themeManager.getTheme(context),
     );
   }
 }

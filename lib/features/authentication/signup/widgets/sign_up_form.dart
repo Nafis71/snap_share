@@ -8,6 +8,7 @@ import 'package:snap_share/core/utilities/validators/form_validator.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
 import 'package:snap_share/features/authentication/login/utilities/constants/login_strings.dart';
 import 'package:snap_share/features/authentication/signup/utilities/constants/sign_up_strings.dart';
+import 'package:snap_share/features/authentication/signup/utilities/helpers/sign_up_helper.dart';
 
 import '../../common/widgets/authentication_form.dart';
 
@@ -26,7 +27,6 @@ class SignUpForm extends StatelessWidget {
     return AuthenticationForm(
       authBtnName: SignUpStrings.kSignUpBtnText,
       authVM: authVM,
-      allowAuth: authVM.allowForSignUp,
       formFields: [
         _buildHeadingText(
           context,
@@ -55,6 +55,7 @@ class SignUpForm extends StatelessWidget {
           () => _buildConfirmPasswordFormField(context),
         ),
       ],
+      onBtnPressed: SignUpHelper.registerUser,
     );
   }
 
@@ -82,9 +83,9 @@ class SignUpForm extends StatelessWidget {
         FocusScope.of(context).requestFocus(authVM.passwordFocusNode);
       },
       onChanged: (value) {
-        authVM.updateSignUpState();
+        authVM.updateAuthState();
       },
-      themeManager: themeManager,
+      brightness: themeManager.getTheme(context),
     );
   }
 
@@ -107,9 +108,9 @@ class SignUpForm extends StatelessWidget {
         }
       },
       onChanged: (value) {
-        authVM.updateSignUpState();
+        authVM.updateAuthState();
       },
-      themeManager: themeManager,
+      brightness: themeManager.getTheme(context),
     );
   }
 
@@ -135,9 +136,9 @@ class SignUpForm extends StatelessWidget {
         }
       },
       onChanged: (value) {
-        authVM.updateSignUpState();
+        authVM.updateAuthState();
       },
-      themeManager: themeManager,
+      brightness: themeManager.getTheme(context),
     );
   }
 }

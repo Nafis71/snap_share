@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:snap_share/core/resources/managers/theme_manager.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
 
 import '../../../core/utilities/exports/wrapper_export.dart';
@@ -15,7 +14,7 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final FocusNode? focusNode;
   final Function(dynamic)? onChanged, onFieldSubmitted;
-  final ThemeManager themeManager;
+  final Brightness brightness;
 
   const CustomTextField({
     super.key,
@@ -29,7 +28,7 @@ class CustomTextField extends StatefulWidget {
     this.onChanged,
     this.focusNode,
     this.onFieldSubmitted,
-    required this.themeManager,
+    required this.brightness,
     required this.prefixIconPath,
   });
 
@@ -90,7 +89,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return SvgLoader(
       // asset: IconAssets.kPasswordIcon,
       asset: widget.prefixIconPath,
-      color: (widget.themeManager.getTheme(context) == Brightness.dark)
+      color: (widget.brightness == Brightness.dark)
           ? DarkThemeColors.kTxtFieldPrefixIconColor
           : null,
     );
@@ -108,7 +107,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Icon(
       widget.suffixIcon,
       size: 25,
-      color: (widget.themeManager.getTheme(context) == Brightness.dark)
+      color: (widget.brightness == Brightness.dark)
           ? DarkThemeColors.kTxtFieldSuffixIconColor
           : null,
     );
