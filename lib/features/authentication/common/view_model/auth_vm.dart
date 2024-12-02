@@ -68,7 +68,7 @@ class AuthVM extends GetxController {
   }
 
   Future<(bool, String)> authenticate(Future<void> Function() callback) async {
-    isAuthenticating.value = true;
+    isAuthenticating.toggle();
     bool isSuccess = false;
     String errorMessage = "";
     try {
@@ -79,7 +79,7 @@ class AuthVM extends GetxController {
     } catch (exception) {
       errorMessage = AppStrings.kUnknownError;
     }
-    isAuthenticating.value = false;
+    isAuthenticating.toggle();
     return (isSuccess, errorMessage);
   }
 
