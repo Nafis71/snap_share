@@ -9,4 +9,8 @@ class SignUpStrings {
   static const kTextFieldPrefixText = "|";
   static const kSavePasswordCheckBoxTxt = "Save Password";
   static const kSignUpBtnText = "Sign Up";
+  static const kSignUpSuccessTitleTxt = "Successful";
+  static const kSignUpSuccessMessageTxt =
+      "Account has been registered successfully";
+  static const kSignUpFailureTitleTxt = "Failed";
 }
