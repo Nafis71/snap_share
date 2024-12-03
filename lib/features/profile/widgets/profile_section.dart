@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
+import 'package:snap_share/core/wrappers/custom_cached_image.dart';
 
 class ProfileSection extends StatelessWidget {
   const ProfileSection({
@@ -32,16 +33,11 @@ class ProfileSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
+          CustomCachedImage(
+            imageUrl: profileUrl,
+            borderRadius: BorderRadius.circular(100),
             height: 85,
             width: 85,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage(profileUrl),
-                fit: BoxFit.cover,
-              ),
-            ),
           ),
           const Gap(8),
           Expanded(
