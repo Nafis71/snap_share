@@ -7,4 +7,7 @@ class LoginStrings {
   static const kTextFieldPrefixText = "|";
   static const kSavePasswordCheckBoxTxt = "Save Password";
   static const kLoginBtnText = "Log In";
+  static const kLoginSuccessTitleTxt = "Successful";
+  static const kLoginSuccessMessageTxt = "Logged in successfully";
+  static const kLoginFailureTitleTxt = "Failed";
 }
