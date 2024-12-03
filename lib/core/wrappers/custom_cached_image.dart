@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
 import 'package:snap_share/core/utilities/exports/wrapper_export.dart';
 
@@ -11,6 +11,7 @@ class CustomCachedImage extends StatelessWidget {
   final BorderRadius? borderRadius;
   final Widget? placeholder;
   final Widget? errorWidget;
+  final Function(ImageProvider)? imageProviderWidget;
 
   const CustomCachedImage({
     super.key,
@@ -21,6 +22,7 @@ class CustomCachedImage extends StatelessWidget {
     this.borderRadius,
     this.placeholder,
     this.errorWidget,
+    this.imageProviderWidget,
   });
 
   @override
@@ -46,6 +48,12 @@ class CustomCachedImage extends StatelessWidget {
                 color: Colors.red,
               ),
             ),
+        imageBuilder: (context, imageProvider) {
+          if (imageProviderWidget != null) {
+            return imageProviderWidget!(imageProvider);
+          }
+          return const SizedBox.shrink();
+        },
       ),
     );
   }

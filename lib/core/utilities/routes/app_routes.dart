@@ -28,7 +28,9 @@ class AppRoutes {
       ),
       _getPage(
         routeName: RoutesNames.kMainBottomNavView,
-        page: const MainBottomNavView(),
+        page: MainBottomNavView(
+          mainBottomNavVM: Get.find(),
+        ),
       ),
     ];
   }

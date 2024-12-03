@@ -5,10 +5,8 @@ import 'package:snap_share/features/home/view/home_view.dart';
 import 'package:snap_share/features/profile/view/profile_view.dart';
 import 'package:snap_share/features/search/view/search_view.dart';
 
-import '../../../core/utilities/exports/resource_export.dart';
-
 class MainBottomNavVM extends GetxController {
-  int _selectedIndex = 0;
+  final RxInt _selectedIndex = 0.obs;
   final List<Widget> _views = const [
     HomeView(),
     SearchView(),
@@ -16,23 +14,11 @@ class MainBottomNavVM extends GetxController {
     ProfileView(),
   ];
 
-  int get selectedIndex => _selectedIndex;
+  int get selectedIndex => _selectedIndex.value;
 
   List<Widget> get views => _views;
 
   void onChangedIndex(int index) {
-    _selectedIndex = index;
-    update();
-  }
-
-  Color iconBgColor(int index) {
-    return _selectedIndex == index
-        ? Colors.blue.withOpacity(0.15)
-        : Colors.transparent;
-  }
-  Color iconColor(int index) {
-    return _selectedIndex == index
-        ? AppColors.kPrimaryColor
-        : AppColors.kBlackColor;
+    _selectedIndex.value = index;
   }
 }

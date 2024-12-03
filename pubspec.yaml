@@ -16,7 +16,6 @@ dependencies:
   firebase_auth: ^5.3.3
   get: ^4.6.6
   get_storage: ^2.1.1
-  supabase_flutter: ^2.8.1
   cupertino_icons: ^1.0.8
   gap: ^3.0.1
   widget_and_text_animator: ^1.1.5
@@ -24,6 +23,7 @@ dependencies:
   flutter_screenutil: ^5.9.3
   device_preview: ^1.2.0
   cached_network_image: ^3.4.1
+  salomon_bottom_bar: ^3.3.2
 
 dev_dependencies:
   flutter_test:

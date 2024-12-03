@@ -35,19 +35,28 @@ class _ProfileViewState extends State<ProfileView> {
               color: Colors.grey.withOpacity(0.1),
               thickness: 10,
             ),
-            _userPostsSection(),
+            _userPhotosSection(context),
           ],
         ),
       ),
     );
   }
 
-  Widget _userPostsSection() {
+  Widget _userPhotosSection(BuildContext context) {
     return Expanded(
       child: Column(
         children: [
           TabBar(
             indicatorSize: TabBarIndicatorSize.label,
+            indicatorColor: const Color(0xFF667085),
+            labelColor: const Color(0xFF101828),
+            unselectedLabelColor: const Color(0xFF101828),
+            labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+            indicatorWeight: 0.2,
+            dividerHeight: 1.2,
+            dividerColor: const Color(0xFFEAECF0),
             tabs: [
               _buildTab(
                 icon: Icons.window,
@@ -78,7 +87,8 @@ class _ProfileViewState extends State<ProfileView> {
   }) {
     return Tab(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisSize: MainAxisSize.max,
         children: [
           Icon(icon),
           const Gap(8),

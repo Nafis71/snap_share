@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:snap_share/core/utilities/exports/resource_export.dart';
 import 'package:snap_share/core/wrappers/custom_cached_image.dart';
+import 'package:snap_share/features/common/widgets/image_widget.dart';
 
 class ProfileSection extends StatelessWidget {
   const ProfileSection({
@@ -35,6 +36,11 @@ class ProfileSection extends StatelessWidget {
         children: [
           CustomCachedImage(
             imageUrl: profileUrl,
+            imageProviderWidget: (ImageProvider imageProvider) {
+              return ImageWidget(
+                imageProvider: imageProvider,
+              );
+            },
             borderRadius: BorderRadius.circular(100),
             height: 85,
             width: 85,
@@ -49,23 +55,22 @@ class ProfileSection extends StatelessWidget {
                   Text(
                     userName,
                     style: textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                        fontWeight: FontWeight.bold, fontSize: 16.sp),
                   ),
                   const Gap(2),
                   Text(
                     userID,
-                    style: _profileSectionFooterTextStyle(),
+                    style: textTheme.bodyMedium,
                   ),
                   const Gap(8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      _buildProfileSectionFooterText("$totalPost Post"),
+                      _buildProfileStats("$totalPost Post", textTheme),
                       const Gap(16),
-                      _buildProfileSectionFooterText("$followings Following"),
+                      _buildProfileStats("$followings Following", textTheme),
                       const Gap(16),
-                      _buildProfileSectionFooterText("$followers Followers"),
+                      _buildProfileStats("$followers Followers", textTheme),
                     ],
                   ),
                 ],
@@ -77,18 +82,10 @@ class ProfileSection extends StatelessWidget {
     );
   }
 
-  Text _buildProfileSectionFooterText(String text) {
+  Text _buildProfileStats(String text, TextTheme textTheme) {
     return Text(
       text,
-      style: _profileSectionFooterTextStyle(),
-    );
-  }
-
-  TextStyle _profileSectionFooterTextStyle() {
-    return const TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.normal,
-      color: AppColors.kBlackColor,
+      style: textTheme.bodyMedium,
     );
   }
 }
