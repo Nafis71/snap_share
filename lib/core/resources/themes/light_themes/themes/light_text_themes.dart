@@ -26,7 +26,7 @@ class LightTextThemes {
       ),
       bodyMedium: TextThemeStyles.getDefaultTextStyle(),
       bodySmall: TextThemeStyles.getDefaultTextStyle().copyWith(
-        fontSize: 14,
+        fontSize: FontSizes.kBodySmall,
         color: FontColors.kLBodySC,
       ),
     );
