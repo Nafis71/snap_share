@@ -32,8 +32,8 @@ class AuthenticationForm extends StatelessWidget {
             children: formFields,
           ),
           const Gap(42),
-          Obx(() {
-            return RSizedBox(
+          Obx(
+            () => RSizedBox(
               width: 0.8.sw,
               height: 0.09.sw,
               child: ElevatedButton(
@@ -42,8 +42,8 @@ class AuthenticationForm extends StatelessWidget {
                     ? const ActivityIndicatorCircular()
                     : Text(authBtnName),
               ),
-            );
-          }),
+            ),
+          ),
         ],
       ),
     );

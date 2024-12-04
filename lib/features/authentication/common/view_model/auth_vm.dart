@@ -4,8 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:snap_share/core/services/app_storage.dart';
-import 'package:snap_share/features/authentication/common/services/auth_service.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
+import 'package:snap_share/features/authentication/common/services/auth_service.dart';
 
 class AuthVM extends GetxController {
   final Rx<GlobalKey<FormState>> _formKey = GlobalKey<FormState>().obs;

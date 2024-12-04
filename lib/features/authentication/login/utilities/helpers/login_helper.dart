@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:snap_share/core/utilities/exports/route_export.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
 import 'package:snap_share/features/authentication/login/utilities/constants/login_strings.dart';
 
@@ -9,12 +10,7 @@ class LoginHelper {
     AuthVM authVM = Get.find();
     (bool, String) status = await authVM.signIn();
     if (status.$1) {
-      showSnackBarNotification(
-        title: LoginStrings.kLoginSuccessTitleTxt,
-        message: LoginStrings.kLoginSuccessMessageTxt,
-        //TODO Gonna remove in future
-        isError: false,
-      );
+      Get.offAllNamed(RoutesNames.kMainBottomNavView);
     } else {
       showSnackBarNotification(
         title: LoginStrings.kLoginFailureTitleTxt,
