@@ -10,7 +10,10 @@ class ThemeManager extends GetxController {
     _currentTheme.value = themeMode;
   }
 
-  Brightness getTheme(BuildContext context) {
-    return MediaQuery.platformBrightnessOf(context);
+  bool isDarkMode(BuildContext context) {
+    if (MediaQuery.platformBrightnessOf(context) == Brightness.dark) {
+      return true;
+    }
+    return false;
   }
 }

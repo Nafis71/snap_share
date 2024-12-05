@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:snap_share/core/resources/dimensions/paddings.dart';
 import 'package:snap_share/core/wrappers/custom_cached_image.dart';
 import 'package:snap_share/features/common/widgets/image_widget.dart';
+import 'package:snap_share/features/profile/view_model/profile_vm.dart';
 
 class GridViewUserPhotos extends StatelessWidget {
-  const GridViewUserPhotos({super.key});
+  final ProfileVm profileVm;
+
+  const GridViewUserPhotos({super.key, required this.profileVm});
 
   @override
   Widget build(BuildContext context) {
@@ -12,29 +18,38 @@ class GridViewUserPhotos extends StatelessWidget {
       20,
       (index) => {'imageUrl': 'https://picsum.photos/200?random=$index'},
     );
-
-    return GridView.builder(
-      padding: const EdgeInsets.all(8.0),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 8.0,
-        mainAxisSpacing: 8.0,
+    return RPadding(
+      padding: EdgeInsets.only(
+              left: Paddings.kSmallPadding,
+              right: Paddings.kSmallPadding,
+              top: Paddings.kSmallPadding)
+          .r,
+      child: GridView.custom(
+        gridDelegate: SliverQuiltedGridDelegate(
+          crossAxisCount: 4,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+          repeatPattern: QuiltedGridRepeatPattern.inverted,
+          pattern: [
+            const QuiltedGridTile(2, 2),
+            const QuiltedGridTile(1, 1),
+            const QuiltedGridTile(1, 1),
+            const QuiltedGridTile(1, 2),
+          ],
+        ),
+        childrenDelegate: SliverChildBuilderDelegate(
+          childCount: userPhotos.length,
+          (context, index) => CustomCachedImage(
+            imageUrl: userPhotos[index]['imageUrl']!,
+            borderRadius: BorderRadius.circular(8),
+            imageProviderWidget: (ImageProvider imageProvider) {
+              return ImageWidget(
+                imageProvider: imageProvider,
+              );
+            },
+          ),
+        ),
       ),
-      itemCount: userPhotos.length,
-      itemBuilder: (context, index) {
-        final post = userPhotos[index];
-        return CustomCachedImage(
-          imageUrl: post['imageUrl']!,
-          width: 100,
-          height: 100,
-          borderRadius: BorderRadius.circular(8),
-          imageProviderWidget: (ImageProvider imageProvider) {
-            return ImageWidget(
-              imageProvider: imageProvider,
-            );
-          },
-        );
-      },
     );
   }
 }

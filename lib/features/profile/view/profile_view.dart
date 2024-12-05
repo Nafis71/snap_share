@@ -1,110 +1,110 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:snap_share/core/resources/managers/theme_manager.dart';
+import 'package:snap_share/core/utilities/exports/resource_export.dart';
+import 'package:snap_share/core/utilities/exports/widget_export.dart';
 import 'package:snap_share/features/profile/utilities/constants/profile_strings.dart';
+import 'package:snap_share/features/profile/view_model/profile_vm.dart';
 import 'package:snap_share/features/profile/widgets/grid_view_user_photos.dart';
-import 'package:snap_share/features/profile/widgets/list_view_user_photos.dart';
 import 'package:snap_share/features/profile/widgets/profile_section.dart';
 
 class ProfileView extends StatefulWidget {
-  const ProfileView({super.key});
+  final ThemeManager themeManager;
+
+  const ProfileView({super.key, required this.themeManager});
 
   @override
   State<ProfileView> createState() => _ProfileViewState();
 }
 
-class _ProfileViewState extends State<ProfileView> {
+class _ProfileViewState extends State<ProfileView>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    _tabController = TabController(length: 4, vsync: this);
+    _tabController.animateTo(1);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
-
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: _buildAppBar(context, textTheme),
-        body: Column(
-          children: [
-            const ProfileSection(
-              profileUrl: "https://picsum.photos/200?random=1",
-              userName: "Snap Share",
-              userID: "@snapshare460",
-              totalPost: 59,
-              followings: 125,
-              followers: 860,
-            ),
-            Divider(
-              color: Colors.grey.withOpacity(0.1),
-              thickness: 10,
-            ),
-            _userPhotosSection(context),
-          ],
-        ),
+    return Scaffold(
+      backgroundColor: widget.themeManager.isDarkMode(context)
+          ? DarkThemeColors.kScaffoldBGColor
+          : LightThemeColors.kScaffoldBGColor,
+      appBar: CommonAppBar(
+        title: ProfileStrings.kAppBarTitle,
+        disableBackBtn: true,
+        centerTitle: true,
+        isBrandName: false,
+        backgroundColor: widget.themeManager.isDarkMode(context)
+            ? DarkThemeColors.kComponentBGColor
+            : null,
+      ),
+      body: Column(
+        children: [
+          ProfileSection(
+            profileUrl: "https://picsum.photos/200?random=1",
+            userName: "Snap Share",
+            userID: "@snapshare460",
+            totalPost: 59,
+            followings: 125,
+            followers: 860,
+            isDarkMode: widget.themeManager.isDarkMode(context),
+          ),
+          const Divider(
+            thickness: 10,
+          ),
+          _userPhotosSection(context),
+        ],
       ),
     );
   }
 
   Widget _userPhotosSection(BuildContext context) {
     return Expanded(
-      child: Column(
-        children: [
-          TabBar(
-            indicatorSize: TabBarIndicatorSize.label,
-            indicatorColor: const Color(0xFF667085),
-            labelColor: const Color(0xFF101828),
-            unselectedLabelColor: const Color(0xFF101828),
-            labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-            indicatorWeight: 0.2,
-            dividerHeight: 1.2,
-            dividerColor: const Color(0xFFEAECF0),
-            tabs: [
-              _buildTab(
-                icon: Icons.window,
-                title: "Grid View",
+      child: Container(
+        color: widget.themeManager.isDarkMode(context)
+            ? DarkThemeColors.kScaffoldBGColor
+            : Colors.white,
+        child: Column(
+          children: [
+            Container(
+              color: widget.themeManager.isDarkMode(context)
+                  ? DarkThemeColors.kScaffoldBGColor
+                  : Colors.white,
+              child: TabBar(
+                controller: _tabController,
+                indicatorWeight: 0.01,
+                padding: const EdgeInsets.all(0),
+                tabs: const [
+                  SizedBox.shrink(),
+                  Tab(
+                    text: ProfileStrings.kAllPostTabBarTxt,
+                  ),
+                  Tab(
+                    text: ProfileStrings.kSavedPostTabBarTxt,
+                  ),
+                  SizedBox.shrink(),
+                ],
               ),
-              _buildTab(
-                icon: Icons.list,
-                title: "List View",
-              ),
-            ],
-          ),
-          const Expanded(
-            child: TabBarView(
-              children: [
-                GridViewUserPhotos(),
-                ListViewUserPhotos(),
-              ],
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTab({
-    required IconData icon,
-    required String title,
-  }) {
-    return Tab(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Icon(icon),
-          const Gap(8),
-          Text(title),
-        ],
-      ),
-    );
-  }
-
-  AppBar _buildAppBar(BuildContext context, TextTheme textTheme) {
-    return AppBar(
-      centerTitle: true,
-      title: Text(
-        ProfileStrings.kAppBarTitle,
-        style: textTheme.headlineLarge?.copyWith(
-          fontWeight: FontWeight.bold,
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  const SizedBox.shrink(),
+                  GridViewUserPhotos(
+                    profileVm: Get.find<ProfileVm>(),
+                  ),
+                  const SizedBox.shrink(),
+                  const SizedBox.shrink(),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

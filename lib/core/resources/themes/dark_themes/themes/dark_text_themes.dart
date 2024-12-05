@@ -12,7 +12,7 @@ class DarkTextThemes {
         fontSize: FontSizes.kTitleLarge,
       ),
       titleMedium: TextThemeStyles.getDefaultTextStyle().copyWith(
-        color: DarkThemeColors.kPrimaryTxtColor,
+        color: FontColors.kDTitleMC,
         fontSize: FontSizes.kTitleMedium,
       ),
       headlineLarge: TextThemeStyles.getDefaultTextStyle().copyWith(
@@ -25,6 +25,10 @@ class DarkTextThemes {
       ),
       bodyMedium: TextThemeStyles.getDefaultTextStyle()
           .copyWith(color: FontColors.kDBodyMC),
+      bodySmall: TextThemeStyles.getDefaultTextStyle().copyWith(
+        fontSize: FontSizes.kBodySmall,
+        color: FontColors.kDBodySC,
+      ),
     );
   }
 }

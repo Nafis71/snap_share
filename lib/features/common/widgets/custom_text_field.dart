@@ -14,7 +14,7 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final FocusNode? focusNode;
   final Function(dynamic)? onChanged, onFieldSubmitted;
-  final Brightness brightness;
+  final bool isDark;
 
   const CustomTextField({
     super.key,
@@ -28,7 +28,7 @@ class CustomTextField extends StatefulWidget {
     this.onChanged,
     this.focusNode,
     this.onFieldSubmitted,
-    required this.brightness,
+    required this.isDark,
     required this.prefixIconPath,
   });
 
@@ -89,9 +89,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return SvgLoader(
       // asset: IconAssets.kPasswordIcon,
       asset: widget.prefixIconPath,
-      color: (widget.brightness == Brightness.dark)
-          ? DarkThemeColors.kTxtFieldPrefixIconColor
-          : null,
+      color: (widget.isDark) ? DarkThemeColors.kTxtFieldPrefixIconColor : null,
     );
   }
 
@@ -107,9 +105,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Icon(
       widget.suffixIcon,
       size: 25,
-      color: (widget.brightness == Brightness.dark)
-          ? DarkThemeColors.kTxtFieldSuffixIconColor
-          : null,
+      color: (widget.isDark) ? DarkThemeColors.kTxtFieldSuffixIconColor : null,
     );
   }
 }

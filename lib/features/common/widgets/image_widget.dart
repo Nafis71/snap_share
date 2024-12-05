@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ImageWidget extends StatelessWidget {
+  final ImageProvider imageProvider;
+  final double height;
+  final double width;
+  final Widget? child;
+  final double radius;
+  final BoxFit boxFit;
+
   const ImageWidget({
     super.key,
     required this.imageProvider,
@@ -8,13 +15,8 @@ class ImageWidget extends StatelessWidget {
     this.width = 85,
     this.child,
     this.radius = 4,
+    this.boxFit = BoxFit.cover,
   });
-
-  final ImageProvider imageProvider;
-  final double height;
-  final double width;
-  final Widget? child;
-  final double radius;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class ImageWidget extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radius),
-        image: DecorationImage(image: imageProvider),
+        image: DecorationImage(image: imageProvider, fit: boxFit),
       ),
       child: child,
     );

@@ -85,7 +85,7 @@ class SignUpForm extends StatelessWidget {
       onChanged: (value) {
         authVM.updateAuthState();
       },
-      brightness: themeManager.getTheme(context),
+      isDark: themeManager.isDarkMode(context),
     );
   }
 
@@ -110,7 +110,7 @@ class SignUpForm extends StatelessWidget {
       onChanged: (value) {
         authVM.updateAuthState();
       },
-      brightness: themeManager.getTheme(context),
+      isDark: themeManager.isDarkMode(context),
     );
   }
 
@@ -138,7 +138,7 @@ class SignUpForm extends StatelessWidget {
       onChanged: (value) {
         authVM.updateAuthState();
       },
-      brightness: themeManager.getTheme(context),
+      isDark: themeManager.isDarkMode(context),
     );
   }
 }

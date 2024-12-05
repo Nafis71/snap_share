@@ -20,11 +20,11 @@ class FontColors {
   static const Color kDTitleMC = DarkThemeColors.kPrimaryTxtColor;
   static const Color kDTitleSC = Color(0xFF000000);
 
-  static const Color kDHeadlineLC = Color(0xFF000000);
+  static const Color kDHeadlineLC = DarkThemeColors.kPrimaryTxtColor;
   static const Color kDHeadlineMC = Color(0xFF000000);
   static const Color kDHeadlineSC = Color(0xFF000000);
 
   static const Color kDBodyLC = Color(0xFF000000);
-  static const Color kDBodyMC = Color(0xFF000000);
-  static const Color kDBodySC = Color(0xFF1D2939);
+  static const Color kDBodyMC = DarkThemeColors.kPrimaryTxtColor;
+  static const Color kDBodySC = DarkThemeColors.kPrimaryTxtColor;
 }
