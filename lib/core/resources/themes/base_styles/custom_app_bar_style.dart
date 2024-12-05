@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:snap_share/core/utilities/exports/resource_export.dart';
 
 class CustomAppBarStyle {
   static AppBarTheme getDefaultStyle() {
@@ -8,7 +9,7 @@ class CustomAppBarStyle {
       surfaceTintColor: Colors.white,
       elevation: 0,
       systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
+        statusBarColor: LightThemeColors.kScaffoldBGColor,
         statusBarIconBrightness: Brightness.dark,
       ),
     );

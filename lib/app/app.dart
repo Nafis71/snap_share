@@ -12,7 +12,7 @@ class SnapShare extends StatelessWidget {
     return Obx(
       () => GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: RoutesNames.kHome,
+        initialRoute: RoutesNames.kLandingPage,
         getPages: AppRoutes.appRoutes(),
         theme: LightAppThemes.themeData(),
         darkTheme: DarkAppThemes.themeData(),

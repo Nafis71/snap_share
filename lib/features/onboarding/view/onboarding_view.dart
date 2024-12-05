@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
+import 'package:snap_share/core/utilities/exports/route_export.dart';
 import 'package:snap_share/features/onboarding/utilities/onboarding_strings.dart';
 
 class OnboardingView extends StatelessWidget {
@@ -39,7 +41,9 @@ class OnboardingView extends StatelessWidget {
       width: 0.8.sw,
       height: 36.h,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.toNamed(RoutesNames.kSignUpView);
+        },
         child: const Text(OnboardingStrings.kRegistrationBtnTxt),
       ),
     );
@@ -48,7 +52,7 @@ class OnboardingView extends StatelessWidget {
   Widget _buildLoginBtn(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        //navigate to login
+        Get.toNamed(RoutesNames.kLoginView);
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

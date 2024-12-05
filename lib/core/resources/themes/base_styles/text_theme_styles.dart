@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextThemeStyles {
-  static TextStyle getDefaultTextStyle({
-    TextStyle Function() fontFamily = GoogleFonts.inter,
-  }) {
-    return fontFamily().copyWith(
-      fontSize: kDefaultFontSize,
+  static TextStyle getDefaultTextStyle() {
+    return TextStyle(
+      fontFamily: "Satoshi",
+      fontSize: kDefaultFontSize.sp,
       fontWeight: FontWeight.normal,
       color: const Color(0xFF101828),
     );
