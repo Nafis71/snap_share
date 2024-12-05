@@ -7,4 +7,6 @@ class IconAssets {
   static const String kHomeIcon = "$kBaseUrl/home.svg";
   static const String kSearchIcon = "$kBaseUrl/search.svg";
   static const String kProfileIcon = "$kBaseUrl/profile.svg";
+  static const String kCameraIcon = "$kBaseUrl/camera.svg";
+  static const String kGalleryIcon = "$kBaseUrl/gallery.svg";
 }

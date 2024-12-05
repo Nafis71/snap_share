@@ -2,14 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:snap_share/core/resources/managers/theme_manager.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final Widget? customTitle;
   final bool? centerTitle;
   final bool? isBrandName;
-  final Widget trailingWidget;
+  final List<Widget>? trailingWidget;
   final Widget? leadingWidget;
   final bool disableBackBtn;
   final Color? backgroundColor;
@@ -19,7 +18,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.title,
     this.centerTitle,
     this.isBrandName,
-    this.trailingWidget = const SizedBox.shrink(),
+    this.trailingWidget,
     this.customTitle,
     this.leadingWidget,
     this.disableBackBtn = false,
@@ -39,12 +38,8 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                     onPressed: () {
                       Get.back();
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       CupertinoIcons.back,
-                      color: (Get.find<ThemeManager>().isDarkMode(context) ==
-                              Brightness.light)
-                          ? Colors.grey.shade900
-                          : Colors.white,
                       size: 30,
                     ),
                   )
@@ -60,10 +55,10 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
           ),
       centerTitle: centerTitle,
-      actions: [trailingWidget],
+      actions: trailingWidget,
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(80);
+  Size get preferredSize => const Size.fromHeight(60);
 }

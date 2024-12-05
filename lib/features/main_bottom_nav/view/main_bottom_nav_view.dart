@@ -22,8 +22,8 @@ class _MainBottomNavViewState extends State<MainBottomNavView> {
     return Obx(
       () {
         return Scaffold(
-          body: widget
-              .mainBottomNavVM.views[widget.mainBottomNavVM.selectedIndex],
+          body: widget.mainBottomNavVM
+              .views[widget.mainBottomNavVM.selectedIndex.value],
           bottomNavigationBar: MainBottomNavBar(
             mainBottomNavVM: widget.mainBottomNavVM,
             themeManager: Get.find<ThemeManager>(),
