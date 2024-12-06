@@ -13,30 +13,40 @@ class NewPostVM extends GetxController {
   Rxn<AssetPathEntity>? selectedAlbum = Rxn<AssetPathEntity>();
   Rxn<AssetEntity>? selectedPhoto = Rxn<AssetEntity>();
   final GalleryService _galleryService;
-  String imagePath = "";
 
   NewPostVM(
-      this.imagePickerService, this.mainBottomNavVM, this._galleryService);
+    this.imagePickerService,
+    this.mainBottomNavVM,
+    this._galleryService,
+  );
 
   Future<void> fetchGalleryImage() async {
-    albums.clear();
-    photos.clear();
-    albums.value = await _galleryService.fetchAlbums();
-    selectedAlbum?.value = albums[0];
-    fetchImages(selectedAlbum!.value!);
+    try {
+      await _fetchAlbums();
+      selectedAlbum?.value = (albums.isNotEmpty) ? albums[0] : null;
+      if (selectedAlbum?.value != null) {
+        fetchImages(selectedAlbum!.value!);
+      }
+    } catch (exception) {
+      logger.e(exception);
+    }
+  }
+
+  Future<void> _fetchAlbums() async {
+    albums.assignAll(await _galleryService.fetchAlbums());
   }
 
   Future<void> fetchImages(AssetPathEntity selectedAlbum) async {
-    photos.value = await _galleryService.fetchAlbumSpecificImage(
-      selectedAlbum,
+    photos.assignAll(
+      await _galleryService.fetchAlbumSpecificImage(
+        selectedAlbum,
+      ),
     );
-    selectedPhoto?.value = photos[0];
-    logger.d(selectedPhoto?.value);
-    logger.d(photos[0]);
+    selectedPhoto?.value = (photos.isNotEmpty) ? photos[0] : null;
   }
 
   Future<void> pickImage() async {
-    imagePath = await imagePickerService.pickImage() ?? "";
+    String imagePath = await imagePickerService.pickImage() ?? "";
     if (imagePath.isNotEmpty) {
       mainBottomNavVM.hasPickedImage.toggle();
       mainBottomNavVM.onChangedIndex(TabIndex.newPost.index);

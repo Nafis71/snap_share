@@ -5,8 +5,9 @@ import 'package:get/get.dart';
 import 'package:snap_share/core/resources/assets/icons/icon_assets.dart';
 import 'package:snap_share/core/resources/dimensions/paddings.dart';
 import 'package:snap_share/core/utilities/exports/wrapper_export.dart';
-import 'package:snap_share/features/new_post/view/new_post_view.dart';
-import 'package:snap_share/features/new_post/view_model/new_post_vm.dart';
+
+import '../../new_post/common/view_model/new_post_vm.dart';
+import '../../new_post/media_selection/view/media_selection_view.dart';
 
 class ImagePickerWidget extends StatelessWidget {
   const ImagePickerWidget({super.key});
@@ -41,7 +42,7 @@ class ImagePickerWidget extends StatelessWidget {
                 asset: IconAssets.kGalleryIcon,
                 onPressed: () {
                   Get.back();
-                  Get.to(const NewPostView());
+                  Get.to(()=>const MediaSelectionView());
                 }),
           ],
         ),

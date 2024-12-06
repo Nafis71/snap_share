@@ -4,25 +4,25 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:snap_share/core/resources/colors/app_colors.dart';
 import 'package:snap_share/core/utilities/exports/widget_export.dart';
-import 'package:snap_share/features/new_post/view_model/new_post_vm.dart';
+import 'package:snap_share/features/new_post/media_selection/utilities/media_selection_helper.dart';
+import 'package:snap_share/features/new_post/media_selection/utilities/media_selection_strings.dart';
 
+import '../../common/view_model/new_post_vm.dart';
 import '../widgets/album_dropdown.dart';
 import '../widgets/image_grid_view.dart';
 import '../widgets/selected_image_preview.dart';
 
-class NewPostView extends StatefulWidget {
-  const NewPostView({super.key});
+class MediaSelectionView extends StatefulWidget {
+  const MediaSelectionView({super.key});
 
   @override
-  State<NewPostView> createState() => _NewPostViewState();
+  State<MediaSelectionView> createState() => _MediaSelectionViewState();
 }
 
-class _NewPostViewState extends State<NewPostView> {
-  final NewPostVM newPostVM = Get.find();
-
+class _MediaSelectionViewState extends State<MediaSelectionView> {
   @override
   void initState() {
-    newPostVM.fetchGalleryImage();
+    MediaSelectionHelper.fetchGallery();
     super.initState();
   }
 
@@ -30,14 +30,14 @@ class _NewPostViewState extends State<NewPostView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(
-        title: "New Post",
+        title: MediaSelectionStrings.kMediaSelectionTitle,
         trailingWidget: [
           RPadding(
             padding: const EdgeInsets.only(right: 10).r,
             child: Row(
               children: [
                 Text(
-                  "Next",
+                  MediaSelectionStrings.kNextBtnTxt,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: AppColors.kPrimaryColor,
                       fontWeight: FontWeight.bold),
@@ -54,10 +54,16 @@ class _NewPostViewState extends State<NewPostView> {
       ),
       body: Column(
         children: [
-          Flexible(child: SelectedImagePreview(newPostVM: newPostVM)),
-          AlbumDropdown(newPostVM: newPostVM),
+          Flexible(
+            child: SelectedImagePreview(
+              newPostVM: Get.find<NewPostVM>(),
+            ),
+          ),
+          AlbumDropdown(newPostVM: Get.find<NewPostVM>()),
           Expanded(
-            child: ImageGridView(newPostVM: newPostVM),
+            child: ImageGridView(
+              newPostVM: Get.find<NewPostVM>(),
+            ),
           )
         ],
       ),

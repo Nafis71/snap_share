@@ -3,9 +3,10 @@ import 'package:get/get.dart';
 import 'package:snap_share/core/resources/managers/theme_manager.dart';
 import 'package:snap_share/features/common/widgets/image_picker_widget.dart';
 import 'package:snap_share/features/home/view/home_view.dart';
-import 'package:snap_share/features/new_post/view/new_post_view.dart';
 import 'package:snap_share/features/profile/view/profile_view.dart';
 import 'package:snap_share/features/search/view/search_view.dart';
+
+import '../../new_post/media_selection/view/media_selection_view.dart';
 
 enum TabIndex { home, search, newPost, profile }
 
@@ -16,7 +17,7 @@ class MainBottomNavVM extends GetxController {
   final List<Widget> _views = [
     const HomeView(),
     const SearchView(),
-    const NewPostView()
+    const MediaSelectionView()
   ];
 
   MainBottomNavVM(this.themeManager) {

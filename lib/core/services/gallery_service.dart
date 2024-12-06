@@ -5,7 +5,7 @@ class GalleryService {
     PermissionState permissionState =
         await PhotoManager.requestPermissionExtend();
     if (permissionState.isAuth) {
-      //fetch
+      //fetches all albums in the device
       List<AssetPathEntity> albums = await PhotoManager.getAssetPathList(
         type: RequestType.image,
         onlyAll: false,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:snap_share/features/new_post/media_selection/utilities/media_selection_helper.dart';
 
-import '../view_model/new_post_vm.dart';
+import '../../common/view_model/new_post_vm.dart';
 
 class ImageGridView extends StatelessWidget {
   const ImageGridView({
@@ -30,7 +31,7 @@ class ImageGridView extends StatelessWidget {
               }
               return GestureDetector(
                 onTap: () {
-                  newPostVM.selectedPhoto!.value = newPostVM.photos[index];
+                  MediaSelectionHelper.selectPhoto(index);
                 },
                 child: Container(
                   decoration: BoxDecoration(

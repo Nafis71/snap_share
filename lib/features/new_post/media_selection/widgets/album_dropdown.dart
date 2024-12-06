@@ -4,8 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:snap_share/features/new_post/media_selection/utilities/media_selection_helper.dart';
 
-import '../view_model/new_post_vm.dart';
+import '../../common/view_model/new_post_vm.dart';
 
 class AlbumDropdown extends StatelessWidget {
   const AlbumDropdown({
@@ -45,7 +46,7 @@ class AlbumDropdown extends StatelessWidget {
                     value: album,
                     child: Row(
                       children: [
-                        Text("${album.name} "),
+                        Text(album.name),
                         const Gap(10),
                         const Icon(CupertinoIcons.chevron_down)
                       ],
@@ -53,10 +54,7 @@ class AlbumDropdown extends StatelessWidget {
                   );
                 },
               ).toList(),
-              onChanged: (album) {
-                newPostVM.selectedAlbum?.value = album;
-                if (album != null) newPostVM.fetchImages(album);
-              },
+              onChanged: MediaSelectionHelper.changeAlbum,
             )
           ],
         ),

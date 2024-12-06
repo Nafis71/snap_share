@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
-
-import '../../common/widgets/activity_indicator.dart';
-import '../view_model/new_post_vm.dart';
+import 'package:snap_share/core/utilities/exports/widget_export.dart';
+import 'package:snap_share/core/wrappers/logger.dart';
+import '../../common/view_model/new_post_vm.dart';
 
 class SelectedImagePreview extends StatelessWidget {
   const SelectedImagePreview({
