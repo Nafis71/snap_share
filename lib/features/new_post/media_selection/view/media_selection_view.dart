@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:snap_share/core/resources/colors/app_colors.dart';
+import 'package:snap_share/core/utilities/exports/route_export.dart';
 import 'package:snap_share/core/utilities/exports/widget_export.dart';
 import 'package:snap_share/features/new_post/media_selection/utilities/media_selection_helper.dart';
 import 'package:snap_share/features/new_post/media_selection/utilities/media_selection_strings.dart';
@@ -22,7 +23,7 @@ class MediaSelectionView extends StatefulWidget {
 class _MediaSelectionViewState extends State<MediaSelectionView> {
   @override
   void initState() {
-    MediaSelectionHelper.fetchGallery();
+    Get.find<NewPostVM>().fetchGalleryImage();
     super.initState();
   }
 
@@ -32,22 +33,27 @@ class _MediaSelectionViewState extends State<MediaSelectionView> {
       appBar: CommonAppBar(
         title: MediaSelectionStrings.kMediaSelectionTitle,
         trailingWidget: [
-          RPadding(
-            padding: const EdgeInsets.only(right: 10).r,
-            child: Row(
-              children: [
-                Text(
-                  MediaSelectionStrings.kNextBtnTxt,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: AppColors.kPrimaryColor,
-                      fontWeight: FontWeight.bold),
-                ),
-                const Icon(
-                  CupertinoIcons.right_chevron,
-                  size: 20,
-                  color: AppColors.kPrimaryColor,
-                )
-              ],
+          GestureDetector(
+            onTap: () => MediaSelectionHelper.gotoPostComposer(
+              Get.find<NewPostVM>(),
+            ),
+            child: RPadding(
+              padding: const EdgeInsets.only(right: 10).r,
+              child: Row(
+                children: [
+                  Text(
+                    MediaSelectionStrings.kNextBtnTxt,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: AppColors.kPrimaryColor,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const Icon(
+                    CupertinoIcons.right_chevron,
+                    size: 20,
+                    color: AppColors.kPrimaryColor,
+                  )
+                ],
+              ),
             ),
           )
         ],

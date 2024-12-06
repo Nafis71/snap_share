@@ -15,6 +15,11 @@ class DarkTextThemes {
         color: FontColors.kDTitleMC,
         fontSize: FontSizes.kTitleMedium,
       ),
+      titleSmall: TextThemeStyles.getDefaultTextStyle().copyWith(
+          color: FontColors.kDTitleSC,
+          fontWeight: FontWeight.w600,
+          fontSize: FontSizes.kTitleSmall
+      ),
       headlineLarge: TextThemeStyles.getDefaultTextStyle().copyWith(
         fontWeight: FontWeight.normal,
         fontSize: FontSizes.kHeadlineLarge,

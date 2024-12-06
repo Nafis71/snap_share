@@ -4,6 +4,9 @@ import 'package:snap_share/core/utilities/exports/route_export.dart';
 import 'package:snap_share/features/authentication/login/view/login_view.dart';
 import 'package:snap_share/features/authentication/signup/view/sign_up_view.dart';
 import 'package:snap_share/features/main_bottom_nav/view/main_bottom_nav_view.dart';
+import 'package:snap_share/features/new_post/media_selection/view/media_selection_view.dart';
+import 'package:snap_share/features/new_post/post_composer/view_model/post_composer_vm.dart';
+import 'package:snap_share/features/new_post/post_composer/views/post_composer_view.dart';
 import 'package:snap_share/features/onboarding/view/onboarding_view.dart';
 import 'package:snap_share/features/splash/view/splash_view.dart';
 
@@ -31,6 +34,14 @@ class AppRoutes {
         page: MainBottomNavView(
           mainBottomNavVM: Get.find(),
         ),
+      ),
+      _getPage(
+        routeName: RoutesNames.kMediaSelectionView,
+        page: const MediaSelectionView(),
+      ),
+      _getPage(
+        routeName: RoutesNames.kPostComposerView,
+        page: PostComposerView(postComposerVM: Get.find<PostComposerVM>()),
       ),
     ];
   }

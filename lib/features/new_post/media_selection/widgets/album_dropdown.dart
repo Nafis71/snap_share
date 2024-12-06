@@ -54,7 +54,10 @@ class AlbumDropdown extends StatelessWidget {
                   );
                 },
               ).toList(),
-              onChanged: MediaSelectionHelper.changeAlbum,
+              onChanged: (album) => MediaSelectionHelper.changeAlbum(
+                album,
+                newPostVM,
+              ),
             )
           ],
         ),

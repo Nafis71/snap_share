@@ -17,6 +17,11 @@ class LightTextThemes {
         fontWeight: FontWeight.bold,
         fontSize: FontSizes.kTitleMedium,
       ),
+      titleSmall: TextThemeStyles.getDefaultTextStyle().copyWith(
+        color: FontColors.kLTitleSC,
+        fontWeight: FontWeight.w600,
+        fontSize: FontSizes.kTitleSmall
+      ),
       headlineLarge: TextThemeStyles.getDefaultTextStyle().copyWith(
         fontWeight: FontWeight.normal,
         fontSize: FontSizes.kHeadlineLarge,

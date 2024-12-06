@@ -19,6 +19,6 @@ class GalleryService {
 
   Future<List<AssetEntity>> fetchAlbumSpecificImage(
       AssetPathEntity album) async {
-    return await album.getAssetListPaged(page: 0, size: 100);
+    return await album.getAssetListPaged(page: 0, size: 200);
   }
 }

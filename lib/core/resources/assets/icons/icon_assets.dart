@@ -9,4 +9,5 @@ class IconAssets {
   static const String kProfileIcon = "$kBaseUrl/profile.svg";
   static const String kCameraIcon = "$kBaseUrl/camera.svg";
   static const String kGalleryIcon = "$kBaseUrl/gallery.svg";
+  static const String kInfoIcon = "$kBaseUrl/info.png";
 }

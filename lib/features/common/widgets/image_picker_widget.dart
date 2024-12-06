@@ -4,10 +4,11 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:snap_share/core/resources/assets/icons/icon_assets.dart';
 import 'package:snap_share/core/resources/dimensions/paddings.dart';
+import 'package:snap_share/core/utilities/exports/route_export.dart';
 import 'package:snap_share/core/utilities/exports/wrapper_export.dart';
+import 'package:snap_share/features/common/utilities/strings.dart';
 
 import '../../new_post/common/view_model/new_post_vm.dart';
-import '../../new_post/media_selection/view/media_selection_view.dart';
 
 class ImagePickerWidget extends StatelessWidget {
   const ImagePickerWidget({super.key});
@@ -23,7 +24,7 @@ class ImagePickerWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Select from",
+            Strings.kImagePickerDialogTitle,
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ],
@@ -39,11 +40,12 @@ class ImagePickerWidget extends StatelessWidget {
                 }),
             const Gap(16),
             _buildPickerMethod(
-                asset: IconAssets.kGalleryIcon,
-                onPressed: () {
-                  Get.back();
-                  Get.to(()=>const MediaSelectionView());
-                }),
+              asset: IconAssets.kGalleryIcon,
+              onPressed: () {
+                Get.back();
+                Get.toNamed(RoutesNames.kMediaSelectionView);
+              },
+            ),
           ],
         ),
       ),

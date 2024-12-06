@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'package:snap_share/core/services/gallery_service.dart';
-import 'package:snap_share/core/services/image_picker_service.dart';
+import 'package:snap_share/features/new_post/common/services/gallery_service.dart';
+import 'package:snap_share/features/new_post/common/services/image_picker_service.dart';
 import 'package:snap_share/core/wrappers/logger.dart';
 import 'package:snap_share/features/main_bottom_nav/view_model/main_bottom_nav_vm.dart';
 
 class NewPostVM extends GetxController {
-  final ImagePickerService imagePickerService;
+  final ImagePickerService _imagePickerService;
   MainBottomNavVM mainBottomNavVM;
   RxList<AssetEntity> photos = <AssetEntity>[].obs;
   RxList<AssetPathEntity> albums = <AssetPathEntity>[].obs;
@@ -15,7 +15,7 @@ class NewPostVM extends GetxController {
   final GalleryService _galleryService;
 
   NewPostVM(
-    this.imagePickerService,
+    this._imagePickerService,
     this.mainBottomNavVM,
     this._galleryService,
   );
@@ -46,7 +46,7 @@ class NewPostVM extends GetxController {
   }
 
   Future<void> pickImage() async {
-    String imagePath = await imagePickerService.pickImage() ?? "";
+    String imagePath = await _imagePickerService.pickImage() ?? "";
     if (imagePath.isNotEmpty) {
       mainBottomNavVM.hasPickedImage.toggle();
       mainBottomNavVM.onChangedIndex(TabIndex.newPost.index);

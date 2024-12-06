@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class LightThemeColors {
   static const Color kScaffoldBGColor = Colors.white;
-  static const Color kPrimaryTxtColor = Color(0xFF101828);
+  static const Color kPrimaryTxtColor = Color(0xFF000000);
   static const Color kDisabledBtnColor = Color(0xFFDAE4FF);
   static const Color kTextFormFieldHintColor = Color(0xFFBEC5CF);
   static const Color kTextFormFieldErrorBorderColor = Colors.red;
