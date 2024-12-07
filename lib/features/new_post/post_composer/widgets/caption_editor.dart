@@ -18,11 +18,18 @@ class CaptionEditor extends StatelessWidget {
       children: [
         Flexible(
           child: FutureBuilder(
-            future: postComposerVM.newPostVM.selectedPhoto?.value
+            future: postComposerVM.getImageEntity()?.value
                 ?.thumbnailDataWithSize(const ThumbnailSize(200, 200)),
             builder: (context, snapshot) {
               if (snapshot.data == null) {
-                return const SizedBox();
+                return RSizedBox(
+                  height: 90.h,
+                  width: 90.w,
+                  child: Image.file(
+                    postComposerVM.getImageFromPath(),
+                    fit: BoxFit.cover,
+                  ),
+                );
               }
               return RSizedBox(
                 height: 90.h,

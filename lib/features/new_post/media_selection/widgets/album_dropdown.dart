@@ -19,49 +19,54 @@ class AlbumDropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Container(
-        height: 45.h,
-        color: Colors.white,
-        alignment: Alignment.center,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Gap(20),
-            DropdownButton<AssetPathEntity>(
-              isExpanded: false,
-              dropdownColor: Colors.white,
-              style: TextStyle(
-                overflow: TextOverflow.ellipsis,
-                color: Colors.black,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.bold,
-                fontFamily: "Satoshi",
-              ),
-              icon: const SizedBox.shrink(),
-              underline: const SizedBox.shrink(),
-              value: newPostVM.selectedAlbum!.value,
-              items: newPostVM.albums.map(
-                (album) {
-                  return DropdownMenuItem<AssetPathEntity>(
-                    value: album,
-                    child: Row(
-                      children: [
-                        Text(album.name),
-                        const Gap(10),
-                        const Icon(CupertinoIcons.chevron_down)
-                      ],
-                    ),
-                  );
-                },
-              ).toList(),
-              onChanged: (album) => MediaSelectionHelper.changeAlbum(
-                album,
-                newPostVM,
-              ),
-            )
-          ],
-        ),
-      ),
+      () {
+        if(newPostVM.photos.isEmpty){
+          return const SizedBox.shrink();
+        }
+        return Container(
+          height: 45.h,
+          color: Colors.white,
+          alignment: Alignment.center,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Gap(20),
+              DropdownButton<AssetPathEntity>(
+                isExpanded: false,
+                dropdownColor: Colors.white,
+                style: TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  color: Colors.black,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Satoshi",
+                ),
+                icon: const SizedBox.shrink(),
+                underline: const SizedBox.shrink(),
+                value: newPostVM.selectedAlbum!.value,
+                items: newPostVM.albums.map(
+                      (album) {
+                    return DropdownMenuItem<AssetPathEntity>(
+                      value: album,
+                      child: Row(
+                        children: [
+                          Text(album.name),
+                          const Gap(10),
+                          const Icon(CupertinoIcons.chevron_down)
+                        ],
+                      ),
+                    );
+                  },
+                ).toList(),
+                onChanged: (album) => MediaSelectionHelper.changeAlbum(
+                  album,
+                  newPostVM,
+                ),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }

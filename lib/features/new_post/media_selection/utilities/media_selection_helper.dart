@@ -14,8 +14,14 @@ class MediaSelectionHelper {
     if (album != null) newPostVM.fetchImages(album);
   }
 
+  static Future<void> clickPicture(NewPostVM newPostVM)async{
+    if(await newPostVM.pickImage()){
+      Get.offNamed(RoutesNames.kPostComposerView);
+    }
+  }
+
   static void gotoPostComposer(NewPostVM newPostVM) {
-    if (newPostVM.selectedPhoto != null) {
+    if (newPostVM.selectedPhoto?.value != null) {
       Get.offNamed(RoutesNames.kPostComposerView);
       return;
     }

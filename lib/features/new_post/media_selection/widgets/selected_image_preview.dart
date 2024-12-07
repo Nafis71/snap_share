@@ -20,9 +20,7 @@ class SelectedImagePreview extends StatelessWidget {
       () {
         if (newPostVM.photos.isEmpty) {
           return const Center(
-            child: ActivityIndicatorCircular(
-              color: Colors.black,
-            ),
+            child: SizedBox.shrink()
           );
         }
         return FutureBuilder(

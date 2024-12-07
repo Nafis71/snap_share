@@ -1,9 +1,11 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'package:snap_share/features/new_post/common/services/gallery_service.dart';
-import 'package:snap_share/features/new_post/common/services/image_picker_service.dart';
 import 'package:snap_share/core/wrappers/logger.dart';
 import 'package:snap_share/features/main_bottom_nav/view_model/main_bottom_nav_vm.dart';
+import 'package:snap_share/features/new_post/common/services/gallery_service.dart';
+import 'package:snap_share/features/new_post/common/services/image_picker_service.dart';
 
 class NewPostVM extends GetxController {
   final ImagePickerService _imagePickerService;
@@ -11,14 +13,19 @@ class NewPostVM extends GetxController {
   RxList<AssetEntity> photos = <AssetEntity>[].obs;
   RxList<AssetPathEntity> albums = <AssetPathEntity>[].obs;
   Rxn<AssetPathEntity>? selectedAlbum = Rxn<AssetPathEntity>();
-  Rxn<AssetEntity>? selectedPhoto = Rxn<AssetEntity>();
+  final Rxn<AssetEntity> _selectedPhoto = Rxn<AssetEntity>();
   final GalleryService _galleryService;
+  File? _imageFile;
 
   NewPostVM(
     this._imagePickerService,
     this.mainBottomNavVM,
     this._galleryService,
   );
+
+  File? get imagePath => _imageFile;
+
+  Rxn<AssetEntity>? get selectedPhoto => _selectedPhoto;
 
   Future<void> fetchGalleryImage() async {
     try {
@@ -42,15 +49,15 @@ class NewPostVM extends GetxController {
         selectedAlbum,
       ),
     );
-    selectedPhoto?.value = (photos.isNotEmpty) ? photos[0] : null;
+    _selectedPhoto.value = (photos.isNotEmpty) ? photos[0] : null;
   }
 
-  Future<void> pickImage() async {
+  Future<bool> pickImage() async {
     String imagePath = await _imagePickerService.pickImage() ?? "";
     if (imagePath.isNotEmpty) {
-      mainBottomNavVM.hasPickedImage.toggle();
-      mainBottomNavVM.onChangedIndex(TabIndex.newPost.index);
-      Get.back();
+      _imageFile = File(imagePath);
+      return true;
     }
+    return false;
   }
 }

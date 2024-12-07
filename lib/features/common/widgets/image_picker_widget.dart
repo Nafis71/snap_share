@@ -4,8 +4,8 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:snap_share/core/resources/assets/icons/icon_assets.dart';
 import 'package:snap_share/core/resources/dimensions/paddings.dart';
-import 'package:snap_share/core/utilities/exports/route_export.dart';
 import 'package:snap_share/core/utilities/exports/wrapper_export.dart';
+import 'package:snap_share/features/common/utilities/image_picker_helper.dart';
 import 'package:snap_share/features/common/utilities/strings.dart';
 
 import '../../new_post/common/view_model/new_post_vm.dart';
@@ -34,17 +34,19 @@ class ImagePickerWidget extends StatelessWidget {
         child: Row(
           children: [
             _buildPickerMethod(
-                asset: IconAssets.kCameraIcon,
-                onPressed: () {
-                  Get.find<NewPostVM>().pickImage();
-                }),
+              asset: IconAssets.kCameraIcon,
+              onPressed: () => ImagePickerHelper.pickImage(
+                ImageSelectionType.camera,
+                Get.find<NewPostVM>(),
+              ),
+            ),
             const Gap(16),
             _buildPickerMethod(
               asset: IconAssets.kGalleryIcon,
-              onPressed: () {
-                Get.back();
-                Get.toNamed(RoutesNames.kMediaSelectionView);
-              },
+              onPressed: () => ImagePickerHelper.pickImage(
+                ImageSelectionType.gallery,
+                Get.find<NewPostVM>(),
+              ),
             ),
           ],
         ),
