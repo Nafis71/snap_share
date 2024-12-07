@@ -15,7 +15,8 @@ class NewPostVM extends GetxController {
   Rxn<AssetPathEntity>? selectedAlbum = Rxn<AssetPathEntity>();
   final Rxn<AssetEntity> _selectedPhoto = Rxn<AssetEntity>();
   final GalleryService _galleryService;
-  File? _imageFile;
+  RxBool isLoadingImage = true.obs;
+  File? _selectedImageFile;
 
   NewPostVM(
     this._imagePickerService,
@@ -23,19 +24,22 @@ class NewPostVM extends GetxController {
     this._galleryService,
   );
 
-  File? get imagePath => _imageFile;
+  File? get selectedImagePath => _selectedImageFile;
 
   Rxn<AssetEntity>? get selectedPhoto => _selectedPhoto;
 
   Future<void> fetchGalleryImage() async {
     try {
+      isLoadingImage.value = true;
       await _fetchAlbums();
       selectedAlbum?.value = (albums.isNotEmpty) ? albums[0] : null;
       if (selectedAlbum?.value != null) {
-        fetchImages(selectedAlbum!.value!);
+        await fetchImages(selectedAlbum!.value!);
       }
     } catch (exception) {
       logger.e(exception);
+    } finally {
+      isLoadingImage.toggle();
     }
   }
 
@@ -55,9 +59,14 @@ class NewPostVM extends GetxController {
   Future<bool> pickImage() async {
     String imagePath = await _imagePickerService.pickImage() ?? "";
     if (imagePath.isNotEmpty) {
-      _imageFile = File(imagePath);
+      _selectedImageFile = File(imagePath);
       return true;
     }
     return false;
+  }
+
+  void resetSelectedPhoto() {
+    _selectedPhoto.value = null;
+    _selectedImageFile = null;
   }
 }

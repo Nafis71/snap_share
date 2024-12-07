@@ -4,7 +4,6 @@ import 'package:snap_share/core/utilities/exports/route_export.dart';
 import 'package:snap_share/features/new_post/common/view_model/new_post_vm.dart';
 
 class MediaSelectionHelper {
-
   static void selectPhoto(int index, NewPostVM newPostVM) {
     newPostVM.selectedPhoto!.value = newPostVM.photos[index];
   }
@@ -14,8 +13,8 @@ class MediaSelectionHelper {
     if (album != null) newPostVM.fetchImages(album);
   }
 
-  static Future<void> clickPicture(NewPostVM newPostVM)async{
-    if(await newPostVM.pickImage()){
+  static Future<void> clickPicture(NewPostVM newPostVM) async {
+    if (await newPostVM.pickImage()) {
       Get.offNamed(RoutesNames.kPostComposerView);
     }
   }

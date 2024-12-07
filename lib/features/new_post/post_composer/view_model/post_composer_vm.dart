@@ -7,18 +7,18 @@ import 'package:snap_share/features/new_post/common/view_model/new_post_vm.dart'
 
 class PostComposerVM extends GetxController {
   final NewPostVM _newPostVM;
-  final Rx<TextEditingController> _captionController = TextEditingController().obs;
+  final Rx<TextEditingController> _captionController =
+      TextEditingController().obs;
 
   Rx<TextEditingController> get captionController => _captionController;
 
   PostComposerVM(this._newPostVM);
 
-  File getImageFromPath(){
-    return _newPostVM.imagePath ?? File("");
-  }
-  
-  Rxn<AssetEntity>? getImageEntity(){
-    return _newPostVM.selectedPhoto;
+  File? getImageFromPath() {
+    return _newPostVM.selectedImagePath;
   }
 
+  Rxn<AssetEntity>? getImageEntity() {
+    return _newPostVM.selectedPhoto;
+  }
 }

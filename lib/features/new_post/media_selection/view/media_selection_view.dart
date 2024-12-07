@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:snap_share/core/resources/colors/app_colors.dart';
-import 'package:snap_share/core/utilities/exports/route_export.dart';
 import 'package:snap_share/core/utilities/exports/widget_export.dart';
 import 'package:snap_share/features/new_post/media_selection/utilities/media_selection_helper.dart';
 import 'package:snap_share/features/new_post/media_selection/utilities/media_selection_strings.dart';
@@ -62,13 +61,13 @@ class _MediaSelectionViewState extends State<MediaSelectionView> {
         children: [
           Flexible(
             child: SelectedImagePreview(
-              newPostVM: Get.find<NewPostVM>(),
+              newPostVM: Get.find(),
             ),
           ),
-          AlbumDropdown(newPostVM: Get.find<NewPostVM>()),
+          AlbumDropdown(newPostVM: Get.find(), themeManager: Get.find()),
           Expanded(
             child: ImageGridView(
-              newPostVM: Get.find<NewPostVM>(),
+              newPostVM: Get.find(),
             ),
           )
         ],

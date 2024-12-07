@@ -4,14 +4,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:snap_share/core/resources/managers/theme_manager.dart';
+import 'package:snap_share/core/utilities/exports/resource_export.dart';
 import 'package:snap_share/features/new_post/media_selection/utilities/media_selection_helper.dart';
 
 import '../../common/view_model/new_post_vm.dart';
 
 class AlbumDropdown extends StatelessWidget {
+  final ThemeManager themeManager;
+
   const AlbumDropdown({
     super.key,
     required this.newPostVM,
+    required this.themeManager,
   });
 
   final NewPostVM newPostVM;
@@ -20,12 +25,14 @@ class AlbumDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        if(newPostVM.photos.isEmpty){
+        if (newPostVM.photos.isEmpty) {
           return const SizedBox.shrink();
         }
         return Container(
           height: 45.h,
-          color: Colors.white,
+          color: (themeManager.isDarkMode(context))
+              ? DarkThemeColors.kComponentBGColor
+              : LightThemeColors.kScaffoldBGColor,
           alignment: Alignment.center,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -33,19 +40,15 @@ class AlbumDropdown extends StatelessWidget {
               const Gap(20),
               DropdownButton<AssetPathEntity>(
                 isExpanded: false,
-                dropdownColor: Colors.white,
-                style: TextStyle(
-                  overflow: TextOverflow.ellipsis,
-                  color: Colors.black,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "Satoshi",
-                ),
+                dropdownColor: (themeManager.isDarkMode(context))
+                    ? DarkThemeColors.kComponentBGColor
+                    : LightThemeColors.kScaffoldBGColor,
+                style: Theme.of(context).textTheme.titleSmall,
                 icon: const SizedBox.shrink(),
                 underline: const SizedBox.shrink(),
                 value: newPostVM.selectedAlbum!.value,
                 items: newPostVM.albums.map(
-                      (album) {
+                  (album) {
                     return DropdownMenuItem<AssetPathEntity>(
                       value: album,
                       child: Row(

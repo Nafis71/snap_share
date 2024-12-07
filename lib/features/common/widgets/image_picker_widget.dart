@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:snap_share/core/resources/assets/icons/icon_assets.dart';
-import 'package:snap_share/core/resources/dimensions/paddings.dart';
+import 'package:snap_share/core/resources/managers/theme_manager.dart';
+import 'package:snap_share/core/utilities/exports/resource_export.dart';
 import 'package:snap_share/core/utilities/exports/wrapper_export.dart';
 import 'package:snap_share/features/common/utilities/image_picker_helper.dart';
 import 'package:snap_share/features/common/utilities/strings.dart';
@@ -15,8 +15,11 @@ class ImagePickerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeManager themeManager = Get.find();
     return AlertDialog(
-      backgroundColor: Colors.white,
+      backgroundColor: themeManager.isDarkMode(context)
+          ? DarkThemeColors.kComponentBGColor
+          : LightThemeColors.kScaffoldBGColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
@@ -35,6 +38,8 @@ class ImagePickerWidget extends StatelessWidget {
           children: [
             _buildPickerMethod(
               asset: IconAssets.kCameraIcon,
+              themeManager: themeManager,
+              context: context,
               onPressed: () => ImagePickerHelper.pickImage(
                 ImageSelectionType.camera,
                 Get.find<NewPostVM>(),
@@ -43,6 +48,8 @@ class ImagePickerWidget extends StatelessWidget {
             const Gap(16),
             _buildPickerMethod(
               asset: IconAssets.kGalleryIcon,
+              themeManager: themeManager,
+              context: context,
               onPressed: () => ImagePickerHelper.pickImage(
                 ImageSelectionType.gallery,
                 Get.find<NewPostVM>(),
@@ -57,18 +64,23 @@ class ImagePickerWidget extends StatelessWidget {
   Widget _buildPickerMethod({
     required String asset,
     required VoidCallback onPressed,
+    required ThemeManager themeManager,
+    required BuildContext context,
   }) {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
         padding: EdgeInsets.all(Paddings.kSmallPadding).r,
         decoration: BoxDecoration(
-          color: const Color(0xFFF9F9FA),
+          color: themeManager.isDarkMode(context)
+              ? DarkThemeColors.kAlertColorDialogComponentColor
+              : LightThemeColors.kAlertColorDialogComponentColor,
           borderRadius: BorderRadius.circular(8),
         ),
         child: SvgLoader(
           asset: asset,
           width: 70.w,
+          color: themeManager.isDarkMode(context) ? Colors.white : Colors.black,
         ),
       ),
     );

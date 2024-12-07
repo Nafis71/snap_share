@@ -32,7 +32,8 @@ class CustomTextField extends StatefulWidget {
     this.onFieldSubmitted,
     required this.isDark,
     required this.prefixIconPath,
-    this.disableBorder, this.maxLines,
+    this.disableBorder,
+    this.maxLines,
   });
 
   @override

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'package:snap_share/core/utilities/exports/widget_export.dart';
-import 'package:snap_share/core/wrappers/logger.dart';
+
 import '../../common/view_model/new_post_vm.dart';
 
 class SelectedImagePreview extends StatelessWidget {
@@ -19,9 +18,7 @@ class SelectedImagePreview extends StatelessWidget {
     return Obx(
       () {
         if (newPostVM.photos.isEmpty) {
-          return const Center(
-            child: SizedBox.shrink()
-          );
+          return const Center(child: SizedBox.shrink());
         }
         return FutureBuilder(
           future: newPostVM.selectedPhoto?.value

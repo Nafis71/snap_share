@@ -13,9 +13,7 @@ class PostAlertDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12).r
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12).r),
       title: Column(
         children: [
           Image.asset(
