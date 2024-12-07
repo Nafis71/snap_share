@@ -26,9 +26,8 @@ class DependencyInjection {
             ),
         fenix: true);
     Get.lazyPut(() => PostComposerVM(Get.find<NewPostVM>()), fenix: true);
-    Get.lazyPut<AuthVM>(
-      () => AuthVM(AuthService(FirebaseAuth.instance)),
-      fenix: true,
+    Get.put<AuthVM>(
+      AuthVM(AuthService(FirebaseAuth.instance)),
     );
     Get.lazyPut<ProfileVm>(() => ProfileVm(), fenix: true);
   }

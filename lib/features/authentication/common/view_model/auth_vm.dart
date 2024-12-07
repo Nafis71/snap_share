@@ -7,14 +7,15 @@ import 'package:snap_share/core/services/app_storage.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
 import 'package:snap_share/features/authentication/common/services/auth_service.dart';
 
+enum FormKey { signInFormKey, signUpFormKey }
+
 class AuthVM extends GetxController {
-  final Rx<GlobalKey<FormState>> _formKey = GlobalKey<FormState>().obs;
-  final Rx<TextEditingController> _emailTEController =
-      TextEditingController().obs;
-  final Rx<TextEditingController> _passwordTEController =
-      TextEditingController().obs;
-  final Rx<TextEditingController> _confirmPasswordTEController =
-      TextEditingController().obs;
+  final GlobalKey<FormState> _signUpFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _signInFormKey = GlobalKey<FormState>();
+  final TextEditingController _emailTEController = TextEditingController();
+  final TextEditingController _passwordTEController = TextEditingController();
+  final TextEditingController _confirmPasswordTEController =
+      TextEditingController();
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
   FocusNode confirmPasswordFocusNode = FocusNode();
@@ -25,23 +26,38 @@ class AuthVM extends GetxController {
 
   AuthVM(AuthService authService) : _authService = authService;
 
-  Rx<TextEditingController> get emailTEController => _emailTEController;
+  TextEditingController get emailTEController => _emailTEController;
 
-  Rx<TextEditingController> get passwordTEController => _passwordTEController;
+  TextEditingController get passwordTEController => _passwordTEController;
 
-  Rx<TextEditingController> get confirmPasswordTEController =>
+  TextEditingController get confirmPasswordTEController =>
       _confirmPasswordTEController;
 
-  GlobalKey<FormState> get formKey => _formKey.value;
+  GlobalKey<FormState> get signUpFormKey => _signUpFormKey;
 
-  void updateAuthState() {
-    allowAuth.value = _emailTEController.value.text.isNotEmpty &&
-        _passwordTEController.value.text.isNotEmpty &&
-        _validateForm() == true;
+  GlobalKey<FormState> get signInFormKey => _signInFormKey;
+
+  void updateAuthState(FormKey formKey) {
+    switch (formKey) {
+      case FormKey.signInFormKey:
+        allowAuth.value = _emailTEController.value.text.isNotEmpty &&
+            _passwordTEController.text.isNotEmpty &&
+            _validateForm(formKey) == true;
+      case FormKey.signUpFormKey:
+        allowAuth.value = _emailTEController.value.text.isNotEmpty &&
+            _passwordTEController.text.isNotEmpty &&
+            _confirmPasswordTEController.text.isNotEmpty &&
+            _validateForm(formKey) == true;
+    }
   }
 
-  bool _validateForm() {
-    return _formKey.value.currentState?.validate() ?? false;
+  bool _validateForm(FormKey formKey) {
+    switch (formKey) {
+      case FormKey.signInFormKey:
+        return _signInFormKey.currentState?.validate() ?? false;
+      case FormKey.signUpFormKey:
+        return _signUpFormKey.currentState?.validate() ?? false;
+    }
   }
 
   Future<(bool, String)> signUp() async {
@@ -51,7 +67,8 @@ class AuthVM extends GetxController {
           _emailTEController.value.text,
           _passwordTEController.value.text,
         );
-        await signIn();
+        (bool, String) status = await signIn();
+        return status.$1;
       },
     );
   }
@@ -63,18 +80,18 @@ class AuthVM extends GetxController {
           _emailTEController.value.text,
           _passwordTEController.value.text,
         );
-        if (savePassword.value) storeUserCredentials(userCredential);
+        if (savePassword.value) await storeUserCredentials(userCredential);
+        return true;
       },
     );
   }
 
-  Future<(bool, String)> authenticate(Future<void> Function() callback) async {
+  Future<(bool, String)> authenticate(Future<bool> Function() callback) async {
     isAuthenticating.toggle();
     bool isSuccess = false;
     String errorMessage = "";
     try {
-      await callback();
-      isSuccess = true;
+      isSuccess = await callback();
     } on FirebaseAuthException catch (exception) {
       errorMessage = exception.message.toString();
     } catch (exception) {
@@ -84,8 +101,13 @@ class AuthVM extends GetxController {
     return (isSuccess, errorMessage);
   }
 
-  void storeUserCredentials(UserCredential userCredentials) {
-    Map<String, dynamic> credentials = {
+  Future<void> storeUserCredentials(UserCredential userCredentials) async {
+    Map<String, dynamic> userModel = createUserModel(userCredentials);
+    await AppStorage().write("userData", jsonEncode(userModel));
+  }
+
+  Map<String, dynamic> createUserModel(UserCredential userCredentials) {
+    return {
       "displayName": userCredentials.user?.displayName.toString(),
       "phoneNumber": userCredentials.user?.phoneNumber.toString(),
       "email": userCredentials.user?.email.toString(),
@@ -94,14 +116,21 @@ class AuthVM extends GetxController {
       "refreshToken": userCredentials.user?.emailVerified.toString(),
       "uId": userCredentials.user?.uid.toString(),
     };
-    AppStorage().write("userData", jsonEncode(credentials));
+  }
+
+  void resetControllers() {
+    _emailTEController.clear();
+    _passwordTEController.clear();
+    _confirmPasswordTEController.clear();
+    savePassword.value = false;
+    allowAuth.value = false;
   }
 
   @override
   void dispose() {
-    _emailTEController.value.dispose();
-    _passwordTEController.value.dispose();
-    _confirmPasswordTEController.value.dispose();
+    _emailTEController.dispose();
+    _passwordTEController.dispose();
+    _confirmPasswordTEController.dispose();
     emailFocusNode.dispose();
     passwordFocusNode.dispose();
     confirmPasswordFocusNode.dispose();

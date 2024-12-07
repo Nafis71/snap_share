@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:snap_share/core/utilities/exports/route_export.dart';
 import 'package:snap_share/core/wrappers/snackbar_notification.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
 import 'package:snap_share/features/authentication/signup/utilities/constants/sign_up_strings.dart';
@@ -13,6 +14,7 @@ class SignUpHelper {
         message: SignUpStrings.kSignUpSuccessMessageTxt,
         isError: false,
       );
+      Get.offNamed(RoutesNames.kSignInView);
     } else {
       showSnackBarNotification(
         title: SignUpStrings.kSignUpFailureTitleTxt,
