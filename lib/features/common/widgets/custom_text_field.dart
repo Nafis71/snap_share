@@ -9,12 +9,14 @@ class CustomTextField extends StatefulWidget {
   final bool isPassword;
   final IconData? suffixIcon;
   final IconData? alternateSuffixIcon;
-  final String prefixIconPath;
+  final String? prefixIconPath;
   final String? prefixText;
   final TextEditingController controller;
   final FocusNode? focusNode;
   final Function(dynamic)? onChanged, onFieldSubmitted;
   final bool isDark;
+  final bool? disableBorder;
+  final int? maxLines;
 
   const CustomTextField({
     super.key,
@@ -30,6 +32,8 @@ class CustomTextField extends StatefulWidget {
     this.onFieldSubmitted,
     required this.isDark,
     required this.prefixIconPath,
+    this.disableBorder,
+    this.maxLines,
   });
 
   @override
@@ -59,11 +63,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
       controller: widget.controller,
       focusNode: widget.focusNode,
       cursorColor: AppColors.kPrimaryColor,
+      maxLines: widget.maxLines ?? 1,
       obscureText: showObscureText,
       obscuringCharacter: "*",
       style: Theme.of(context).textTheme.bodyMedium,
       decoration: InputDecoration(
         prefixIconConstraints: BoxConstraints.tight(const Size(60, 24)),
+        enabledBorder: widget.disableBorder != null && widget.disableBorder!
+            ? InputBorder.none
+            : null,
+        focusedBorder: widget.disableBorder != null && widget.disableBorder!
+            ? InputBorder.none
+            : null,
         hintText: widget.hintText,
         suffixIcon: widget.isPassword
             ? GestureDetector(
@@ -75,7 +86,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     : _alternateSuffixIcon(),
               )
             : null,
-        prefixIcon: _prefixIcon(context),
+        prefixIcon:
+            (widget.prefixIconPath == null) ? null : _prefixIcon(context),
         prefixText: widget.prefixText,
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -88,7 +100,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget _prefixIcon(BuildContext context) {
     return SvgLoader(
       // asset: IconAssets.kPasswordIcon,
-      asset: widget.prefixIconPath,
+      asset: widget.prefixIconPath ?? "",
       color: (widget.isDark) ? DarkThemeColors.kTxtFieldPrefixIconColor : null,
     );
   }
