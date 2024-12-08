@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:snap_share/features/common/utilities/strings.dart';
 import 'package:snap_share/features/common/widgets/image_picker_widget.dart';
 import 'package:snap_share/features/home/view/home_view.dart';
 import 'package:snap_share/features/profile/view/profile_view.dart';
@@ -32,19 +31,6 @@ class MainBottomNavVM extends GetxController {
       return;
     }
     selectedIndex.value = index;
-  }
-
-  String getAppBarTitle() {
-    if (selectedIndex.value == TabIndex.home.index) {
-      return Strings.kHomeAppBarTitle;
-    }
-    if (selectedIndex.value == TabIndex.search.index) {
-      return Strings.kSearchAppBarTitle;
-    }
-    if (selectedIndex.value == TabIndex.profile.index) {
-      return Strings.kMyProfileAppBarTitle;
-    }
-    return Strings.kHomeAppBarTitle;
   }
 
   void _showImagePickerDialog() {

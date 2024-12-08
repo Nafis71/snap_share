@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 import 'package:snap_share/core/resources/managers/theme_manager.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
 import 'package:snap_share/core/utilities/exports/widget_export.dart';
 import 'package:snap_share/core/utilities/validators/form_validator.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
-import 'package:snap_share/features/authentication/login/utilities/constants/login_strings.dart';
 import 'package:snap_share/features/authentication/signup/utilities/constants/sign_up_strings.dart';
 import 'package:snap_share/features/authentication/signup/utilities/helpers/sign_up_helper.dart';
 
@@ -25,6 +23,7 @@ class SignUpForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthenticationForm(
+      formKey: authVM.signUpFormKey,
       authBtnName: SignUpStrings.kSignUpBtnText,
       authVM: authVM,
       formFields: [
@@ -33,27 +32,21 @@ class SignUpForm extends StatelessWidget {
           SignUpStrings.kEmailTextFieldHeadingTxt,
         ),
         const Gap(8),
-        Obx(
-          () => _buildEmailFormField(context),
-        ),
+        _buildEmailFormField(context),
         const Gap(20),
         _buildHeadingText(
           context,
           SignUpStrings.kPasswordTextFieldHeadingTxt,
         ),
         const Gap(8),
-        Obx(
-          () => _buildPasswordFormField(context),
-        ),
+        _buildPasswordFormField(context),
         const Gap(20),
         _buildHeadingText(
           context,
           SignUpStrings.kConfirmPasswordTextFieldHeadingTxt,
         ),
         const Gap(8),
-        Obx(
-          () => _buildConfirmPasswordFormField(context),
-        ),
+        _buildConfirmPasswordFormField(context)
       ],
       onBtnPressed: SignUpHelper.registerUser,
     );
@@ -71,11 +64,11 @@ class SignUpForm extends StatelessWidget {
 
   Widget _buildEmailFormField(BuildContext context) {
     return CustomTextField(
-      controller: authVM.emailTEController.value,
+      controller: authVM.emailTEController,
       focusNode: authVM.emailFocusNode,
-      hintText: LoginStrings.kEmailTextFieldHintTxt,
+      hintText: SignUpStrings.kEmailTextFieldHintTxt,
       prefixIconPath: IconAssets.kEmailIcon,
-      prefixText: LoginStrings.kTextFieldPrefixText,
+      prefixText: SignUpStrings.kTextFieldPrefixText,
       formValidator: (value) {
         return FormValidator.validateEmail(value);
       },
@@ -83,7 +76,7 @@ class SignUpForm extends StatelessWidget {
         FocusScope.of(context).requestFocus(authVM.passwordFocusNode);
       },
       onChanged: (value) {
-        authVM.updateAuthState();
+        authVM.updateAuthState(FormKey.signUpFormKey);
       },
       isDark: themeManager.isDarkMode(context),
     );
@@ -91,12 +84,12 @@ class SignUpForm extends StatelessWidget {
 
   Widget _buildPasswordFormField(BuildContext context) {
     return CustomTextField(
-      controller: authVM.passwordTEController.value,
+      controller: authVM.passwordTEController,
       focusNode: authVM.passwordFocusNode,
-      hintText: LoginStrings.kPasswordTextFieldHintTxt,
+      hintText: SignUpStrings.kPasswordTextFieldHintTxt,
       isPassword: true,
       prefixIconPath: IconAssets.kPasswordIcon,
-      prefixText: LoginStrings.kTextFieldPrefixText,
+      prefixText: SignUpStrings.kTextFieldPrefixText,
       suffixIcon: Icons.visibility_outlined,
       alternateSuffixIcon: Icons.visibility_off_outlined,
       formValidator: (value) {
@@ -108,7 +101,7 @@ class SignUpForm extends StatelessWidget {
         }
       },
       onChanged: (value) {
-        authVM.updateAuthState();
+        authVM.updateAuthState(FormKey.signUpFormKey);
       },
       isDark: themeManager.isDarkMode(context),
     );
@@ -116,18 +109,18 @@ class SignUpForm extends StatelessWidget {
 
   Widget _buildConfirmPasswordFormField(BuildContext context) {
     return CustomTextField(
-      controller: authVM.confirmPasswordTEController.value,
+      controller: authVM.confirmPasswordTEController,
       focusNode: authVM.confirmPasswordFocusNode,
       hintText: SignUpStrings.kConfirmPasswordTextFieldHeadingTxt,
       isPassword: true,
       prefixIconPath: IconAssets.kPasswordIcon,
-      prefixText: LoginStrings.kTextFieldPrefixText,
-      suffixIcon: Icons.visibility_off,
+      prefixText: SignUpStrings.kTextFieldPrefixText,
+      suffixIcon: Icons.visibility_outlined,
       alternateSuffixIcon: Icons.visibility_off_outlined,
       formValidator: (value) {
         return FormValidator.validateConfirmPassword(
           value,
-          authVM.passwordTEController.value.text,
+          authVM.passwordTEController.text,
         );
       },
       onFieldSubmitted: (value) {
@@ -136,7 +129,7 @@ class SignUpForm extends StatelessWidget {
         }
       },
       onChanged: (value) {
-        authVM.updateAuthState();
+        authVM.updateAuthState(FormKey.signUpFormKey);
       },
       isDark: themeManager.isDarkMode(context),
     );

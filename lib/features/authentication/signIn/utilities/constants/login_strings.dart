@@ -1,4 +1,4 @@
-class LoginStrings {
+class SignInStrings {
   static const kLoginViewHeadingTxt = "Enter your email address and password";
   static const kEmailTextFieldHeadingTxt = "Email";
   static const kPasswordTextFieldHeadingTxt = "Password";

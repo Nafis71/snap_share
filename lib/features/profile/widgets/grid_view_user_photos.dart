@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:snap_share/core/resources/dimensions/paddings.dart';
 import 'package:snap_share/core/wrappers/custom_cached_image.dart';
+import 'package:snap_share/features/common/view_model/profile_vm.dart';
 import 'package:snap_share/features/common/widgets/image_widget.dart';
-import 'package:snap_share/features/profile/view_model/profile_vm.dart';
 
 class GridViewUserPhotos extends StatelessWidget {
-  final ProfileVm profileVm;
+  final ProfileVM profileVm;
 
   const GridViewUserPhotos({super.key, required this.profileVm});
 

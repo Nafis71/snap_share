@@ -10,6 +10,7 @@ class AuthenticationForm extends StatelessWidget {
   final List<Widget> formFields;
   final String authBtnName;
   final VoidCallback onBtnPressed;
+  final Key formKey;
 
   const AuthenticationForm({
     super.key,
@@ -17,12 +18,13 @@ class AuthenticationForm extends StatelessWidget {
     required this.formFields,
     required this.authBtnName,
     required this.onBtnPressed,
+    required this.formKey,
   });
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: authVM.formKey,
+      key: formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,

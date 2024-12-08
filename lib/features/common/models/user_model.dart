@@ -2,12 +2,13 @@ class UserModel {
   String? displayName;
   String? phoneNumber;
   String? email;
-  String? isEmailVerified;
+  bool? isEmailVerified;
   String? photoUrl;
   String? refreshToken;
   String? uId;
+  bool? hasUpdatedInfo;
 
-  UserModel(
+  UserModel({
     this.displayName,
     this.phoneNumber,
     this.email,
@@ -15,7 +16,8 @@ class UserModel {
     this.photoUrl,
     this.refreshToken,
     this.uId,
-  );
+    this.hasUpdatedInfo,
+  });
 
   UserModel.fromJson(Map<String, dynamic> json) {
     displayName = json['displayName'] ?? "Unknown";
@@ -25,5 +27,6 @@ class UserModel {
     photoUrl = json['photoUrl'] ?? "";
     refreshToken = json['refreshToken'] ?? "";
     uId = json['uId'] ?? "";
+    hasUpdatedInfo = json['hasUpdatedInfo'] ?? false;
   }
 }
