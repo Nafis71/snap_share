@@ -21,16 +21,18 @@ class AuthService {
     );
   }
 
-  Future<void> uploadProfile(Map<String, dynamic> userModel, String uId) async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(uId)
-        .set(userModel);
+  Future<void> uploadProfile(Map<String, dynamic> json, String uId) async {
+    await FirebaseFirestore.instance.collection('users').doc(uId).set(json);
   }
 
   Future<bool> verifyUser(String uId) async {
     DocumentSnapshot document =
         await _fireStoreInstance.collection('users').doc(uId).get();
     return document.get("hasUpdatedInfo");
+  }
+
+  Future<Map<String, dynamic>> fetchUser(String uId) async {
+     DocumentSnapshot documentSnapshot = await _fireStoreInstance.collection('users').doc(uId).get();
+     return documentSnapshot.data() as Map<String,dynamic>;
   }
 }

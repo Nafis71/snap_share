@@ -25,6 +25,7 @@ class AuthVM extends GetxController {
   Rx<bool> savePassword = false.obs;
   Rx<bool> isAuthenticating = false.obs;
   bool hasUpdatedInfo = false;
+  Map<String, dynamic>? userInfo;
   final AuthService _authService;
   final ProfileVM _profileVM;
 
@@ -65,14 +66,16 @@ class AuthVM extends GetxController {
   }
 
   Future<(bool, String)> signUp() async {
-    return authenticate(
+    return _authenticate(
       () async {
         await _authService.signUp(
           _emailTEController.text,
           _passwordTEController.text,
         );
-        User? userInfo = getCurrentUser();
-        await uploadProfile(userInfo, false);
+        await uploadProfile(
+          authUser: getCurrentUser(),
+          hasUpdatedInfo: false,
+        );
         _refreshUserModel();
         return true;
       },
@@ -80,15 +83,20 @@ class AuthVM extends GetxController {
   }
 
   Future<(bool, String)> signIn() async {
-    return await authenticate(
+    return await _authenticate(
       () async {
         await _authService.signIn(
           _emailTEController.text,
           _passwordTEController.text,
         );
-        User? userInfo = getCurrentUser();
-        hasUpdatedInfo = await verifyUser(userInfo!.uid);
-        await _cacheUserData(userInfo, hasUpdatedInfo);
+        User? authUser = getCurrentUser();
+        userInfo = await _fetchUserInfo(authUser!.uid);
+        hasUpdatedInfo = userInfo?['hasUpdatedInfo'];
+        await _cacheUserData(
+          hasUpdatedInfo: hasUpdatedInfo,
+          username: userInfo?['username'],
+          profileName: userInfo?['displayName'],
+        );
         _refreshUserModel();
         return true;
       },
@@ -96,7 +104,7 @@ class AuthVM extends GetxController {
   }
 
   //refactored common function for both signIn and signUp
-  Future<(bool, String)> authenticate(Future<bool> Function() callback) async {
+  Future<(bool, String)> _authenticate(Future<bool> Function() callback) async {
     isAuthenticating.toggle();
     bool isSuccess = false;
     String errorMessage = "";
@@ -113,38 +121,61 @@ class AuthVM extends GetxController {
   }
 
   //it uploads profile information to firebase
-  Future<void> uploadProfile(User? userInfo, bool hasUpdatedInfo) async {
+  Future<void> uploadProfile({
+    required User? authUser,
+    required bool hasUpdatedInfo,
+    String? username,
+    String? profileName,
+    String? profilePicture,
+  }) async {
     try {
-      Map<String, dynamic> userModel =
-          createUserModel(userInfo, hasUpdatedInfo);
+      Map<String, dynamic> json = createUserModelJson(
+        authUser: authUser,
+        hasUpdatedInfo: hasUpdatedInfo,
+      );
       await _authService.uploadProfile(
-        userModel,
+        json,
         getCurrentUser()!.uid,
       );
-      await _cacheUserData(userInfo, hasUpdatedInfo);
+      if (hasUpdatedInfo) {
+        savePassword.value = true;
+      }
+      await _cacheUserData(
+        authUser: authUser,
+        hasUpdatedInfo: hasUpdatedInfo,
+      );
     } catch (exception) {
       logger.e(exception);
     }
   }
 
-  //it verifies if a user has already passed the preliminary profile update or not
-  Future<bool> verifyUser(String uId) async {
-    bool isVerified = false;
+  Future<Map<String, dynamic>?> _fetchUserInfo(String uId) async {
+    Map<String, dynamic>? userInfo;
     try {
-      isVerified = await _authService.verifyUser(uId);
+      userInfo = await _authService.fetchUser(uId);
     } catch (exception) {
       logger.e(exception);
     }
-    return isVerified;
+    return userInfo;
   }
 
   //it stores user information in cache after the upload
-  Future<void> _cacheUserData(User? userInfo, bool hasUpdatedInfo) async {
+  Future<void> _cacheUserData({
+    User? authUser,
+    required bool hasUpdatedInfo,
+    String? username,
+    String? profileName,
+  }) async {
+    Map<String, dynamic>? jsonData = (authUser == null)
+        ? userInfo
+        : createUserModelJson(
+            authUser: authUser,
+            hasUpdatedInfo: hasUpdatedInfo,
+          );
+
     await AppStorage().write(
       "userData",
-      jsonEncode(
-        createUserModel(userInfo, true),
-      ),
+      jsonEncode(jsonData),
     );
     await AppStorage().write("savePassword", savePassword.value);
   }
@@ -157,16 +188,22 @@ class AuthVM extends GetxController {
     return FirebaseAuth.instance.currentUser;
   }
 
-  Map<String, dynamic> createUserModel(User? userInfo, bool hasUpdatedInfo) {
+  Map<String, dynamic> createUserModelJson(
+      {User? authUser,
+      required bool hasUpdatedInfo,
+      String? username,
+      String? profileName,
+      String? profilePicture}) {
     return {
-      "displayName": userInfo?.displayName,
-      "phoneNumber": userInfo?.phoneNumber,
-      "email": userInfo?.email,
-      "isEmailVerified": userInfo?.emailVerified,
-      "photoUrl": userInfo?.photoURL,
-      "refreshToken": userInfo?.refreshToken,
-      "uId": userInfo?.uid,
+      "displayName": profileName,
+      "phoneNumber": authUser?.phoneNumber,
+      "email": authUser?.email,
+      "isEmailVerified": authUser?.emailVerified,
+      "photoUrl": profilePicture,
+      "refreshToken": authUser?.refreshToken,
+      "uId": authUser?.uid,
       "hasUpdatedInfo": hasUpdatedInfo,
+      "username": username,
     };
   }
 

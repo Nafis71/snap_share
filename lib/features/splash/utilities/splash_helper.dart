@@ -2,12 +2,15 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:snap_share/core/utilities/exports/route_export.dart';
+import 'package:snap_share/core/wrappers/logger.dart';
 import 'package:snap_share/features/common/services/app_storage.dart';
 
 class SplashHelper {
   static void gotoOnboard() {
     String? userData = AppStorage().read("userData");
     bool? savePassword = AppStorage().read("savePassword");
+    logger.d(userData);
+    logger.d(savePassword);
     if (userData != null && savePassword != null) {
       Map<String, dynamic> json = jsonDecode(userData);
       if (json['hasUpdatedInfo'] && savePassword) {

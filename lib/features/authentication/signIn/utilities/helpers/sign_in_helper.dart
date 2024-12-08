@@ -11,9 +11,7 @@ class SignInHelper {
     AuthVM authVM = Get.find();
     (bool, String) status = await authVM.signIn();
     if (status.$1) {
-      User? userInfo = FirebaseAuth.instance.currentUser;
-      bool hasUpdateInfo = await authVM.verifyUser(userInfo!.uid);
-      if (hasUpdateInfo) {
+      if (authVM.hasUpdatedInfo) {
         Get.offAllNamed(RoutesNames.kMainBottomNavView)?.then((_) {
           authVM.resetController();
         });

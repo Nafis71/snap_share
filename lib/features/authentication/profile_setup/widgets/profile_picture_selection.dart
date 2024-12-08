@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:snap_share/features/authentication/profile_setup/utilities/profile_setup_strings.dart';
@@ -23,17 +24,19 @@ class ProfilePictureSelection extends StatelessWidget {
         ),
         const Gap(50),
         Center(
-          child: Obx(() {
-            return CircleAvatar(
-              radius: 120,
-              backgroundColor: (profileSetupVM.pickedImage == null)
-                  ? Colors.grey.shade200
-                  : Colors.transparent,
-              backgroundImage: (profileSetupVM.pickedImage != null)
-                  ? FileImage(profileSetupVM.pickedImage!)
-                  : null,
-            );
-          }),
+          child: Obx(
+            () {
+              return CircleAvatar(
+                radius: 120.r,
+                backgroundColor: (profileSetupVM.pickedImage == null)
+                    ? Colors.grey.shade200
+                    : Colors.transparent,
+                backgroundImage: (profileSetupVM.pickedImage != null)
+                    ? FileImage(profileSetupVM.pickedImage!)
+                    : null,
+              );
+            },
+          ),
         ),
         const Gap(30),
         Center(

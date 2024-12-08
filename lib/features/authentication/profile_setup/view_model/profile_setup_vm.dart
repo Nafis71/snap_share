@@ -4,8 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:snap_share/core/wrappers/logger.dart';
+import 'package:snap_share/core/utilities/validators/form_validator.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
+import 'package:snap_share/features/authentication/profile_setup/utilities/profile_setup_strings.dart';
 import 'package:snap_share/features/common/services/firebase_storage_service.dart';
 import 'package:snap_share/features/common/services/image_picker_service.dart';
 
@@ -24,6 +25,7 @@ class ProfileSetupVM extends GetxController {
   final Rxn<File> _pickedImage = Rxn<File>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   RxBool isLoading = false.obs;
+  Rxn<String> userNameErrorTxt = Rxn<String>();
 
   ProfileSetupVM(
     this._imagePickerService,
@@ -56,6 +58,7 @@ class ProfileSetupVM extends GetxController {
   void updateButtonState() {
     completedStep.value = _usernameTEController.text.isNotEmpty &&
         _profileNameTEController.text.isNotEmpty &&
+        userNameErrorTxt.value == null &&
         _validateForm();
   }
 
@@ -65,22 +68,35 @@ class ProfileSetupVM extends GetxController {
 
   Future<void> initiateProfileCreation() async {
     isLoading.toggle();
-    User? user = FirebaseAuth.instance.currentUser;
+    User? authUser = FirebaseAuth.instance.currentUser;
     String? imageUrl = await _firebaseStorageService.uploadToStorageBucket(
       storagePath: "snap-share-user-profile-pictures",
-      id: user!.uid,
+      id: authUser!.uid,
       file: _pickedImage.value!,
     );
     if (imageUrl != null) {
-      user.updateProfile(
-        displayName: _profileNameTEController.text.trim(),
-        photoURL: imageUrl,
+      await authUser.reload();
+      await _authVM.uploadProfile(
+        authUser: authUser,
+        hasUpdatedInfo: true,
+        username: _usernameTEController.text,
+        profileName: _profileNameTEController.text,
+        profilePicture: imageUrl,
       );
-      await user.reload();
-      await _authVM.uploadProfile(user, true);
-      logger.d(user);
     }
     isLoading.toggle();
+  }
+
+  Future<void> isUserNameTaken(String? userName) async {
+    if (userName == null) {
+      return;
+    }
+    bool status = await FormValidator.isUserNameTaken(userName);
+    if (status) {
+      userNameErrorTxt.value = ProfileSetupStrings.kUserNameTakenErrorText;
+      return;
+    }
+    userNameErrorTxt.value = null;
   }
 
   @override

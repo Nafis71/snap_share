@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:snap_share/core/utilities/exports/widget_export.dart';
+import 'package:snap_share/core/utilities/validators/form_validator.dart';
 import 'package:snap_share/features/authentication/profile_setup/utilities/profile_setup_strings.dart';
 import 'package:snap_share/features/authentication/profile_setup/view_model/profile_setup_vm.dart';
 
@@ -35,18 +37,26 @@ class UserDetails extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomTextField(
-                hintText: ProfileSetupStrings.kUserNameFieldHint,
-                formValidator: (v) => null,
-                controller: profileSetupVM.usernameTEController,
-                focusNode: profileSetupVM.userNameFocusNode,
-                isDark: false,
-                prefixIconPath: null,
-                onFieldSubmitted: (_) {
-                  FocusScope.of(context)
-                      .requestFocus(profileSetupVM.profileNameFocusNode);
-                },
-                onChanged: (_) => profileSetupVM.updateButtonState(),
+              Obx(
+                () => CustomTextField(
+                  hintText: ProfileSetupStrings.kUserNameFieldHint,
+                  controller: profileSetupVM.usernameTEController,
+                  focusNode: profileSetupVM.userNameFocusNode,
+                  isDark: false,
+                  prefixIconPath: null,
+                  errorText: profileSetupVM.userNameErrorTxt.value,
+                  formValidator: (userName) {
+                    return FormValidator.validateUserName(userName);
+                  },
+                  onFieldSubmitted: (_) {
+                    FocusScope.of(context)
+                        .requestFocus(profileSetupVM.profileNameFocusNode);
+                  },
+                  onChanged: (userName) {
+                    profileSetupVM.isUserNameTaken(userName);
+                    profileSetupVM.updateButtonState();
+                  },
+                ),
               ),
               const Gap(10),
               Text(
