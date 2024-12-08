@@ -19,7 +19,7 @@ class MainBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SalomonBottomBar(
-      currentIndex: mainBottomNavVM.selectedIndex,
+      currentIndex: mainBottomNavVM.selectedIndex.value,
       onTap: mainBottomNavVM.onChangedIndex,
       itemShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4),

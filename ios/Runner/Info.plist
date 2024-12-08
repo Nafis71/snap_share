@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>In order to access your photo library</string>
 	<key>CFBundleDisplayName</key>
 	<string>Snap Share</string>
 	<key>CFBundleExecutable</key>
