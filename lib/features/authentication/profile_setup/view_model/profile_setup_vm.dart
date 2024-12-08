@@ -72,7 +72,6 @@ class ProfileSetupVM extends GetxController {
       file: _pickedImage.value!,
     );
     if (imageUrl != null) {
-      logger.d("updated");
       user.updateProfile(
         displayName: _profileNameTEController.text.trim(),
         photoURL: imageUrl,
