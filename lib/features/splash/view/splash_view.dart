@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
 import 'package:snap_share/core/utilities/exports/wrapper_export.dart';
 import 'package:snap_share/features/splash/utilities/splash_helper.dart';
@@ -41,9 +42,9 @@ class _SplashViewState extends State<SplashView> {
                 ),
               ),
               const Spacer(),
-              const AnimationLoader(
+              AnimationLoader(
                 asset: LottieAssets.kAnimatedLoader,
-                width: 150,
+                width: 150.w,
               )
             ],
           ),

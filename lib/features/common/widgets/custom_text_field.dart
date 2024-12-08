@@ -90,7 +90,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             (widget.prefixIconPath == null) ? null : _prefixIcon(context),
         prefixText: widget.prefixText,
       ),
-      autovalidateMode: AutovalidateMode.disabled,
+      autovalidateMode: AutovalidateMode.onUnfocus,
       validator: widget.formValidator,
       onChanged: widget.onChanged,
       onFieldSubmitted: widget.onFieldSubmitted,

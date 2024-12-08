@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:snap_share/core/services/app_storage.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
+import 'package:snap_share/core/wrappers/logger.dart';
 import 'package:snap_share/features/authentication/common/services/auth_service.dart';
+import 'package:snap_share/features/common/services/app_storage.dart';
+import 'package:snap_share/features/common/view_model/profile_vm.dart';
 
 enum FormKey { signInFormKey, signUpFormKey }
 
@@ -22,9 +24,13 @@ class AuthVM extends GetxController {
   Rx<bool> allowAuth = false.obs;
   Rx<bool> savePassword = false.obs;
   Rx<bool> isAuthenticating = false.obs;
+  bool hasUpdatedInfo = false;
   final AuthService _authService;
+  final ProfileVM _profileVM;
 
-  AuthVM(AuthService authService) : _authService = authService;
+  AuthVM(AuthService authService, ProfileVM profileVM) //dependency injection
+      : _authService = authService,
+        _profileVM = profileVM;
 
   TextEditingController get emailTEController => _emailTEController;
 
@@ -37,18 +43,14 @@ class AuthVM extends GetxController {
 
   GlobalKey<FormState> get signInFormKey => _signInFormKey;
 
+  //it is used for updating the btn state in signIn and signUp
   void updateAuthState(FormKey formKey) {
-    switch (formKey) {
-      case FormKey.signInFormKey:
-        allowAuth.value = _emailTEController.value.text.isNotEmpty &&
-            _passwordTEController.text.isNotEmpty &&
-            _validateForm(formKey) == true;
-      case FormKey.signUpFormKey:
-        allowAuth.value = _emailTEController.value.text.isNotEmpty &&
-            _passwordTEController.text.isNotEmpty &&
-            _confirmPasswordTEController.text.isNotEmpty &&
-            _validateForm(formKey) == true;
+    bool isValid = _emailTEController.text.isNotEmpty &&
+        _passwordTEController.text.isNotEmpty;
+    if (formKey == FormKey.signUpFormKey) {
+      isValid = isValid && _confirmPasswordTEController.text.isNotEmpty;
     }
+    allowAuth.value = isValid && _validateForm(formKey);
   }
 
   bool _validateForm(FormKey formKey) {
@@ -57,6 +59,8 @@ class AuthVM extends GetxController {
         return _signInFormKey.currentState?.validate() ?? false;
       case FormKey.signUpFormKey:
         return _signUpFormKey.currentState?.validate() ?? false;
+      default:
+        return false;
     }
   }
 
@@ -67,6 +71,9 @@ class AuthVM extends GetxController {
           _emailTEController.text,
           _passwordTEController.text,
         );
+        User? userInfo = getCurrentUser();
+        await uploadProfile(userInfo, false);
+        _refreshUserModel();
         return true;
       },
     );
@@ -75,16 +82,20 @@ class AuthVM extends GetxController {
   Future<(bool, String)> signIn() async {
     return await authenticate(
       () async {
-        UserCredential userCredential = await _authService.signIn(
+        await _authService.signIn(
           _emailTEController.text,
           _passwordTEController.text,
         );
-        if (savePassword.value) await storeUserCredentials(userCredential);
+        User? userInfo = getCurrentUser();
+        hasUpdatedInfo = await verifyUser(userInfo!.uid);
+        await _cacheUserData(userInfo, hasUpdatedInfo);
+        _refreshUserModel();
         return true;
       },
     );
   }
 
+  //refactored common function for both signIn and signUp
   Future<(bool, String)> authenticate(Future<bool> Function() callback) async {
     isAuthenticating.toggle();
     bool isSuccess = false;
@@ -95,32 +106,75 @@ class AuthVM extends GetxController {
       errorMessage = exception.message.toString();
     } catch (exception) {
       errorMessage = AppStrings.kUnknownError;
+    } finally {
+      isAuthenticating.toggle();
     }
-    isAuthenticating.toggle();
     return (isSuccess, errorMessage);
   }
 
-  Future<void> storeUserCredentials(UserCredential userCredentials) async {
-    Map<String, dynamic> userModel = createUserModel(userCredentials);
-    await AppStorage().write("userData", jsonEncode(userModel));
+  //it uploads profile information to firebase
+  Future<void> uploadProfile(User? userInfo, bool hasUpdatedInfo) async {
+    try {
+      Map<String, dynamic> userModel =
+          createUserModel(userInfo, hasUpdatedInfo);
+      await _authService.uploadProfile(
+        userModel,
+        getCurrentUser()!.uid,
+      );
+      await _cacheUserData(userInfo, hasUpdatedInfo);
+    } catch (exception) {
+      logger.e(exception);
+    }
   }
 
-  Map<String, dynamic> createUserModel(UserCredential userCredentials) {
+  //it verifies if a user has already passed the preliminary profile update or not
+  Future<bool> verifyUser(String uId) async {
+    bool isVerified = false;
+    try {
+      isVerified = await _authService.verifyUser(uId);
+    } catch (exception) {
+      logger.e(exception);
+    }
+    return isVerified;
+  }
+
+  //it stores user information in cache after the upload
+  Future<void> _cacheUserData(User? userInfo, bool hasUpdatedInfo) async {
+    await AppStorage().write(
+      "userData",
+      jsonEncode(
+        createUserModel(userInfo, true),
+      ),
+    );
+    await AppStorage().write("savePassword", savePassword.value);
+  }
+
+  void _refreshUserModel() {
+    _profileVM.loadUserModel();
+  }
+
+  User? getCurrentUser() {
+    return FirebaseAuth.instance.currentUser;
+  }
+
+  Map<String, dynamic> createUserModel(User? userInfo, bool hasUpdatedInfo) {
     return {
-      "displayName": userCredentials.user?.displayName,
-      "phoneNumber": userCredentials.user?.phoneNumber,
-      "email": userCredentials.user?.email,
-      "isEmailVerified": userCredentials.user?.emailVerified,
-      "photoUrl": userCredentials.user?.photoURL,
-      "refreshToken": userCredentials.user?.refreshToken,
-      "uId": userCredentials.user?.uid,
+      "displayName": userInfo?.displayName,
+      "phoneNumber": userInfo?.phoneNumber,
+      "email": userInfo?.email,
+      "isEmailVerified": userInfo?.emailVerified,
+      "photoUrl": userInfo?.photoURL,
+      "refreshToken": userInfo?.refreshToken,
+      "uId": userInfo?.uid,
+      "hasUpdatedInfo": hasUpdatedInfo,
     };
   }
 
-  void resetControllers() {
+  void resetController() {
     _emailTEController.clear();
     _passwordTEController.clear();
     _confirmPasswordTEController.clear();
+    hasUpdatedInfo = false;
     savePassword.value = false;
     allowAuth.value = false;
   }
@@ -130,7 +184,9 @@ class AuthVM extends GetxController {
     _emailTEController.dispose();
     _passwordTEController.dispose();
     _confirmPasswordTEController.dispose();
+    emailFocusNode.unfocus();
     emailFocusNode.dispose();
+    passwordFocusNode.unfocus();
     passwordFocusNode.dispose();
     confirmPasswordFocusNode.dispose();
     super.dispose();

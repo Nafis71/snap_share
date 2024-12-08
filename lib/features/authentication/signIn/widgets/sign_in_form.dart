@@ -9,7 +9,7 @@ import 'package:snap_share/features/authentication/common/widgets/save_password_
 import 'package:snap_share/features/authentication/signIn/utilities/constants/login_strings.dart';
 
 import '../../common/widgets/authentication_form.dart';
-import '../utilities/helpers/login_helper.dart';
+import '../utilities/helpers/sign_in_helper.dart';
 
 class SignInForm extends StatelessWidget {
   final AuthVM authVM;

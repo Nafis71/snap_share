@@ -30,40 +30,50 @@ class UserDetails extends StatelessWidget {
               ?.copyWith(fontWeight: FontWeight.bold),
         ),
         const Gap(5),
-        CustomTextField(
-          hintText: ProfileSetupStrings.kUserNameFieldHint,
-          formValidator: (v) => null,
-          controller: profileSetupVM.usernameTEController,
-          focusNode: profileSetupVM.userNameFocusNode,
-          isDark: false,
-          prefixIconPath: null,
-          onFieldSubmitted: (_) {
-            FocusScope.of(context)
-                .requestFocus(profileSetupVM.profileNameFocusNode);
-          },
-        ),
-        const Gap(10),
-        Text(
-          ProfileSetupStrings.kProfileNameFieldLabel,
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium
-              ?.copyWith(fontWeight: FontWeight.bold),
-        ),
-        const Gap(5),
-        CustomTextField(
-          hintText: ProfileSetupStrings.kProfileNameFieldHint,
-          formValidator: (v) => null,
-          controller: profileSetupVM.profileNameTEController,
-          focusNode: profileSetupVM.profileNameFocusNode,
-          isDark: false,
-          prefixIconPath: null,
-          onFieldSubmitted: (_){
-            if(profileSetupVM.usernameTEController.text.isEmpty){
-              FocusScope.of(context)
-                  .requestFocus(profileSetupVM.userNameFocusNode);
-            }
-          },
+        Form(
+          key: profileSetupVM.formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomTextField(
+                hintText: ProfileSetupStrings.kUserNameFieldHint,
+                formValidator: (v) => null,
+                controller: profileSetupVM.usernameTEController,
+                focusNode: profileSetupVM.userNameFocusNode,
+                isDark: false,
+                prefixIconPath: null,
+                onFieldSubmitted: (_) {
+                  FocusScope.of(context)
+                      .requestFocus(profileSetupVM.profileNameFocusNode);
+                },
+                onChanged: (_) => profileSetupVM.updateButtonState(),
+              ),
+              const Gap(10),
+              Text(
+                ProfileSetupStrings.kProfileNameFieldLabel,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const Gap(5),
+              CustomTextField(
+                hintText: ProfileSetupStrings.kProfileNameFieldHint,
+                formValidator: (v) => null,
+                controller: profileSetupVM.profileNameTEController,
+                focusNode: profileSetupVM.profileNameFocusNode,
+                isDark: false,
+                prefixIconPath: null,
+                onFieldSubmitted: (_) {
+                  if (profileSetupVM.usernameTEController.text.isEmpty) {
+                    FocusScope.of(context)
+                        .requestFocus(profileSetupVM.userNameFocusNode);
+                  }
+                },
+                onChanged: (_) => profileSetupVM.updateButtonState(),
+              ),
+            ],
+          ),
         ),
       ],
     );

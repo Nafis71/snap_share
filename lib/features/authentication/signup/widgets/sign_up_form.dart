@@ -115,7 +115,7 @@ class SignUpForm extends StatelessWidget {
       isPassword: true,
       prefixIconPath: IconAssets.kPasswordIcon,
       prefixText: SignUpStrings.kTextFieldPrefixText,
-      suffixIcon: Icons.visibility_off,
+      suffixIcon: Icons.visibility_outlined,
       alternateSuffixIcon: Icons.visibility_off_outlined,
       formValidator: (value) {
         return FormValidator.validateConfirmPassword(

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:snap_share/core/utilities/exports/route_export.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
@@ -10,9 +11,15 @@ class SignInHelper {
     AuthVM authVM = Get.find();
     (bool, String) status = await authVM.signIn();
     if (status.$1) {
-      Get.offAllNamed(RoutesNames.kMainBottomNavView)?.then((_) {
-        authVM.resetControllers();
-      });
+      User? userInfo = FirebaseAuth.instance.currentUser;
+      bool hasUpdateInfo = await authVM.verifyUser(userInfo!.uid);
+      if (hasUpdateInfo) {
+        Get.offAllNamed(RoutesNames.kMainBottomNavView)?.then((_) {
+          authVM.resetController();
+        });
+      } else {
+        Get.offNamed(RoutesNames.kProfileSetupView);
+      }
     } else {
       showSnackBarNotification(
         title: SignInStrings.kLoginFailureTitleTxt,

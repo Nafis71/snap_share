@@ -3,10 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
-import 'package:snap_share/core/utilities/exports/widget_export.dart';
+import 'package:snap_share/features/authentication/profile_setup/utilities/profile_setup_helper.dart';
 import 'package:snap_share/features/authentication/profile_setup/utilities/profile_setup_strings.dart';
 import 'package:snap_share/features/authentication/profile_setup/view_model/profile_setup_vm.dart';
 import 'package:snap_share/features/authentication/profile_setup/widgets/profile_picture_selection.dart';
+import 'package:snap_share/features/authentication/profile_setup/widgets/profile_setup_final.dart';
 import 'package:snap_share/features/authentication/profile_setup/widgets/user_details.dart';
 
 class ProfileSetupView extends StatelessWidget {
@@ -16,6 +17,7 @@ class ProfileSetupView extends StatelessWidget {
   Widget build(BuildContext context) {
     final ProfileSetupVM profileSetupVM = Get.find();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         toolbarHeight: 10,
       ),
@@ -54,7 +56,8 @@ class ProfileSetupView extends StatelessWidget {
                           ),
                           UserDetails(
                             profileSetupVM: profileSetupVM,
-                          )
+                          ),
+                          const ProfileSetupFinal(),
                         ],
                       ),
                     ),
@@ -63,18 +66,20 @@ class ProfileSetupView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Obx(
-                          () => ElevatedButton(
-                            onPressed: !profileSetupVM.completedStep.value
-                                ? null
-                                : () {
-                                    profileSetupVM.pageController.nextPage(
-                                      duration:
-                                          const Duration(milliseconds: 700),
-                                      curve: Curves.easeIn,
-                                    );
-                                  },
-                            child: const Text(ProfileSetupStrings.kProgressBtnTxt),
-                          ),
+                          () {
+                            if (profileSetupVM.pageController.page == 2) {
+                              return const SizedBox.shrink();
+                            }
+                            return ElevatedButton(
+                              onPressed: !profileSetupVM.completedStep.value
+                                  ? null
+                                  : () => ProfileSetupHelper.onNextPressed(
+                                        profileSetupVM,
+                                      ),
+                              child: const Text(
+                                  ProfileSetupStrings.kProgressBtnTxt),
+                            );
+                          },
                         ),
                       ],
                     )

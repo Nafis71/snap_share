@@ -6,13 +6,13 @@ import '../../authentication/common/view_model/auth_vm.dart';
 class OnBoardingHelper {
   static gotoSignUpView() {
     Get.toNamed(RoutesNames.kSignUpView)?.then((_) {
-      Get.find<AuthVM>().resetControllers();
+      Get.find<AuthVM>().resetController();
     });
   }
 
   static gotoSignInView() {
     Get.toNamed(RoutesNames.kSignInView)?.then((_) {
-      Get.find<AuthVM>().resetControllers();
+      Get.find<AuthVM>().resetController();
     });
   }
 }

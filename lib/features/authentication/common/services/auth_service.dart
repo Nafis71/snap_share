@@ -3,8 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
   final FirebaseAuth _firebaseAuth;
+  final FirebaseFirestore _fireStoreInstance;
 
-  AuthService(FirebaseAuth firebaseAuth) : _firebaseAuth = firebaseAuth;
+  AuthService(this._firebaseAuth, this._fireStoreInstance);
 
   Future<UserCredential> signUp(String email, String password) async {
     return await _firebaseAuth.createUserWithEmailAndPassword(
@@ -20,10 +21,16 @@ class AuthService {
     );
   }
 
-  Future<void> uploadProfile(Map<String, dynamic> userModel) async {
+  Future<void> uploadProfile(Map<String, dynamic> userModel, String uId) async {
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(FirebaseAuth.instance.currentUser?.uid)
-        .set(userModel, SetOptions(merge: true));
+        .doc(uId)
+        .set(userModel);
+  }
+
+  Future<bool> verifyUser(String uId) async {
+    DocumentSnapshot document =
+        await _fireStoreInstance.collection('users').doc(uId).get();
+    return document.get("hasUpdatedInfo");
   }
 }

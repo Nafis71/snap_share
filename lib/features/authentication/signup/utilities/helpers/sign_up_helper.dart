@@ -14,7 +14,7 @@ class SignUpHelper {
         message: SignUpStrings.kSignUpSuccessMessageTxt,
         isError: false,
       );
-      Get.offNamed(RoutesNames.kSignInView);
+      Get.offNamed(RoutesNames.kProfileSetupView);
     } else {
       showSnackBarNotification(
         title: SignUpStrings.kSignUpFailureTitleTxt,
