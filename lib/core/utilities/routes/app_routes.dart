@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:snap_share/core/utilities/exports/route_export.dart';
+import 'package:snap_share/features/authentication/profile_setup/view/profile_setup_view.dart';
 import 'package:snap_share/features/authentication/signup/view/sign_up_view.dart';
 import 'package:snap_share/features/main_bottom_nav/view/main_bottom_nav_view.dart';
 import 'package:snap_share/features/new_post/media_selection/view/media_selection_view.dart';
@@ -28,6 +29,10 @@ class AppRoutes {
       _getPage(
         routeName: RoutesNames.kSignUpView,
         page: const SignUpView(),
+      ),
+      _getPage(
+        routeName: RoutesNames.kProfileSetupView,
+        page: const ProfileSetupView(),
       ),
       _getPage(
         routeName: RoutesNames.kMainBottomNavView,

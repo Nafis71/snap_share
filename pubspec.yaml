@@ -16,6 +16,7 @@ dependencies:
   flutter_svg: ^2.0.16
   firebase_core: ^3.8.0
   firebase_auth: ^5.3.3
+  cloud_firestore: ^5.5.1
   photo_manager: ^3.6.3
   get: ^4.6.6
   get_storage: ^2.1.1

@@ -5,7 +5,7 @@ import 'package:photo_manager/photo_manager.dart';
 import 'package:snap_share/core/wrappers/logger.dart';
 import 'package:snap_share/features/main_bottom_nav/view_model/main_bottom_nav_vm.dart';
 import 'package:snap_share/features/new_post/common/services/gallery_service.dart';
-import 'package:snap_share/features/new_post/common/services/image_picker_service.dart';
+import 'package:snap_share/features/common/services/image_picker_service.dart';
 
 class NewPostVM extends GetxController {
   final ImagePickerService _imagePickerService;

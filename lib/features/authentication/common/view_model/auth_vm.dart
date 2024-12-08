@@ -64,11 +64,10 @@ class AuthVM extends GetxController {
     return authenticate(
       () async {
         await _authService.signUp(
-          _emailTEController.value.text,
-          _passwordTEController.value.text,
+          _emailTEController.text,
+          _passwordTEController.text,
         );
-        (bool, String) status = await signIn();
-        return status.$1;
+        return true;
       },
     );
   }
@@ -77,8 +76,8 @@ class AuthVM extends GetxController {
     return await authenticate(
       () async {
         UserCredential userCredential = await _authService.signIn(
-          _emailTEController.value.text,
-          _passwordTEController.value.text,
+          _emailTEController.text,
+          _passwordTEController.text,
         );
         if (savePassword.value) await storeUserCredentials(userCredential);
         return true;
@@ -108,13 +107,13 @@ class AuthVM extends GetxController {
 
   Map<String, dynamic> createUserModel(UserCredential userCredentials) {
     return {
-      "displayName": userCredentials.user?.displayName.toString(),
-      "phoneNumber": userCredentials.user?.phoneNumber.toString(),
-      "email": userCredentials.user?.email.toString(),
-      "isEmailVerified": userCredentials.user?.emailVerified.toString(),
-      "photoUrl": userCredentials.user?.photoURL.toString(),
-      "refreshToken": userCredentials.user?.emailVerified.toString(),
-      "uId": userCredentials.user?.uid.toString(),
+      "displayName": userCredentials.user?.displayName,
+      "phoneNumber": userCredentials.user?.phoneNumber,
+      "email": userCredentials.user?.email,
+      "isEmailVerified": userCredentials.user?.emailVerified,
+      "photoUrl": userCredentials.user?.photoURL,
+      "refreshToken": userCredentials.user?.refreshToken,
+      "uId": userCredentials.user?.uid,
     };
   }
 

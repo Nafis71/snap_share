@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
@@ -17,5 +18,12 @@ class AuthService {
       email: email.trim(),
       password: password,
     );
+  }
+
+  Future<void> uploadProfile(Map<String, dynamic> userModel) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .set(userModel, SetOptions(merge: true));
   }
 }
