@@ -32,7 +32,8 @@ class AuthService {
   }
 
   Future<Map<String, dynamic>> fetchUser(String uId) async {
-     DocumentSnapshot documentSnapshot = await _fireStoreInstance.collection('users').doc(uId).get();
-     return documentSnapshot.data() as Map<String,dynamic>;
+    DocumentSnapshot documentSnapshot =
+        await _fireStoreInstance.collection('users').doc(uId).get();
+    return documentSnapshot.data() as Map<String, dynamic>;
   }
 }

@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:snap_share/core/utilities/exports/route_export.dart';
-import 'package:snap_share/core/wrappers/logger.dart';
 import 'package:snap_share/features/common/services/app_storage.dart';
 
 class SplashHelper {

@@ -10,5 +10,6 @@ class ProfileSetupStrings {
   static const String kProfileNameFieldHint = "Input profile name";
   static const String kProfileSetupFinalHeader =
       "Please wait, while we process your information";
-  static const String kUserNameTakenErrorText = "Username has already been taken";
+  static const String kUserNameTakenErrorText =
+      "Username has already been taken";
 }
