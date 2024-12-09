@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 import 'package:snap_share/core/resources/managers/theme_manager.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
 import 'package:snap_share/core/utilities/exports/widget_export.dart';
 import 'package:snap_share/core/utilities/validators/form_validator.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
 import 'package:snap_share/features/authentication/common/widgets/save_password_checkbox.dart';
-import 'package:snap_share/features/authentication/login/utilities/constants/login_strings.dart';
-import 'package:snap_share/features/authentication/login/utilities/helpers/login_helper.dart';
+import 'package:snap_share/features/authentication/signIn/utilities/constants/login_strings.dart';
 
 import '../../common/widgets/authentication_form.dart';
+import '../utilities/helpers/sign_in_helper.dart';
 
-class LoginForm extends StatelessWidget {
+class SignInForm extends StatelessWidget {
   final AuthVM authVM;
   final ThemeManager themeManager;
 
-  const LoginForm({
+  const SignInForm({
     super.key,
     required this.authVM,
     required this.themeManager,
@@ -25,30 +24,27 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthenticationForm(
-      authBtnName: LoginStrings.kLoginBtnText,
+      formKey: authVM.signInFormKey,
+      authBtnName: SignInStrings.kLoginBtnText,
       authVM: authVM,
       formFields: [
         _buildHeadingText(
           context,
-          LoginStrings.kEmailTextFieldHeadingTxt,
+          SignInStrings.kEmailTextFieldHeadingTxt,
         ),
         const Gap(8),
-        Obx(
-          () => _buildEmailFormField(context),
-        ),
+        _buildEmailFormField(context),
         const Gap(20),
         _buildHeadingText(
           context,
-          LoginStrings.kPasswordTextFieldHeadingTxt,
+          SignInStrings.kPasswordTextFieldHeadingTxt,
         ),
         const Gap(8),
-        Obx(
-          () => _buildPasswordFormField(context),
-        ),
+        _buildPasswordFormField(context),
         const Gap(8),
         SavePasswordCheckbox(authVM: authVM),
       ],
-      onBtnPressed: LoginHelper.login,
+      onBtnPressed: SignInHelper.login,
     );
   }
 
@@ -64,11 +60,11 @@ class LoginForm extends StatelessWidget {
 
   Widget _buildEmailFormField(BuildContext context) {
     return CustomTextField(
-      controller: authVM.emailTEController.value,
+      controller: authVM.emailTEController,
       focusNode: authVM.emailFocusNode,
-      hintText: LoginStrings.kEmailTextFieldHintTxt,
+      hintText: SignInStrings.kEmailTextFieldHintTxt,
       prefixIconPath: IconAssets.kEmailIcon,
-      prefixText: LoginStrings.kTextFieldPrefixText,
+      prefixText: SignInStrings.kTextFieldPrefixText,
       formValidator: (value) {
         return FormValidator.validateEmail(value);
       },
@@ -76,7 +72,7 @@ class LoginForm extends StatelessWidget {
         FocusScope.of(context).requestFocus(authVM.passwordFocusNode);
       },
       onChanged: (value) {
-        authVM.updateAuthState();
+        authVM.updateAuthState(FormKey.signInFormKey);
       },
       isDark: themeManager.isDarkMode(context),
     );
@@ -84,12 +80,12 @@ class LoginForm extends StatelessWidget {
 
   Widget _buildPasswordFormField(BuildContext context) {
     return CustomTextField(
-      controller: authVM.passwordTEController.value,
+      controller: authVM.passwordTEController,
       focusNode: authVM.passwordFocusNode,
-      hintText: LoginStrings.kPasswordTextFieldHintTxt,
+      hintText: SignInStrings.kPasswordTextFieldHintTxt,
       isPassword: true,
       prefixIconPath: IconAssets.kPasswordIcon,
-      prefixText: LoginStrings.kTextFieldPrefixText,
+      prefixText: SignInStrings.kTextFieldPrefixText,
       suffixIcon: Icons.visibility_outlined,
       alternateSuffixIcon: Icons.visibility_off_outlined,
       formValidator: (value) {
@@ -101,7 +97,7 @@ class LoginForm extends StatelessWidget {
         }
       },
       onChanged: (value) {
-        authVM.updateAuthState();
+        authVM.updateAuthState(FormKey.signInFormKey);
       },
       isDark: themeManager.isDarkMode(context),
     );

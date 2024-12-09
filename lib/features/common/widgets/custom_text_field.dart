@@ -17,6 +17,7 @@ class CustomTextField extends StatefulWidget {
   final bool isDark;
   final bool? disableBorder;
   final int? maxLines;
+  final String? errorText;
 
   const CustomTextField({
     super.key,
@@ -34,6 +35,7 @@ class CustomTextField extends StatefulWidget {
     required this.prefixIconPath,
     this.disableBorder,
     this.maxLines,
+    this.errorText,
   });
 
   @override
@@ -76,6 +78,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             ? InputBorder.none
             : null,
         hintText: widget.hintText,
+        errorText: widget.errorText,
         suffixIcon: widget.isPassword
             ? GestureDetector(
                 onTap: () {
@@ -90,7 +93,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             (widget.prefixIconPath == null) ? null : _prefixIcon(context),
         prefixText: widget.prefixText,
       ),
-      autovalidateMode: AutovalidateMode.onUserInteraction,
+      autovalidateMode: AutovalidateMode.onUnfocus,
       validator: widget.formValidator,
       onChanged: widget.onChanged,
       onFieldSubmitted: widget.onFieldSubmitted,

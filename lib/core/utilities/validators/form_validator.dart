@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:snap_share/core/utilities/constants/reg_exp.dart';
+import 'package:snap_share/core/wrappers/logger.dart';
 
 class FormValidator {
   static String? validateEmail(String? email) {
@@ -16,14 +18,31 @@ class FormValidator {
   }
 
   static String? validateConfirmPassword(
-      String? confirmPassword, String password) {
-    final passwordValidation = validatePassword(confirmPassword);
-    if (passwordValidation != null) {
-      return passwordValidation;
+      String? confirmPassword, String? password) {
+    if (confirmPassword == null || confirmPassword.isEmpty) {
+      return null;
     }
-    if (confirmPassword != password) {
+    if (password != null && confirmPassword != password) {
       return "Password didn't match";
     }
     return null;
+  }
+
+  static String? validateUserName(String? userName) {
+    if (userName == null || userName.isEmpty) return "Invalid user name";
+    if (userName.contains(' ')) return "Whitespaces are not allowed";
+    return null;
+  }
+
+  static Future<bool> isUserNameTaken(String userName) async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection("users")
+        .where("username", isEqualTo: userName)
+        .get();
+    logger.d(snapshot.docs);
+    if (snapshot.docs.isEmpty) {
+      return false;
+    }
+    return true;
   }
 }

@@ -3,8 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
-
-import '../../login/utilities/constants/login_strings.dart';
+import 'package:snap_share/features/authentication/signIn/utilities/constants/login_strings.dart';
 
 class SavePasswordCheckbox extends StatelessWidget {
   final AuthVM authVM;
@@ -29,7 +28,7 @@ class SavePasswordCheckbox extends StatelessWidget {
         ),
         const Gap(5),
         Text(
-          LoginStrings.kSavePasswordCheckBoxTxt,
+          SignInStrings.kSavePasswordCheckBoxTxt,
           style: Theme.of(context)
               .textTheme
               .bodyMedium!

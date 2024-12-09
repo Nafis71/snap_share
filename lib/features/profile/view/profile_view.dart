@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:snap_share/core/resources/managers/theme_manager.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
+import 'package:snap_share/features/common/utilities/strings.dart';
+import 'package:snap_share/features/common/view_model/profile_vm.dart';
 import 'package:snap_share/features/profile/utilities/constants/profile_strings.dart';
-import 'package:snap_share/features/profile/view_model/profile_vm.dart';
 import 'package:snap_share/features/profile/widgets/grid_view_user_photos.dart';
 import 'package:snap_share/features/profile/widgets/profile_section.dart';
+
+import '../../common/widgets/common_app_bar.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -30,6 +34,23 @@ class _ProfileViewState extends State<ProfileView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CommonAppBar(
+        title: Strings.kMyProfileAppBarTitle,
+        disableBackBtn: true,
+        centerTitle: true,
+        isBrandName: false,
+        backgroundColor: themeManager.isDarkMode(context)
+            ? DarkThemeColors.kComponentBGColor
+            : null,
+        statusBarColor: SystemUiOverlayStyle(
+          statusBarColor: themeManager.isDarkMode(context)
+              ? DarkThemeColors.kComponentBGColor
+              : LightThemeColors.kScaffoldBGColor,
+          statusBarIconBrightness: themeManager.isDarkMode(context)
+              ? Brightness.light
+              : Brightness.dark,
+        ),
+      ),
       body: Column(
         children: [
           ProfileSection(
@@ -84,7 +105,7 @@ class _ProfileViewState extends State<ProfileView>
                 children: [
                   const SizedBox.shrink(),
                   GridViewUserPhotos(
-                    profileVm: Get.find<ProfileVm>(),
+                    profileVm: Get.find<ProfileVM>(),
                   ),
                   const SizedBox.shrink(),
                   const SizedBox.shrink(),
