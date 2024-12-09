@@ -8,4 +8,5 @@ class DarkThemeColors {
   static const Color kTxtFieldPrefixIconColor = Color(0xFFEAECF0);
   static const Color kTxtFieldSuffixIconColor = Color(0xFF98A2B3);
   static const Color kAlertColorDialogComponentColor = Color(0xFF1D2A39);
+  static const Color kPaleBlue = Color(0xFFE9EFFF);
 }

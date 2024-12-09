@@ -7,6 +7,8 @@ import 'package:snap_share/features/authentication/profile_setup/view_model/prof
 import 'package:snap_share/features/common/services/firebase_storage_service.dart';
 import 'package:snap_share/features/common/services/image_picker_service.dart';
 import 'package:snap_share/features/common/view_model/profile_vm.dart';
+import 'package:snap_share/features/home/view_model/home_vm.dart';
+import 'package:snap_share/features/home/view_model/story_details_vm.dart';
 import 'package:snap_share/features/new_post/common/services/gallery_service.dart';
 import 'package:snap_share/features/new_post/post_composer/view_model/post_composer_vm.dart';
 
@@ -44,6 +46,14 @@ class DependencyInjection {
         Get.find<AuthVM>(),
         FirebaseStorageService(),
       ),
+      fenix: true,
+    );
+    Get.lazyPut<HomeVM>(
+      () => HomeVM(),
+      fenix: true,
+    );
+    Get.lazyPut<StoryDetailsVM>(
+      () => StoryDetailsVM(),
       fenix: true,
     );
   }
