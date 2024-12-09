@@ -75,10 +75,7 @@ class ProfileSetupVM extends GetxController {
       file: _pickedImage.value!,
     );
     if (imageUrl != null) {
-      await authUser.reload();
-      await _authVM.uploadProfile(
-        authUser: authUser,
-        hasUpdatedInfo: true,
+      await _authVM.updateUserData(
         username: _usernameTEController.text,
         profileName: _profileNameTEController.text,
         profilePicture: imageUrl,

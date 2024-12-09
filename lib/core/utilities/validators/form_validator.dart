@@ -36,7 +36,7 @@ class FormValidator {
   }
 
   static Future<bool> isUserNameTaken(String userName)async{
-    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection("users").where("userName",isEqualTo: userName).get();
+    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection("users").where("username",isEqualTo: userName).get();
     logger.d(snapshot.docs);
     if(snapshot.docs.isEmpty){
       return false;

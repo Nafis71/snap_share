@@ -25,7 +25,7 @@ class AuthVM extends GetxController {
   Rx<bool> savePassword = false.obs;
   Rx<bool> isAuthenticating = false.obs;
   bool hasUpdatedInfo = false;
-  Map<String, dynamic>? userInfo;
+  Map<String, dynamic>? userInfoJson;
   final AuthService _authService;
   final ProfileVM _profileVM;
 
@@ -72,8 +72,8 @@ class AuthVM extends GetxController {
           _emailTEController.text,
           _passwordTEController.text,
         );
-        await uploadProfile(
-          authUser: getCurrentUser(),
+        await _uploadProfile(
+          jsonData: createUserModelJson(hasUpdatedInfo: hasUpdatedInfo),
           hasUpdatedInfo: false,
         );
         _refreshUserModel();
@@ -90,12 +90,16 @@ class AuthVM extends GetxController {
           _passwordTEController.text,
         );
         User? authUser = getCurrentUser();
-        userInfo = await _fetchUserInfo(authUser!.uid);
-        hasUpdatedInfo = userInfo?['hasUpdatedInfo'];
+        userInfoJson = await _fetchUserInfo(authUser!.uid);
+        hasUpdatedInfo = userInfoJson?['hasUpdatedInfo'];
+        if (!hasUpdatedInfo) {
+          savePassword.value = false;
+        }
         await _cacheUserData(
+          jsonData: userInfoJson,
           hasUpdatedInfo: hasUpdatedInfo,
-          username: userInfo?['username'],
-          profileName: userInfo?['displayName'],
+          username: userInfoJson?['username'],
+          profileName: userInfoJson?['displayName'],
         );
         _refreshUserModel();
         return true;
@@ -121,27 +125,17 @@ class AuthVM extends GetxController {
   }
 
   //it uploads profile information to firebase
-  Future<void> uploadProfile({
-    required User? authUser,
+  Future<void> _uploadProfile({
+    required Map<String, dynamic> jsonData,
     required bool hasUpdatedInfo,
-    String? username,
-    String? profileName,
-    String? profilePicture,
   }) async {
     try {
-      Map<String, dynamic> json = createUserModelJson(
-        authUser: authUser,
-        hasUpdatedInfo: hasUpdatedInfo,
-      );
       await _authService.uploadProfile(
-        json,
+        jsonData,
         getCurrentUser()!.uid,
       );
-      if (hasUpdatedInfo) {
-        savePassword.value = true;
-      }
       await _cacheUserData(
-        authUser: authUser,
+        jsonData: jsonData,
         hasUpdatedInfo: hasUpdatedInfo,
       );
     } catch (exception) {
@@ -159,20 +153,44 @@ class AuthVM extends GetxController {
     return userInfo;
   }
 
+  Future<void> updateUserData({
+    required String username,
+    required String profileName,
+    required String profilePicture,
+  }) async {
+    Map<String, dynamic>? json;
+    if (userInfoJson == null) {
+      json = createUserModelJson(
+        hasUpdatedInfo: true,
+        profileName: profileName,
+        profilePicture: profilePicture,
+        username: username,
+      );
+    } else {
+      userInfoJson?['username'] = username;
+      userInfoJson?['displayName'] = profileName;
+      userInfoJson?['photoUrl'] = profilePicture;
+      userInfoJson?['hasUpdatedInfo'] = true;
+      json = userInfoJson;
+    }
+    await _authService.uploadProfile(
+      json!,
+      getCurrentUser()!.uid,
+    );
+    savePassword.value = true;
+    await _cacheUserData(
+      jsonData: json,
+      hasUpdatedInfo: hasUpdatedInfo,
+    );
+  }
+
   //it stores user information in cache after the upload
   Future<void> _cacheUserData({
-    User? authUser,
+    required Map<String, dynamic>? jsonData,
     required bool hasUpdatedInfo,
     String? username,
     String? profileName,
   }) async {
-    Map<String, dynamic>? jsonData = (authUser == null)
-        ? userInfo
-        : createUserModelJson(
-            authUser: authUser,
-            hasUpdatedInfo: hasUpdatedInfo,
-          );
-
     await AppStorage().write(
       "userData",
       jsonEncode(jsonData),
@@ -188,20 +206,20 @@ class AuthVM extends GetxController {
     return FirebaseAuth.instance.currentUser;
   }
 
-  Map<String, dynamic> createUserModelJson(
-      {User? authUser,
-      required bool hasUpdatedInfo,
-      String? username,
-      String? profileName,
-      String? profilePicture}) {
+  Map<String, dynamic> createUserModelJson({
+    required bool hasUpdatedInfo,
+    String? username,
+    String? profileName,
+    String? profilePicture,
+  }) {
     return {
       "displayName": profileName,
-      "phoneNumber": authUser?.phoneNumber,
-      "email": authUser?.email,
-      "isEmailVerified": authUser?.emailVerified,
+      "phoneNumber": null,
+      "email": getCurrentUser()!.email,
+      "isEmailVerified": getCurrentUser()?.emailVerified,
       "photoUrl": profilePicture,
-      "refreshToken": authUser?.refreshToken,
-      "uId": authUser?.uid,
+      "refreshToken": getCurrentUser()?.refreshToken,
+      "uId": getCurrentUser()?.uid,
       "hasUpdatedInfo": hasUpdatedInfo,
       "username": username,
     };

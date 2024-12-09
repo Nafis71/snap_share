@@ -10,6 +10,7 @@ SnackbarController showSnackBarNotification({
   return Get.snackbar(
     "",
     "",
+    duration: const Duration(seconds: 2),
     titleText: Text(
       title,
       style: Theme.of(Get.context!).textTheme.bodyMedium?.copyWith(

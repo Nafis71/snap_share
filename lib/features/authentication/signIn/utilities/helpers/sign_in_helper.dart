@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:snap_share/core/utilities/exports/route_export.dart';
 import 'package:snap_share/features/authentication/common/view_model/auth_vm.dart';
