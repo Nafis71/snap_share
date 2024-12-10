@@ -14,6 +14,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool disableBackBtn;
   final Color? backgroundColor;
   final SystemUiOverlayStyle? statusBarColor;
+  final double leadingWidth;
 
   const CommonAppBar({
     super.key,
@@ -26,13 +27,14 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.disableBackBtn = false,
     this.backgroundColor,
     this.statusBarColor,
+    this.leadingWidth = 40,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: backgroundColor,
-      leadingWidth: 40,
+      leadingWidth: leadingWidth,
       leading: leadingWidget ??
           RPadding(
             padding: const EdgeInsets.only(left: 10),

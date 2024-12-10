@@ -4,8 +4,10 @@ import 'package:snap_share/core/resources/themes/dark_themes/themes/dark_check_b
 import 'package:snap_share/core/resources/themes/dark_themes/themes/dark_divider_theme.dart';
 import 'package:snap_share/core/resources/themes/dark_themes/themes/dark_drop_down_menu_theme.dart';
 import 'package:snap_share/core/resources/themes/dark_themes/themes/dark_elevated_button_theme.dart';
+import 'package:snap_share/core/resources/themes/dark_themes/themes/dark_icon_button_theme.dart';
 import 'package:snap_share/core/resources/themes/dark_themes/themes/dark_icon_theme.dart';
 import 'package:snap_share/core/resources/themes/dark_themes/themes/dark_tab_bar_theme.dart';
+import 'package:snap_share/core/resources/themes/dark_themes/themes/dark_text_button_theme.dart';
 import 'package:snap_share/core/resources/themes/dark_themes/themes/dark_text_from_field.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
 
@@ -23,6 +25,8 @@ class DarkAppThemes {
       dividerTheme: DarkDividerTheme.getTheme(),
       iconTheme: DarkIconTheme.getTheme(),
       dropdownMenuTheme: DarkDropDownMenuTheme.getTheme(),
+      iconButtonTheme: DarkIconButtonTheme.getTheme(),
+      textButtonTheme: DarkTextButtonTheme.getTheme(),
     );
   }
 }

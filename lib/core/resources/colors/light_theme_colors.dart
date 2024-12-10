@@ -10,4 +10,5 @@ class LightThemeColors {
   static const Color kTextFormFieldPrefixIconColor = Color(0xFF1D2939);
   static const Color kGreyColor = Color(0xFF9E9E9E);
   static const Color kAlertColorDialogComponentColor = Color(0xFFF9F9FA);
+  static const Color kPaleBlue = Color(0xFFE9EFFF);
 }

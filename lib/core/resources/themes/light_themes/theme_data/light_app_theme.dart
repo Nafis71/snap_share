@@ -3,8 +3,10 @@ import 'package:snap_share/core/resources/themes/light_themes/themes/light_app_b
 import 'package:snap_share/core/resources/themes/light_themes/themes/light_check_box_theme.dart';
 import 'package:snap_share/core/resources/themes/light_themes/themes/light_divider_theme.dart';
 import 'package:snap_share/core/resources/themes/light_themes/themes/light_drop_down_menu_theme.dart';
+import 'package:snap_share/core/resources/themes/light_themes/themes/light_icon_button_theme.dart';
 import 'package:snap_share/core/resources/themes/light_themes/themes/light_icon_theme.dart';
 import 'package:snap_share/core/resources/themes/light_themes/themes/light_tab_bar_theme.dart';
+import 'package:snap_share/core/resources/themes/light_themes/themes/light_text_button_theme.dart';
 import 'package:snap_share/core/resources/themes/light_themes/themes/light_text_form_field.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
 
@@ -22,6 +24,8 @@ class LightAppThemes {
       dividerTheme: LightDividerTheme.getTheme(),
       iconTheme: LightIconTheme.getTheme(),
       dropdownMenuTheme: LightDropDownMenuTheme.getTheme(),
+      iconButtonTheme: LightIconButtonTheme.getTheme(),
+      textButtonTheme: LightTextButtonTheme.getTheme(),
     );
   }
 }

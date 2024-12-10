@@ -7,4 +7,5 @@ class RoutesNames {
   static const String kMainBottomNavView = "/main_bottom_nav_view";
   static const String kMediaSelectionView = "/media_selection_view";
   static const String kPostComposerView = "/post_composer_view";
+  static const String kStoryDetailsView = "/story_details_view";
 }
