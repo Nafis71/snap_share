@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:snap_share/core/utilities/exports/resource_export.dart';
 import 'package:snap_share/features/common/widgets/common_app_bar.dart';
 import 'package:snap_share/features/common/widgets/custom_icon_button.dart';
 import 'package:snap_share/features/common/widgets/image_widget.dart';
@@ -31,13 +33,14 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.only(right: 16.0),
           child: Row(
             children: [
-              CustomIconButton(
+              CustomSvgIconButton(
                 onPressed: () {},
-                icon: Icons.notifications_outlined,
+                iconPath: IconAssets.kNotificationIcon,
               ),
-              CustomIconButton(
+              const Gap(8),
+              CustomSvgIconButton(
                 onPressed: () {},
-                icon: Icons.messenger_outline_outlined,
+                iconPath: IconAssets.kMessageIcon,
               ),
             ],
           ),

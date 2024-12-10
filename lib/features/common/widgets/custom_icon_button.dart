@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:snap_share/core/utilities/exports/wrapper_export.dart';
 
-class CustomIconButton extends StatelessWidget {
-  const CustomIconButton({
+class CustomSvgIconButton extends StatelessWidget {
+  const CustomSvgIconButton({
     super.key,
     required this.onPressed,
-    required this.icon,
+    required this.iconPath,
     this.iconBgColor,
     this.iconColor,
     this.iconSize,
   });
 
   final VoidCallback onPressed;
-  final IconData icon;
+  final String iconPath;
   final Color? iconBgColor;
   final Color? iconColor;
   final double? iconSize;
@@ -24,10 +25,7 @@ class CustomIconButton extends StatelessWidget {
         iconSize: iconSize,
       ),
       onPressed: onPressed,
-      icon: Icon(
-        icon,
-        color: iconColor,
-      ),
+      icon: SvgLoader(asset: iconPath),
     );
   }
 }

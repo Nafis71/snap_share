@@ -96,7 +96,7 @@ class HomeView extends StatelessWidget {
         primary: false,
         shrinkWrap: true,
         itemCount: 10,
-        itemBuilder: (context, index) => const PostCard(),
+        itemBuilder: (context, index) =>  const PostCard(),
       ),
     );
   }

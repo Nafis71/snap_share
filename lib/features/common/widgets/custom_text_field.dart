@@ -10,6 +10,7 @@ class CustomTextField extends StatefulWidget {
   final IconData? suffixIcon;
   final IconData? alternateSuffixIcon;
   final String? prefixIconPath;
+  final Widget? prefixWidget;
   final String? prefixText;
   final TextEditingController controller;
   final FocusNode? focusNode;
@@ -32,10 +33,11 @@ class CustomTextField extends StatefulWidget {
     this.focusNode,
     this.onFieldSubmitted,
     required this.isDark,
-    required this.prefixIconPath,
+    this.prefixIconPath,
     this.disableBorder,
     this.maxLines,
     this.errorText,
+    this.prefixWidget,
   });
 
   @override
@@ -89,8 +91,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     : _alternateSuffixIcon(),
               )
             : null,
-        prefixIcon:
-            (widget.prefixIconPath == null) ? null : _prefixIcon(context),
+        prefixIcon: widget.prefixWidget ??
+            ((widget.prefixIconPath == null) ? null : _prefixIcon(context)),
         prefixText: widget.prefixText,
       ),
       autovalidateMode: AutovalidateMode.onUnfocus,

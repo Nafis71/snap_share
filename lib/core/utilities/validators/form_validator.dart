@@ -45,4 +45,9 @@ class FormValidator {
     }
     return true;
   }
+
+  static String? validateComment(String? comment) {
+    if (comment == null || comment.isEmpty) return "Enter some text";
+    return null;
+  }
 }

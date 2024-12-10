@@ -7,6 +7,7 @@ import 'package:snap_share/core/resources/themes/dark_themes/themes/dark_elevate
 import 'package:snap_share/core/resources/themes/dark_themes/themes/dark_icon_button_theme.dart';
 import 'package:snap_share/core/resources/themes/dark_themes/themes/dark_icon_theme.dart';
 import 'package:snap_share/core/resources/themes/dark_themes/themes/dark_tab_bar_theme.dart';
+import 'package:snap_share/core/resources/themes/dark_themes/themes/dark_text_button_theme.dart';
 import 'package:snap_share/core/resources/themes/dark_themes/themes/dark_text_from_field.dart';
 import 'package:snap_share/core/utilities/exports/resource_export.dart';
 
@@ -25,7 +26,7 @@ class DarkAppThemes {
       iconTheme: DarkIconTheme.getTheme(),
       dropdownMenuTheme: DarkDropDownMenuTheme.getTheme(),
       iconButtonTheme: DarkIconButtonTheme.getTheme(),
-
+      textButtonTheme: DarkTextButtonTheme.getTheme(),
     );
   }
 }

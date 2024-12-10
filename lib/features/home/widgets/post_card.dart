@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:snap_share/core/utilities/exports/resource_export.dart';
 import 'package:snap_share/features/common/widgets/custom_icon_button.dart';
 import 'package:snap_share/features/common/widgets/image_widget.dart';
+import 'package:snap_share/features/home/widgets/comment_bottom_sheet.dart';
 import 'package:snap_share/features/home/widgets/profile_with_border.dart';
 
 class PostCard extends StatelessWidget {
-  const PostCard({
-    super.key,
-  });
+  const PostCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +37,9 @@ class PostCard extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                CustomIconButton(
+                CustomSvgIconButton(
                   onPressed: () {},
-                  icon: Icons.notifications_outlined,
+                  iconPath: IconAssets.kNotificationIcon,
                 ),
               ],
             ),
@@ -53,15 +53,19 @@ class PostCard extends StatelessWidget {
             const Gap(12),
             Row(
               children: [
-                CustomIconButton(
+                CustomSvgIconButton(
                   iconBgColor: Colors.transparent,
                   onPressed: () {},
-                  icon: Icons.favorite_outline,
+                  iconPath: IconAssets.kLoveRectIcon,
                 ),
-                CustomIconButton(
+                CustomSvgIconButton(
                   iconBgColor: Colors.transparent,
-                  onPressed: () {},
-                  icon: Icons.messenger_outline_outlined,
+                  onPressed: () {
+                    showCommentsBottomSheet(
+                      context: context,
+                    );
+                  },
+                  iconPath: IconAssets.kCommentIcon,
                 ),
                 const Gap(8),
                 Text(
@@ -69,10 +73,10 @@ class PostCard extends StatelessWidget {
                   style: textTheme.bodyLarge,
                 ),
                 const Spacer(),
-                CustomIconButton(
+                CustomSvgIconButton(
                   iconBgColor: Colors.transparent,
                   onPressed: () {},
-                  icon: Icons.watch_later_outlined,
+                  iconPath: IconAssets.kBookmarkIcon,
                 ),
               ],
             ),

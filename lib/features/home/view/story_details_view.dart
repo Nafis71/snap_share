@@ -12,7 +12,7 @@ class StoryDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final StoryDetailsVM storyDetailsVM = Get.put(StoryDetailsVM());
+    final StoryDetailsVM storyDetailsVM = Get.find<StoryDetailsVM>();
     storyDetailsVM.setCurrentStoryIndex(initialIndex);
 
     return Scaffold(
